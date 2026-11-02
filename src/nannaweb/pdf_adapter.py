@@ -19,6 +19,7 @@ import subprocess
 import time
 
 from .common import SCHEMA_VERSION, date_field, normalized_text, source_url
+from .pdf_text import TextAlignmentError, _owners, align_pages, column_bounds, lines, valid_page_geometry
 
 MAX_SOURCE_BYTES = 32 * 1024 * 1024
 MAX_ARTIFACT_BYTES = 128 * 1024 * 1024
@@ -115,29 +116,28 @@ def _run(command, workdir, *, timeout, monitor=False):
     try:
         with selectors.DefaultSelector() as selector:
             selector.register(process.stdout, selectors.EVENT_READ)
-            while selector.get_map():
-                if time.monotonic() >= deadline:
+            while selector.get_map() or process.poll() is None:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
                     _error('parser_timeout', 'The local PDF parser exceeded its time limit.')
                 if monitor:
                     _artifact_size(workdir)
-                for key, _ in selector.select(min(0.1, max(0, deadline - time.monotonic()))):
-                    chunk = os.read(key.fileobj.fileno(), 65536)
-                    if not chunk:
-                        selector.unregister(key.fileobj)
-                    else:
-                        output.extend(chunk)
-                        if len(output) > MAX_LOG_BYTES:
-                            _error('output_too_large', 'PDF parser diagnostics exceed the local extraction limit.')
-            remaining = deadline - time.monotonic()
-            if remaining <= 0:
-                _error('parser_timeout', 'The local PDF parser exceeded its time limit.')
-            try:
-                process.wait(timeout=remaining)
-            except subprocess.TimeoutExpired:
-                _error('parser_timeout', 'The local PDF parser exceeded its time limit.')
+                if selector.get_map():
+                    for key, _ in selector.select(min(0.1, remaining)):
+                        chunk = os.read(key.fileobj.fileno(), 65536)
+                        if not chunk:
+                            selector.unregister(key.fileobj)
+                        else:
+                            output.extend(chunk)
+                            if len(output) > MAX_LOG_BYTES:
+                                _error('output_too_large', 'PDF parser diagnostics exceed the local extraction limit.')
+                else:
+                    time.sleep(min(0.1, remaining))
     finally:
         _stop(process)
         process.stdout.close()
+    if monitor:
+        _artifact_size(workdir)
     diagnostic = output.decode('utf-8', errors='replace')
     if process.returncode:
         if re.search(r'encrypt|password', diagnostic, re.I):
@@ -174,21 +174,32 @@ def _fragments(node, index):
 
 
 def _render(fragments):
-    parts = []
-    previous = None
-    for fragment in fragments:
-        text = fragment.get('text', '')
-        if not text:
-            continue
-        if previous is not None:
-            line_changed = abs(fragment.get('y', 0) - previous.get('y', 0)) > max(2, min(fragment.get('height', 12), previous.get('height', 12)) * 0.45)
-            if line_changed:
-                parts.append('\n')
-            elif fragment.get('x', 0) - (previous.get('x', 0) + previous.get('width', 0)) > 2:
-                parts.append(' ')
-        parts.append(text)
-        previous = fragment
-    return ''.join(parts).strip()
+    return '\n'.join(line['text'] for line in lines(fragments, 0, 0))
+
+
+def _section_banner(unit, page, index):
+    """Recognize the template's centered, bold three-em section banners."""
+    if unit['node']['type'] != 'P' or unit['text'].strip() not in ('参考消息', '图片附页'):
+        return None
+    visual = lines(_fragments(unit['node'], index), page['page'], 0)
+    if len(visual) != 1 or abs(visual[0]['x'] + visual[0]['width'] / 2 - page['width'] / 2) > 2:
+        return None
+    mcids = set(_mcids(unit['node']))
+    source_runs = [item for item in page.get('text_items', []) if item.get('mcid') in mcids]
+    if not source_runs or any(item.get('font_size', 0) < 30 or item.get('font_weight', 0) < 700
+                              for item in source_runs):
+        return None
+    return unit['text'].strip()
+
+
+def _line_in_column(line, left, right):
+    """Allow only half-em hanging punctuation outside the actual column."""
+    text = line['text']
+    overhang = line['height'] * 0.5 + 1
+    before = left - line['x']
+    after = line['x'] + line['width'] - right
+    return (bool(text) and (before <= 1 or (before <= overhang and text[0] in '（([【〔《〈「『“‘'))
+            and (after <= 1 or (after <= overhang and text[-1] in '，。、；：！？）》】〕〉」』”’)]…')))
 
 
 def _locator(page, path, node, index):
@@ -197,16 +208,55 @@ def _locator(page, path, node, index):
             'mcids': _mcids(node), 'bboxes': [_box(fragment) for fragment in fragments]}
 
 
-def _annotations(node, page, fragments):
+def _annotation_owners(page, index):
+    owners = _owners(page)
+    tagged = {}
+
+    def visit(node, inherited=None):
+        node_owners = {owners[mcid] for mcid in _mcids(node) if mcid in owners}
+        owner = next(iter(node_owners)) if len(node_owners) == 1 else inherited
+        if node.get('type') == 'Link' and owner is not None:
+            for annotation in node.get('annotations', []):
+                if not isinstance(annotation, dict):
+                    continue
+                key = json.dumps(annotation, sort_keys=True, ensure_ascii=False)
+                if key in tagged and tagged[key] != owner:
+                    _error('ambiguous_annotation', 'A tagged link belongs to multiple text owners.')
+                tagged[key] = owner
+        for child in node.get('children', []):
+            visit(child, owner)
+
+    for root in (page.get('structure_tree') or {}).get('roots', []):
+        visit(root)
+    resolved = {}
+    for annotation in page.get('annotations', []):
+        key = json.dumps(annotation, sort_keys=True, ensure_ascii=False)
+        if key in tagged:
+            resolved[key] = tagged[key]
+            continue
+        scores = {}
+        for mcid, fragments in index.items():
+            owner = owners.get(mcid, ('mcid', mcid))
+            score = max((_overlap_area(fragment, annotation.get('rect', {})) for fragment in fragments), default=0)
+            scores[owner] = max(scores.get(owner, 0), score)
+        best = max(scores.values(), default=0)
+        if best:
+            matches = [owner for owner, score in scores.items() if score == best]
+            if len(matches) != 1:
+                _error('ambiguous_annotation', 'A PDF link overlaps multiple independent text owners equally.')
+            resolved[key] = matches[0]
+    return owners, resolved
+
+
+def _annotations(node, page, index):
+    if '_annotation_ownership' not in page:
+        page['_annotation_ownership'] = _annotation_owners(page, index)
+    owners, resolved = page['_annotation_ownership']
+    local_owners = {owners.get(mcid, ('mcid', mcid)) for mcid in _mcids(node)}
     annotations = [annotation for child in _descendants(node)
                    for annotation in child.get('annotations', []) if isinstance(annotation, dict)]
-    # Prefer the text with the greatest intersection when boxes from adjacent
-    # columns overlap. Mere contact with a wide date-cell box is not ownership.
-    for annotation in page.get('annotations', []):
-        rectangle = annotation.get('rect', {})
-        local = max((_overlap_area(fragment, rectangle) for fragment in fragments), default=0)
-        if local and not any(_overlap_area(other, rectangle) > local for other in page.get('text_items', [])):
-            annotations.append(annotation)
+    annotations.extend(annotation for annotation in page.get('annotations', [])
+                       if resolved.get(json.dumps(annotation, sort_keys=True, ensure_ascii=False)) in local_owners)
     unique = []
     seen = set()
     for annotation in annotations:
@@ -217,12 +267,49 @@ def _annotations(node, page, fragments):
     return unique
 
 
+def _check_paragraph_columns(page, fragments):
+    bounds = column_bounds(page) if 'width' in page else []
+    if not fragments:
+        return
+    visual = lines(fragments, page.get('page', 0), 0)
+    occupied = set()
+    for line in visual:
+        fits = [i for i, (left, right) in enumerate(bounds) if _line_in_column(line, left, right)]
+        if len(fits) == 1:
+            occupied.add(fits[0])
+        members = sorted((fragment for fragment in fragments if _overlap_area(fragment, line)),
+                         key=lambda fragment: fragment['x'])
+        for first, second in zip(members, members[1:]):
+            gap = second['x'] - first['x'] - first['width']
+            if gap <= max(first['height'], second['height']) * 2:
+                continue
+            first_columns = [i for i, (left, right) in enumerate(bounds)
+                             if left - 1 <= first['x'] < right + 1]
+            second_columns = [i for i, (left, right) in enumerate(bounds)
+                              if left - 1 <= second['x'] < right + 1]
+            if (not first_columns or not second_columns) and gap > max(first['height'], second['height']) * 4:
+                _error('unsupported_layout', 'A paragraph has ambiguous separated text columns.')
+            if first_columns and second_columns and first_columns[0] != second_columns[0]:
+                _error('unsupported_layout', 'A paragraph spans independent text columns.')
+    if len(occupied) > 1:
+        _error('unsupported_layout', 'A paragraph spans independent text columns.')
+    if len(visual) > 1 and any(not any(_line_in_column(line, left, right) for left, right in bounds)
+                               for line in visual):
+        starts = [line['x'] for line in visual]
+        height = max(line['height'] for line in visual)
+        if max(starts) - min(starts) > height * 8:
+            _error('unsupported_layout', 'A paragraph has ambiguous text-column origins.')
+
+
 def _units(page, index):
     def visit(node, path):
         kind = node['type']
         if (kind in ('Table', 'P', 'Caption', 'Figure', 'L') or _HEADING.fullmatch(kind)
                 or (node.get('marked_content_ids') and not node.get('children'))):
-            yield {'node': node, 'path': path, 'text': _render(_fragments(node, index))}
+            fragments = _fragments(node, index)
+            if kind == 'P':
+                _check_paragraph_columns(page, fragments)
+            yield {'node': node, 'path': path, 'text': _render(fragments)}
             return
         for position, child in enumerate(node.get('children', [])):
             yield from visit(child, path + [position])
@@ -274,7 +361,8 @@ def _item(local_key, kind, title, category, body, locator, annotations):
     urls = list(dict.fromkeys(url for annotation in annotations
                              if (url := source_url(annotation.get('uri')))))
     return {'local_key': local_key, 'kind': kind, 'title': title, 'category': category,
-            'body_text': body, 'source_urls': urls, 'locator': locator,
+            'body_text': body, 'body_lines': [], 'source_urls': urls,
+            'primary_urls': [], 'other_urls': list(urls), 'locator': locator,
             'dates': [], 'college_mentions': _colleges(body, locator), 'image_refs': [],
             'annotations': annotations}
 
@@ -309,10 +397,14 @@ def _table_items(unit, page, index, category, warnings):
         locator = _locator(page, path, row, index)
         locator['cells'] = [{**_locator(page, path + [i], cell, index), 'header': header[i], 'text': texts[i]}
                             for i, cell in enumerate(cells)]
-        annotations = _annotations(row, page, _fragments(row, index))
+        annotations = _annotations(row, page, index)
         body = '\n'.join(f'{label}：{text}' for label, text in zip(header, texts))
         item = _item('p' + str(page['page']) + '-tag-' + '-'.join(map(str, path)),
                      'summary', texts[0], category, body, locator, annotations)
+        title_annotations = _annotations(cells[0], page, index)
+        item['primary_urls'] = list(dict.fromkeys(url for annotation in title_annotations
+                                                  if (url := source_url(annotation.get('uri')))))
+        item['other_urls'] = [url for url in item['source_urls'] if url not in item['primary_urls']]
         item['dates'] = [date_field(_HEADER_KIND.get(label, 'source'), text,
                                    f'{label}：{text}', locator['cells'][i])
                          for i, (label, text) in enumerate(zip(header, texts))
@@ -331,9 +423,8 @@ def _validate_payload(payload):
     for number, page in enumerate(pages, 1):
         if not isinstance(page, dict) or page.get('page') != number or not isinstance(page.get('text'), str):
             _error('invalid_parser_output', 'The local PDF parser returned invalid page evidence.')
-        for key in ('width', 'height'):
-            if not isinstance(page.get(key), (int, float)) or page[key] <= 0:
-                _error('invalid_parser_output', 'The local PDF parser returned invalid page dimensions.')
+        if not valid_page_geometry(page):
+            _error('invalid_parser_output', 'The local PDF parser returned invalid page dimensions.')
         if not isinstance(page.get('text_items', []), list) or not isinstance(page.get('annotations', []), list):
             _error('invalid_parser_output', 'The local PDF parser returned invalid text metadata.')
         roots = (page.get('structure_tree') or {}).get('roots', [])
@@ -419,7 +510,7 @@ def _attach_images(assets, captions, items, warnings):
                 warnings.append({'code': 'unresolved_image_reference', 'local_key': item['local_key'], 'evidence': citation.group(0)})
 
 
-def _normalize(payload, source, workdir, version):
+def _normalize(payload, source, workdir, version, native_indexes):
     _validate_payload(payload)
     warnings = []
     assets = _assets(payload, workdir)
@@ -427,10 +518,7 @@ def _normalize(payload, source, workdir, version):
     units_by_page = []
     captions = []
     logical_text = []
-    for page in payload['pages']:
-        index = defaultdict(list)
-        for fragment in page.get('text_items', []):
-            index[fragment.get('mcid')].append(fragment)
+    for page, index in zip(payload['pages'], native_indexes):
         units = list(_units(page, index))
         units_by_page.append((page, index, units))
         page_parts = []
@@ -448,8 +536,7 @@ def _normalize(payload, source, workdir, version):
                 captions.append((page, unit, index))
         untagged = [fragment for fragment in page.get('text_items', []) if fragment.get('mcid') not in covered]
         if untagged and units:
-            page_parts.append(_render(untagged))
-            warnings.append({'code': 'untagged_text', 'page': page['page'], 'message': 'Unassigned text is retained after tagged content.'})
+            warnings.append({'code': 'untagged_text', 'page': page['page'], 'message': 'Unassigned text remains in raw page evidence.'})
         text = '\n\n'.join(page_parts) if page_parts else page['text']
         pages.append({'page': page['page'], 'width': page['width'], 'height': page['height'],
                       'text': text, 'raw_text': page['text'], 'structure_tree': page.get('structure_tree'),
@@ -483,10 +570,38 @@ def _normalize(payload, source, workdir, version):
     category = None
     current = None
     blocked_section = False
+    reference_scope = False
+    appendix_scope = False
 
     def finish():
         nonlocal current
         if current and current['body_text'].strip():
+            source_lines = current['body_lines']
+            final_label = next((i for i in range(len(source_lines) - 1, -1, -1)
+                                if re.search(r'详见\s*[：:]', source_lines[i]['text'])), None)
+            primary = []
+            if final_label is not None:
+                start = source_lines[final_label]
+                label = re.search(r'详见\s*[：:]', start['text'])
+                threshold = start['x'] + start['width'] * label.end() / max(1, len(start['text']))
+                block_lines = [start]
+                for line in source_lines[final_label + 1:]:
+                    if line['paragraph'] != start['paragraph'] or re.match(r'^\s*[\u4e00-\u9fff][\u4e00-\u9fff\w（）()]{0,19}[：:]', line['text']):
+                        break
+                    block_lines.append(line)
+                for annotation in current['annotations']:
+                    rectangle = annotation.get('rect', {})
+                    for line in block_lines:
+                        if annotation.get('_page') != line['page'] or not _overlap_area(rectangle, line):
+                            continue
+                        if line is start and rectangle.get('x', 0) + rectangle.get('width', 0) <= threshold:
+                            continue
+                        url = source_url(annotation.get('uri'))
+                        if url and url not in primary:
+                            primary.append(url)
+                        break
+            current['primary_urls'] = primary
+            current['other_urls'] = [url for url in current['source_urls'] if url not in primary]
             current['dates'] = _dates(current['body_text'], current['locator'])
             items.append(current)
         elif current:
@@ -495,18 +610,32 @@ def _normalize(payload, source, workdir, version):
         current = None
 
     if supported:
+        warned_columns = set()
         for page, index, units in units_by_page:
+            bounds = column_bounds(page)
             if any(unit['node']['type'] == 'Caption' for unit in units) and not any(_HEADING.fullmatch(unit['node']['type']) for unit in units):
                 finish()
             for unit in units:
                 node = unit['node']
                 kind = node['type']
+                banner = _section_banner(unit, page, index)
+                if banner:
+                    finish()
+                    appendix_scope = banner == '图片附页'
+                    reference_scope = banner == '参考消息'
+                    if reference_scope:
+                        category = '参考消息'
+                        blocked_section = False
+                    continue
+                if appendix_scope:
+                    continue
                 if _HEADING.fullmatch(kind):
                     finish()
                     heading = _title(node, unit['text'])
                     blocked_section = bool(re.search(r'订阅|编辑部|联系方式|联系我们', heading))
                     section_category = heading[:-2].strip() if heading.endswith('清单') else heading
                     if section_category in _CATEGORIES:
+                        reference_scope = False
                         category = section_category
                         continue
                     if '清单' in heading or blocked_section:
@@ -515,16 +644,30 @@ def _normalize(payload, source, workdir, version):
                     locator['heading_text'] = unit['text']
                     current = _item('p' + str(page['page']) + '-tag-' + '-'.join(map(str, unit['path'])),
                                     'notice' if '通知' in heading else 'detail', heading,
-                                    category, '', locator, _annotations(node, page, _fragments(node, index)))
+                                    category, '', locator, _annotations(node, page, index))
                 elif kind == 'Table':
                     finish()
+                    reference_scope = False
                     if not blocked_section:
                         rows, _ = _table_items(unit, page, index, category, warnings)
                         items.extend(rows)
                 elif current and kind not in ('Caption', 'Figure'):
                     current['body_text'] += ('\n\n' if current['body_text'] else '') + unit['text']
+                    body_lines = lines(_fragments(node, index), page['page'],
+                                       len(current['locator'].get('body_nodes', [])))
+                    for line in body_lines:
+                        line_bounds = [(64.8, page['width'] - 64.8)] if reference_scope and bounds else bounds
+                        matches = [right for left, right in line_bounds if _line_in_column(line, left, right)]
+                        if len(matches) == 1:
+                            line['column_right'] = matches[0]
+                        elif page['page'] not in warned_columns:
+                            warnings.append({'code': 'unknown_column_bounds', 'page': page['page'],
+                                             'message': 'Text column bounds are not established for every detail line.'})
+                            warned_columns.add(page['page'])
+                    current['body_lines'].extend(body_lines)
                     current['locator'].setdefault('body_nodes', []).append(_locator(page, unit['path'], node, index))
-                    annotations = _annotations(node, page, _fragments(node, index))
+                    annotations = [{**annotation, '_page': page['page']} for annotation in
+                                   _annotations(node, page, index)]
                     current['annotations'].extend(annotations)
                     for annotation in annotations:
                         url = source_url(annotation.get('uri'))
@@ -547,7 +690,7 @@ def _normalize(payload, source, workdir, version):
             'source_sha256': hashlib.sha256(source['bytes']).hexdigest(), 'source_filename': source['filename'],
             'source_original_path': 'source.pdf', 'title': title, 'issue_date': issue_date,
             'issue_date_evidence': header_date.group(0) if header_date else '', 'issue_number': issue_number,
-            'parser': {'name': 'liteparse', 'version': version}, 'text': text,
+            'parser': {'name': 'liteparse', 'version': version, 'text_layer': 'poppler-xml-1'}, 'text': text,
             'items': items, 'pages': pages, 'assets': assets, 'warnings': warnings,
             'raw_artifact_path': 'rawparser.json'}
 
@@ -580,7 +723,7 @@ def parse_pdf(path, workdir, *, parser_binary=None):
     root = Path(workdir).resolve()
     try:
         root.mkdir(parents=True, exist_ok=True)
-        for name in ('source.pdf', 'rawparser.json', 'assets'):
+        for name in ('source.pdf', 'rawparser.json', 'native.xml', 'assets'):
             if (root / name).exists() or (root / name).is_symlink():
                 _error('workdir_conflict', 'The private PDF extraction directory already contains adapter artifacts.')
         (root / 'assets').mkdir()
@@ -596,12 +739,26 @@ def parse_pdf(path, workdir, *, parser_binary=None):
                '--extract-structure-tree', '--extract-text-metadata', '--extract-annotations',
                '--extract-images', '--image-output-dir', str(root / 'assets'), '-o', str(root / 'rawparser.json')]
     _run(command, root, timeout=PARSER_TIMEOUT, monitor=True)
+    native_binary = shutil.which('pdftohtml')
+    if not native_binary:
+        _error('missing_parser', 'The local Poppler pdftohtml executable is unavailable.')
+    _run([str(Path(native_binary).resolve()), '-xml', '-i', '-nomerge', '-noroundcoord', '-zoom', '1',
+          str(root / 'source.pdf'), str(root / 'native.xml')], root,
+         timeout=PARSER_TIMEOUT, monitor=True)
     raw_path, _ = _relative_file(root / 'rawparser.json', root)
     if raw_path.stat().st_size > MAX_ARTIFACT_BYTES:
         _error('output_too_large', 'PDF parser JSON exceeds the local extraction limit.')
     try:
         payload = json.loads(raw_path.read_text(encoding='utf-8'))
-        return _normalize(payload, {'bytes': source, 'filename': path.name}, root, version.group(1))
+        _validate_payload(payload)
+        native_path, _ = _relative_file(root / 'native.xml', root)
+        if native_path.stat().st_size > MAX_ARTIFACT_BYTES:
+            _error('output_too_large', 'Native XML exceeds the local extraction limit.')
+        try:
+            native_indexes = align_pages(payload, native_path)
+        except TextAlignmentError as error:
+            _error('text_alignment_failed', f'Native PDF text cannot be aligned to tagged content: {error}.')
+        return _normalize(payload, {'bytes': source, 'filename': path.name}, root, version.group(1), native_indexes)
     except PdfAdapterError:
         raise
     except (ValueError, UnicodeError, TypeError, KeyError, AttributeError, RecursionError):

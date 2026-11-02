@@ -28,6 +28,9 @@ try {
   const summary = {
     issues: catalog.issues.map(({ date, number, filename }) => ({ date, number, filename })),
     entries: catalog.entries.length,
+    table_rows: catalog.entries.reduce((count, entry) => count + entry.listings.length, 0),
+    issue_explanations: catalog.entries.filter(entry => entry.detail !== null).length,
+    matched_list_and_explanation: catalog.entries.filter(entry => entry.listings.length > 0 && entry.detail !== null).length,
     warnings: catalog.warnings,
   };
   console.log(JSON.stringify(summary, null, 2));

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { NavLink, useLocation, useSearchParams } from 'react-router';
-import { beijingToday, dailyGroups, filterEntries, historyEntries, latestEntries, parseCatalog, safeSourceUrl, sortedIssues } from './reader';
+import { beijingToday, dailyGroups, entryCutoff, entrySourceUrls, entryTitle, filterEntries, historyEntries, latestEntries, parseCatalog, safeSourceUrl, sortedIssues } from './reader';
 import type { BulletinCatalog, BulletinEntry, BulletinIssue } from './types';
 
 type LoadState = { status: 'loading' } | { status: 'error'; message: string } | { status: 'ready'; catalog: BulletinCatalog };
@@ -22,17 +22,25 @@ function readFavorites(): Favorites {
 function EntryCard({ entry, issue, favorite, toggle }: {
   entry: BulletinEntry; issue: BulletinIssue | undefined; favorite: boolean; toggle: (id: string) => void;
 }) {
-  const urls = [...new Set(entry.source_urls.map(safeSourceUrl).filter((url): url is string => url !== null))];
-  const showCutoff = entry.kind === 'activity' || entry.cutoff !== null || Boolean(entry.cutoff_raw);
+  const title = entryTitle(entry);
+  const cutoff = entryCutoff(entry);
+  const urls = [...new Set(entrySourceUrls(entry).map(safeSourceUrl).filter((url): url is string => url !== null))];
+  const otherUrls = [...new Set((entry.detail?.other_urls ?? []).map(safeSourceUrl).filter((url): url is string => url !== null))];
+  const facts = (entry.detail?.fields ?? []).filter(field => /(?:时间|地点)$/.test(field.label) && !/(?:截止|报名|申请|投递|报送|提交)/.test(field.label)).slice(0, 2);
+  const sourcePage = entry.detail?.page ?? entry.listings[0]?.page;
   return <article className="entry">
     <div className="entry-heading">
-      <div><span className="category">{entry.category || '未分类'}</span><h3>{entry.title}</h3></div>
-      <button className="favorite" type="button" aria-pressed={favorite} aria-label={`${favorite ? '取消收藏' : '收藏'}：${entry.title}`} onClick={() => toggle(entry.id)}>{favorite ? '★' : '☆'}<span>{favorite ? '已收藏' : '收藏'}</span></button>
+      <div><span className="category">{entry.category || '未分类'}</span><h3>{title}</h3></div>
+      <button className="favorite" type="button" aria-pressed={favorite} aria-label={`${favorite ? '取消收藏' : '收藏'}：${title}`} onClick={() => toggle(entry.id)}>{favorite ? '★' : '☆'}<span>{favorite ? '已收藏' : '收藏'}</span></button>
     </div>
-    {(showCutoff || entry.time || entry.location) && <p className="facts">{showCutoff && <strong>清单截止：{entry.cutoff ?? (entry.cutoff_raw || '未明确')}</strong>}{entry.time && <span>时间：{entry.time}</span>}{entry.location && <span>地点：{entry.location}</span>}</p>}
-    {entry.summary && <p className="summary">{entry.summary}</p>}
+    {(entry.listings.length > 0 || facts.length > 0) && <p className="facts">{entry.listings.length > 0 && <strong>清单截止：{cutoff ?? (entry.listings.map(row => row.cutoff_raw).filter(Boolean).join('／') || '未明确')}</strong>}{facts.map((field, index) => <span key={`${field.label}-${index}`}>{field.label}：{field.value}</span>)}</p>}
     <div className="entry-actions">{urls.length ? urls.map(url => <a key={url} href={url} target="_blank" rel="noopener noreferrer">查看原文 ↗</a>) : <span>原文链接未提供</span>}</div>
-    <details><summary>查看摘录与来源</summary><div className="details-body">{entry.text && <p className="excerpt">{entry.text}</p>}<p>来源：{issue ? `${issue.date} · 第 ${issue.number} 期 · ${issue.title}` : '期刊信息未提供'} · PDF 第 {entry.page} 页</p></div></details>
+    <details><summary>查看原刊内容与来源</summary><div className="details-body">
+      {entry.detail && <><h4>{entry.detail.title}</h4><p className="excerpt">{entry.detail.text}</p></>}
+      {entry.listings.map((row, index) => <p key={index}>原刊清单：{row.title} · 截止 {row.cutoff_raw || '未明确'} · 刊载 {row.listed_raw || '未明确'}</p>)}
+      {otherUrls.length > 0 && <p>{otherUrls.map(url => <a key={url} href={url} target="_blank" rel="noopener noreferrer">原刊其他链接 ↗ </a>)}</p>}
+      <p>来源：{issue ? `${issue.date} · 第 ${issue.number} 期 · ${issue.title}` : '期刊信息未提供'} · PDF 第 {sourcePage} 页</p>
+    </div></details>
   </article>;
 }
 

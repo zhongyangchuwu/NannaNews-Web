@@ -7,23 +7,40 @@ export interface BulletinIssue {
   sha256: string;
 }
 
-export interface BulletinEntry {
-  /** Stable message identity across repeat listings; never includes the cutoff. */
-  id: string;
-  issue_id: string;
+/** One original PDF table row, retained even when several rows share a message. */
+export interface BulletinListing {
   title: string;
-  category: string;
-  kind: 'activity' | 'notice';
-  /** Original PDF list cutoff, not a registration deadline or an event date. */
   cutoff: string | null;
   cutoff_raw: string;
   listed_on: string | null;
-  time: string | null;
-  location: string | null;
-  summary: string;
-  text: string;
+  listed_raw: string;
   source_urls: string[];
   page: number;
+}
+
+/** An original labelled field, not a renamed/inferred business attribute. */
+export interface BulletinField {
+  label: string;
+  value: string;
+}
+
+/** The explanation printed in this issue; it can coexist with a table listing. */
+export interface BulletinDetail {
+  title: string;
+  text: string;
+  fields: BulletinField[];
+  source_urls: string[];
+  other_urls: string[];
+  page: number;
+}
+
+export interface BulletinEntry {
+  /** Stable message identity; never includes the changing cutoff. */
+  id: string;
+  issue_id: string;
+  category: string;
+  listings: BulletinListing[];
+  detail: BulletinDetail | null;
 }
 
 export interface BulletinWarning {
@@ -33,7 +50,7 @@ export interface BulletinWarning {
 }
 
 export interface BulletinCatalog {
-  schema_version: 1;
+  schema_version: 2;
   issues: BulletinIssue[];
   entries: BulletinEntry[];
   warnings: BulletinWarning[];
