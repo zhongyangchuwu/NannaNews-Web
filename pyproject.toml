@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nannanews-web-tools"
+version = "0.1.0"
+description = "Offline PDF input tools for the NannaNews static web reader"
+requires-python = ">=3.11"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+dependencies = ["liteparse==2.14.4"]
+
+[project.optional-dependencies]
+test = ["pytest==8.4.1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["nannaweb*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]
