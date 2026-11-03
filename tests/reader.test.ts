@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { beijingToday, dailyGroups, entryCutoff, entryTitle, filterEntries, historyEntries, parseCatalog, safeSourceUrl, sortedIssues } from '../src/reader';
+import { beijingToday, dailyGroups, entryCutoff, entryTitle, filterEntries, historyEntries, indexDetails, parseCatalog, resolveDetail, safeSourceUrl, sortedIssues } from '../src/reader';
 import type { BulletinCatalog, BulletinDetail, BulletinEntry, BulletinIssue, BulletinListing } from '../src/types';
 
 const issue = (id: string, date: string, number: number): BulletinIssue => ({ id, date, number, title: id, filename: `${id}.pdf`, sha256: 'a'.repeat(64) });
@@ -52,6 +52,27 @@ describe('source explanations and history', () => {
     expect(historyEntries(catalog, 'all').filter(item => item.id === 'repeat').map(item => item.issue_id)).toEqual(['new']);
     const withOldText = { ...catalog, entries: catalog.entries.map(item => item.issue_id === 'old' ? { ...item, detail: detail('原刊说明', 'earlier detail') } : item) };
     expect(historyEntries(withOldText, 'all', 'earlier detail').map(item => item.issue_id)).toEqual(['old']);
+  });
+  it('opens the latest earlier explanation without borrowing a future issue or changing the current listing', () => {
+    const earlier = { ...entry('shared', 'old', '2025-04-03'), detail: detail('往期详解', '原刊正文') };
+    const current = entry('shared', 'new', '2025-04-20');
+    const futureIssue = issue('future', '2025-04-03', 3);
+    const future = { ...entry('shared', 'future', '2025-05-01'), detail: detail('后续刊期详解') };
+    const source = { ...catalog, issues: [...catalog.issues, futureIssue], entries: [future, current, earlier] };
+    const index = indexDetails(source);
+    const resolved = resolveDetail(current, catalog.issues[1], index);
+    expect(resolved?.issue.id).toBe('old');
+    expect(resolved?.detail.text).toBe('原刊正文');
+    expect(current.detail).toBeNull();
+    expect(entryCutoff(current)).toBe('2025-04-20');
+    const withCurrentDetail = { ...current, detail: detail('本期详解') };
+    const updated = indexDetails({ ...source, entries: [future, withCurrentDetail, earlier] });
+    expect(resolveDetail(withCurrentDetail, catalog.issues[1], updated)?.detail.title).toBe('本期详解');
+  });
+  it('does not link a distinct activity merely because the title or source URL is shared', () => {
+    const known = { ...entry('one-session', 'old', null), detail: { ...detail('同名讲座'), source_urls: ['https://example.org/series'] } };
+    const other = { ...entry('other-session', 'new', null), listings: [{ ...listing('同名讲座', null), source_urls: ['https://example.org/series'] }] };
+    expect(resolveDetail(other, catalog.issues[1], indexDetails({ ...catalog, entries: [known, other] }))).toBeNull();
   });
 });
 
