@@ -1,21 +1,22 @@
-"""Build a static catalog from local PDF files."""
+"""Import local PDF evidence into a canonical catalog."""
 import argparse
 import json
 import sys
 
-from .catalog import BuildError, build
+from .catalog import BuildError, import_pdfs
 
 
 def main():
     parser = argparse.ArgumentParser(prog='python -m nannaweb')
     commands = parser.add_subparsers(dest='command', required=True)
-    command = commands.add_parser('build')
+    command = commands.add_parser('import')
     command.add_argument('--input-dir', required=True)
-    command.add_argument('--output', default='.generated/site/data/catalog.json')
-    command.add_argument('--cache', default='.cache/pdf')
+    command.add_argument('--catalog', required=True)
+    command.add_argument('--cache', required=True)
+    command.add_argument('--legacy-catalog')
     args = parser.parse_args()
     try:
-        result = build(args.input_dir, args.output, args.cache)
+        result = import_pdfs(args.input_dir, args.catalog, args.cache, args.legacy_catalog)
     except BuildError as exc:
         print(json.dumps({'error': exc.code, 'message': str(exc)}, ensure_ascii=False), file=sys.stderr)
         return 1

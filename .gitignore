@@ -6,6 +6,8 @@ __pycache__/
 *.egg-info/
 .generated/
 .cache/
+.local-data/
+data/*.lock
 dist/
 build/
 .tmp/
