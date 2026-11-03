@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { beijingToday, dailyGroups, entryCutoff, filterEntries, historyEntries, indexDetails, latestEntries, listingGroups, parseCatalog, publicationViews, resolveDetail, resolveIdentity, safeSourceUrl, sortedIssues } from '../src/reader';
+import { beijingToday, entryCutoff, filterEntries, indexDetails, listingGroups, parseCatalog, publicationViews, resolveDetail, resolveIdentity, safeSourceUrl } from '../src/reader';
 import type { BulletinCatalog, BulletinIssue, DetailSource, ListingSource, PublicationView } from '../src/types';
+import { openDiaryPublications } from '../src/diary';
 
 const issue = (id: string, date: string, number: number): BulletinIssue => ({ id, date, number, title: id, filename: `${id}.pdf`, sha256: number.toString(16).padStart(64, '0'), extraction_version: 'test' });
 const listing = (id: string, order: number, cutoff: string | null, category = '活动'): ListingSource => ({ id, issue_id: 'new', category, order, title: id, cutoff, cutoff_raw: cutoff ?? '待明确', listed_on: null, listed_raw: '', source_urls: [], page: 1 });
@@ -60,9 +61,9 @@ describe('publication reading', () => {
     const views = publicationViews(parseCatalog(catalog)).filter(x => x.issue_id === 'new');
     expect(listingGroups(views, true).flatMap(group => group.rows.map(({ row }) => row.id))).toEqual(['a1', 'b', 'a2']);
     expect(entryCutoff(views.find(x => x.id === 'a')!)).toBe('2025-04-20');
-    expect(dailyGroups(views, 'new', '2025-04-02').current.map(x => x.id)).toEqual(['b', 'a']);
+    expect(openDiaryPublications(views, '2025-04-02').filter(view => view.listings.length).map(view => view.id)).toEqual(['b', 'a']);
     const uncertain = { ...views[0], listings: [...views[0].listings, listing('unknown', 5, null)] };
-    expect(dailyGroups([uncertain], 'new', '2025-04-02').unknown).toEqual([uncertain]);
+    expect(openDiaryPublications([uncertain], '2025-04-02')).toEqual([uncertain]);
     expect(beijingToday(new Date('2025-04-01T16:00:00Z'))).toBe('2025-04-02');
   });
   it('keeps global cutoff priority when categories alternate', () => {
@@ -71,7 +72,7 @@ describe('publication reading', () => {
       { id: 'soon', issue_id: 'new', category: '活动', listings: [listing('soon', 2, '2025-04-02')], detail: null },
       { id: 'middle', issue_id: 'new', category: '通知', listings: [listing('middle', 1, '2025-04-03', '通知')], detail: null },
     ];
-    const groups = listingGroups(dailyGroups(views, 'new', '2025-04-02').current);
+    const groups = listingGroups(openDiaryPublications(views, '2025-04-02'));
     expect(groups.map(group => group.category)).toEqual(['活动', '通知', '活动']);
     expect(groups.flatMap(group => group.rows.map(({ row }) => row.id))).toEqual(['soon', 'middle', 'late']);
   });
@@ -81,15 +82,7 @@ describe('publication reading', () => {
     const source = resolveDetail(current, catalog.issues[1], index)!;
     expect(source.issue.id).toBe('old'); expect(current.detail).toBeNull();
     expect(resolveDetail({ ...current, id: 'future-only' }, catalog.issues[1], index)).toBeNull();
-    const sources = new Map([[`new\0a`, source]]);
-    expect(filterEntries([current], 'historical search', '', sources)).toEqual([current]);
     expect(filterEntries([current], 'historical search', '')).toEqual([]);
-  });
-  it('keeps selected issue search scoped and chooses newest matching history occurrence', () => {
-    expect(sortedIssues(catalog.issues).map(x => x.id)).toEqual(['future', 'new', 'old']);
-    expect(historyEntries(catalog, 'new', 'historical search')).toEqual([]);
-    expect(historyEntries(catalog, 'all', 'historical search').map(x => x.issue_id)).toEqual(['old']);
-    expect(latestEntries(catalog).find(x => x.id === 'a')?.issue_id).toBe('new');
   });
   it('resolves aliases without inventing identities for unknown stored strings', () => {
     expect(resolveIdentity(catalog, 'legacy-a')).toBe('a');
