@@ -92,9 +92,6 @@ export function parseCatalog(value: unknown): BulletinCatalog {
   return value as unknown as BulletinCatalog;
 }
 
-export function sortedIssues(issues: BulletinIssue[]): BulletinIssue[] {
-  return [...issues].sort((a, b) => b.date.localeCompare(a.date) || b.number - a.number || a.id.localeCompare(b.id));
-}
 export function beijingToday(now = new Date()): string {
   const parts = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(now);
   const part = (type: string) => parts.find(item => item.type === type)?.value ?? '';
@@ -135,17 +132,6 @@ export function entryCutoff(entry: PublicationView): string | null {
   }
   return last;
 }
-export function dailyGroups(entries: PublicationView[], issueId: string, today: string) {
-  const current: PublicationView[] = []; const unknown: PublicationView[] = []; const notices: PublicationView[] = [];
-  for (const entry of entries) {
-    if (entry.issue_id !== issueId) continue;
-    if (!entry.listings.length) { notices.push(entry); continue; }
-    const cutoff = entryCutoff(entry);
-    if (cutoff === null) unknown.push(entry); else if (cutoff >= today) current.push(entry);
-  }
-  current.sort((a, b) => entryCutoff(a)!.localeCompare(entryCutoff(b)!));
-  return { current, unknown, notices };
-}
 export interface DetailSource { issue: BulletinIssue; detail: PrintedDetail }
 export function indexDetails(catalog: BulletinCatalog): Map<string, DetailSource[]> {
   const issues = new Map(catalog.issues.map(issue => [issue.id, issue]));
@@ -164,23 +150,13 @@ export function resolveDetail(entry: PublicationView, issue: BulletinIssue | und
   return sources.find(source => source.issue.id === entry.issue_id) ?? sources.find(source => source.issue.date < issue.date ||
     (source.issue.date === issue.date && source.issue.number <= issue.number)) ?? null;
 }
-export function filterEntries(entries: PublicationView[], query: string, category: string, sources?: ReadonlyMap<string, DetailSource>): PublicationView[] {
+export function filterEntries(entries: PublicationView[], query: string, category: string): PublicationView[] {
   const needle = query.trim().toLocaleLowerCase();
   return entries.filter(entry => {
-    const detail = sources?.get(`${entry.issue_id}\0${entry.id}`)?.detail ?? entry.detail;
+    const detail = entry.detail;
     return (!category || entry.category === category || entry.listings.some(row => row.category === category) || entry.detail?.category === category) &&
       (!needle || [entry.category, ...entry.listings.map(row => row.title), detail?.title ?? '', detail?.text ?? ''].some(text => text.toLocaleLowerCase().includes(needle)));
   });
-}
-export function latestEntries(catalog: BulletinCatalog, entries = publicationViews(catalog)): PublicationView[] {
-  const order = new Map(sortedIssues(catalog.issues).map((issue, index) => [issue.id, index]));
-  const seen = new Set<string>();
-  return [...entries].sort((a, b) => order.get(a.issue_id)! - order.get(b.issue_id)!).filter(entry => !seen.has(entry.id) && !!seen.add(entry.id));
-}
-export function historyEntries(catalog: BulletinCatalog, issueId: string, query = '', category = ''): PublicationView[] {
-  const entries = publicationViews(catalog).filter(entry => issueId === 'all' || entry.issue_id === issueId);
-  const filtered = filterEntries(entries, query, category);
-  return issueId === 'all' ? latestEntries(catalog, filtered) : filtered;
 }
 export function safeSourceUrl(value: string): string | null {
   try {
