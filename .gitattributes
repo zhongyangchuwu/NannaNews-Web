@@ -1,0 +1,2 @@
+# Historical originals retain their exact captured bytes, including HTML line endings.
+history/originals/** binary
