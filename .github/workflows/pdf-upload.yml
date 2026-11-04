@@ -1,0 +1,150 @@
+name: Import public PDF upload
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths: ['pdf/**', 'data/catalog.json']
+  workflow_call:
+    inputs:
+      pr_number:
+        required: true
+        type: string
+      base_ref:
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: pdf-upload-${{ github.event.pull_request.number || inputs.pr_number }}
+  cancel-in-progress: true
+
+jobs:
+  candidate:
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      (github.event_name == 'workflow_dispatch' ||
+       github.event.pull_request.base.ref == github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      pull-requests: read
+    env:
+      UPLOAD_PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+      UPLOAD_BASE_REF: ${{ github.event.pull_request.base.ref || inputs.base_ref }}
+      UPLOAD_EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+      UPLOAD_BASE_SHA: ${{ github.sha }}
+      UPLOAD_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Authorize PR and download only PDF blobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/pdf-upload.py prepare
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Install trusted importer dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y poppler-utils
+          python -m pip install .
+      - name: Import into base catalog without credentials
+        run: python -m nannaweb import --input-dir pdf --catalog data/catalog.json --cache "$RUNNER_TEMP/pdf-cache"
+      - name: Package imported catalog and gate evidence
+        run: |
+          mkdir -p "$RUNNER_TEMP/upload-candidate"
+          cp data/catalog.json "$RUNNER_TEMP/upload-candidate/catalog.json"
+          cp upload-manifest.json "$RUNNER_TEMP/upload-candidate/upload-manifest.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: pdf-upload-candidate
+          path: ${{ runner.temp }}/upload-candidate/
+          if-no-files-found: error
+          retention-days: 1
+
+  validate:
+    needs: candidate
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      pull-requests: read
+    env:
+      UPLOAD_PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+      UPLOAD_BASE_REF: ${{ github.event.pull_request.base.ref || inputs.base_ref }}
+      UPLOAD_BASE_SHA: ${{ github.sha }}
+      UPLOAD_EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+      UPLOAD_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: pdf-upload-candidate
+          path: upload-artifact
+      - name: Reauthorize and reconstruct the exact candidate tree
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python scripts/pdf-upload.py prepare
+          cmp upload-manifest.json upload-artifact/upload-manifest.json
+          test -f upload-artifact/catalog.json && test ! -L upload-artifact/catalog.json
+          python scripts/pdf-upload.py validate
+          cp upload-artifact/catalog.json data/catalog.json
+          git add -- data/catalog.json
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Install trusted validation dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y poppler-utils
+          npm ci --ignore-scripts
+          python -m pip install '.[test]'
+      - name: Validate the reconstructed candidate tree
+        run: |
+          node scripts/check-input-boundary.mjs
+          node --experimental-strip-types scripts/published-inputs.mjs
+          npm test
+          python -m pytest -q
+          node tests/prepare-build.mjs && npm run build
+          npm run stage:data -- data/catalog.json
+          npm run build
+          git diff --exit-code
+          cmp data/catalog.json upload-artifact/catalog.json
+
+  commit:
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: read
+      checks: write
+    env:
+      UPLOAD_PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+      UPLOAD_BASE_REF: ${{ github.event.pull_request.base.ref || inputs.base_ref }}
+      UPLOAD_BASE_SHA: ${{ github.sha }}
+      UPLOAD_EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+      UPLOAD_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: pdf-upload-candidate
+          path: upload-artifact
+      - name: Reauthorize and commit only the validated catalog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/pdf-upload.py publish
