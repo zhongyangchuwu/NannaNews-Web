@@ -8,13 +8,12 @@ from pathlib import Path
 import re
 import tempfile
 import unicodedata
-from urllib.parse import urlsplit
 
 from .common import FULL_DATE, source_url
 from .pdf_adapter import PARSER_VERSION, PdfAdapterError, parse_pdf
 
 # Version normalized parser evidence when adapter behavior changes.
-CACHE_FORMAT = 'reader-1'
+CACHE_FORMAT = 'reader-2'
 
 
 class BuildError(ValueError):
@@ -24,23 +23,19 @@ class BuildError(ValueError):
 
 
 def _title_key(value):
-    return ''.join(unicodedata.normalize('NFKC', value).casefold().split())
+    value = unicodedata.normalize('NFKC', value).casefold()
+    value = value.translate(str.maketrans('“”‘’—–‐‑−', '\"\"\'\'-----'))
+    return re.sub(r'-+', '-', ''.join(value.split()))
+
+
+def _literal_urls(item, role):
+    return list(dict.fromkeys(value for value in item.get(role, []) if source_url(value)))
 
 
 def _strong_urls(item):
-    result = set()
-    for value in item.get('source_urls', []):
-        url = source_url(value)
-        if not url:
-            continue
-        parts = urlsplit(url)
-        # A link to a prior bulletin identifies an issue, not an article.
-        if parts.hostname == 'nik-nul.github.io' and (parts.path == '/news' or parts.path.startswith('/news/')):
-            continue
-        if parts.path == '/' and not parts.query:
-            continue
-        result.add(url)
-    return result
+    # Identity uses the validated literal URI, including any fragment. Display
+    # URLs remain separate from this comparison set.
+    return set(_literal_urls(item, 'primary_urls'))
 
 
 def _date(raw, issue, forward):
@@ -68,38 +63,155 @@ def _date(raw, issue, forward):
         return None
 
 
-def _identity(item, listed, issue_id, ordinal):
+def _identity(item, listed, issue_id, ordinal, urls=None):
     key = _title_key(item['title'])
-    urls = sorted(_strong_urls(item))
-    # Listed date and title are the stable cross-issue key. A source URL
-    # disambiguates independently sourced messages with identical titles.
+    sources = sorted(_strong_urls(item) if urls is None else urls)
     if listed:
-        parts = [listed, key, urls[0] if urls else '']
-    elif urls:
-        parts = [key, urls[0]]
+        parts = [listed, key, sources[0] if sources else '']
+    elif sources:
+        parts = [key, sources[0]]
     else:
         parts = [issue_id, key, str(ordinal)]
     return hashlib.sha256(json.dumps(parts, ensure_ascii=False).encode()).hexdigest()[:24]
 
 
-def _field(text, labels):
-    match = re.search(r'(?:^|\n)\s*(?:' + labels + r')\s*[：:]\s*', text)
-    if not match:
-        return None
-    tail = text[match.end():]
-    boundary = r'(?:报名截止时间|材料提交截止时间|报名截止|投稿截止|截止时间|截止日期|(?:活动|演出|开课|比赛|讲座|参访|服务|报名|投稿|招募|参赛|参与)?(?:时间|时段|地点|对象|方式|内容|人数|费用)|主讲人|主持人|嘉宾|面向人群|线上参与方式|详见)'
-    stop = re.search(r'\n\s*' + boundary + r'\s*[：:]|\n\s*\n', tail)
-    value = tail[:stop.start()] if stop else tail
-    value = re.sub(r'(?<=[\u3400-\u9fff])\s*\n\s*(?=[\u3400-\u9fff])', '', value)
-    return ' '.join(value.split()) or None
+_LABEL = re.compile(r'^\s*([\w\u3400-\u9fff（）()·、/ -]{0,23}[\u3400-\u9fffA-Za-z）)])\s*[：:]\s*(.*)$')
+_CLOCK = re.compile(r'^[^\d：:\n]{0,8}\d{1,2}[：:]\d{2}(?:\s*[-–—~至]\s*\d{1,2}[：:]\d{2})?')
+_DATE_LINE = re.compile(r'^(?:\d{4}\s*[-/.年]\s*)?\d{1,2}\s*(?:月|[-/.])\s*\d{1,2}')
+_URI = re.compile(r'(?:https?://|mailto:)', re.I)
+_FIELD_DELIMITERS = (('（', '）'), ('(', ')'), ('【', '】'), ('[', ']'), ('“', '”'))
 
 
-def _summary(text):
-    paragraph = text.strip().split('\n\n', 1)[0]
-    if re.match(r'[^\n：:]{1,24}[：:]', paragraph):
-        return ''
-    value = ' '.join(paragraph.split())
-    return value if len(value) <= 180 else value[:180] + '…'
+def _unfinished_field(value):
+    return (any(value.count(left) > value.count(right) for left, right in _FIELD_DELIMITERS)
+            or value.rstrip().endswith(('并', '以及')))
+
+
+def _fields(item, filename, warnings):
+    lines = item.get('body_lines') or []
+    # In the absence of geometry, do not guess that an unlabelled physical
+    # line belongs to the preceding field.
+    if not lines:
+        lines = [{'text': text} for text in item['body_text'].splitlines()]
+    # Only an independently established column boundary can prove that a
+    # line reaches the wrap edge; the longest line in a field cannot.
+    result = []
+    current = None
+    previous = None
+    uncertain = False
+
+    def finish():
+        nonlocal current, uncertain
+        if current and current['value'] and not uncertain and not _unfinished_field(current['value']):
+            result.append(current)
+        elif current and (uncertain or _unfinished_field(current['value'])):
+            warnings.append({'filename': filename, 'code': 'uncertain_field_boundary',
+                             'message': f"A field boundary could not be determined for {current['label']}; its text was retained."})
+        current = None
+        uncertain = False
+
+    for line in lines:
+        text = str(line.get('text', '')).strip()
+        if not text:
+            finish()
+            previous = None
+            continue
+        if _URI.match(text):
+            finish()
+            previous = line
+            continue
+        same_paragraph = (previous is not None and line.get('paragraph') is not None
+                          and line.get('paragraph') == previous.get('paragraph')
+                          and line.get('page') == previous.get('page'))
+        right = previous.get('column_right') if previous else None
+        known_boundary = (same_paragraph and isinstance(right, (int, float))
+                          and line.get('column_right') == right
+                          and isinstance(previous.get('x'), (int, float))
+                          and isinstance(previous.get('width'), (int, float))
+                          and isinstance(previous.get('height'), (int, float)))
+        # One point covers rounding differences between PDF glyph boxes and
+        # the independently established column edge.
+        wrapped = (known_boundary and
+                   previous['x'] + previous['width'] >= right - previous['height'] - 1)
+        closes_open = (current and known_boundary
+                       and isinstance(previous.get('y'), (int, float))
+                       and isinstance(line.get('x'), (int, float))
+                       and isinstance(line.get('y'), (int, float))
+                       and 0 < line['y'] - previous['y'] <= 2 * previous['height']
+                       and abs(line['x'] - previous['x']) <= previous['height']
+                       and any(current['value'].count(left) > current['value'].count(right)
+                               and text.count(right) > text.count(left)
+                               for left, right in _FIELD_DELIMITERS))
+        match = None if _CLOCK.match(text) else _LABEL.match(text)
+        if match and match.group(1).strip() == '详见':
+            # The final link block has its own URL roles and remains in text.
+            finish()
+            break
+        if current and same_paragraph and _unfinished_field(current['value']) and match:
+            if wrapped or closes_open:
+                current['value'] += text
+            else:
+                uncertain = True
+                finish()
+            previous = line
+            continue
+        uri = _URI.search(text)
+        if match and uri and uri.start() < match.start(2):
+            # A sentence ending in a URI scheme is not a label/value pair.
+            finish()
+            previous = line
+            continue
+        if match:
+            finish()
+            current = {'label': match.group(1).strip(), 'value': match.group(2).strip()}
+        elif current:
+            temporal = any(word in current['label'] for word in ('时间', '日期', '时段', '截止', '日程'))
+            clock = same_paragraph and temporal and bool(_CLOCK.match(text) or _DATE_LINE.match(text))
+            clearly_prose = bool(re.match(r'^(?:面向|请扫码|扫码|欢迎|敬请|更多|详情|感兴趣|有意|本活动|活动旨在)', text))
+            if (closes_open or (not clearly_prose and (clock or wrapped))
+                    or (wrapped and _unfinished_field(current['value']))):
+                separator = ' ' if clock or not (re.search(r'[\u3400-\u9fff、，]$', current['value']) and re.match(r'[\u3400-\u9fff]', text)) else ''
+                current['value'] += separator + text
+            elif clearly_prose or not same_paragraph or known_boundary:
+                finish()
+            else:
+                uncertain = True
+        previous = line
+    finish()
+    return result
+
+
+def _categories_match(left, right):
+    return not left or not right or _title_key(left) == _title_key(right)
+
+
+def _title_match(left, right, shared):
+    a, b = _title_key(left), _title_key(right)
+    return a == b or (bool(shared) and min(len(a), len(b)) >= 4 and (a in b or b in a))
+
+
+def _detail(item, filename, warnings):
+    return {'title': item['title'], 'text': item['body_text'],
+            'fields': _fields(item, filename, warnings),
+            'source_urls': _literal_urls(item, 'primary_urls'),
+            'other_urls': _literal_urls(item, 'other_urls'),
+            'page': item['locator']['page']}
+
+
+def _listing(item, issue_date, filename, warnings):
+    raw = {}
+    for kind in ('deadline', 'listed'):
+        values = [str(d.get('raw_text', '')).strip() for d in item.get('dates', []) if d.get('kind') == kind]
+        raw[kind] = '\n'.join(values)
+    cutoff = _date(raw['deadline'], issue_date, True) if raw['deadline'] else None
+    listed = _date(raw['listed'], issue_date, False) if raw['listed'] else None
+    for name, value, original in [('cutoff', cutoff, raw['deadline']), ('listed_on', listed, raw['listed'])]:
+        if original and value is None:
+            warnings.append({'filename': filename, 'code': 'unresolved_' + name,
+                             'message': 'An invalid or ambiguous table date was retained as text.'})
+    return {'title': item['title'], 'cutoff': cutoff, 'cutoff_raw': raw['deadline'],
+            'listed_on': listed, 'listed_raw': raw['listed'],
+            'source_urls': _literal_urls(item, 'primary_urls'), 'page': item['locator']['page']}
 
 
 def project_document(document, filename):
@@ -118,7 +230,8 @@ def project_document(document, filename):
         raise BuildError('unsupported_layout', 'The PDF has unsupported or incomplete structural extraction.')
     issue_id = f'{issue_date.isoformat()}-{number}'
     issue = {'id': issue_id, 'date': issue_date.isoformat(), 'number': number, 'title': title, 'filename': filename, 'sha256': digest}
-    warnings = []
+    warnings = [{'filename': filename, 'code': w['code'], 'message': w['message']}
+                for w in document.get('warnings', []) if w.get('code') == 'unknown_column_bounds']
     summaries = []
     details = []
     for item in items:
@@ -126,17 +239,17 @@ def project_document(document, filename):
             raise BuildError('invalid_structure', 'The PDF contains invalid extracted item evidence.')
         (summaries if item['kind'] == 'summary' else details).append(item)
 
-    # Combine repeated table rows only where their title and source evidence
-    # do not contradict each other. Preserve all original rows in the text.
+    # Group compatible repeated rows, but retain every original row.
     groups = []
     for item in summaries:
         listed = [d.get('raw_text', '').strip() for d in item.get('dates', []) if d.get('kind') == 'listed']
+        sources = _strong_urls(item)
         candidates = []
         for group in groups:
             prior_dates = [[d.get('raw_text', '').strip() for d in prior.get('dates', []) if d.get('kind') == 'listed'] for prior in group]
-            sources = _strong_urls(item)
             prior_sources = [_strong_urls(prior) for prior in group]
             if (_title_key(group[0]['title']) == _title_key(item['title'])
+                    and all(_categories_match(item.get('category'), prior.get('category')) for prior in group)
                     and all(not listed or not prior or listed == prior for prior in prior_dates)
                     and all(not sources or not prior or not sources.isdisjoint(prior) for prior in prior_sources)):
                 candidates.append(group)
@@ -144,54 +257,56 @@ def project_document(document, filename):
             candidates[0].append(item)
         else:
             groups.append([item])
-    title_counts = Counter(_title_key(g[0]['title']) for g in groups)
-    detail_title_counts = Counter(_title_key(d['title']) for d in details)
-    url_counts = Counter(u for g in groups for u in set().union(*(_strong_urls(x) for x in g)))
-    detail_url_counts = Counter(u for d in details for u in _strong_urls(d))
-    matches = {}
+
+    group_urls = [set().union(*(_strong_urls(row) for row in group)) for group in groups]
+    group_url_counts = Counter(url for urls in group_urls for url in urls)
+    detail_urls = [_strong_urls(detail) for detail in details]
+    detail_url_counts = Counter(url for urls in detail_urls for url in urls)
+    edges = []
     for di, detail in enumerate(details):
-        key = _title_key(detail['title'])
-        candidates = []
+        urls = detail_urls[di]
         for gi, group in enumerate(groups):
-            group_urls = set().union(*(_strong_urls(x) for x in group))
-            shared = group_urls & _strong_urls(detail)
-            title_match = key == _title_key(group[0]['title']) and title_counts[key] == 1 and detail_title_counts[key] == 1 and not (group_urls and _strong_urls(detail) and not shared)
-            url_match = any(url_counts[u] == 1 and detail_url_counts[u] == 1 for u in shared)
-            if title_match or url_match:
-                candidates.append(gi)
-        if len(candidates) == 1:
-            matches.setdefault(candidates[0], []).append(di)
-    used = set()
+            shared = group_urls[gi] & urls
+            if (not _categories_match(group[0].get('category'), detail.get('category'))
+                    or (group_urls[gi] and urls and not shared)):
+                continue
+            exact = _title_key(group[0]['title']) == _title_key(detail['title'])
+            title_match = _title_match(group[0]['title'], detail['title'], shared)
+            unique_source = any(group_url_counts[url] == 1 and detail_url_counts[url] == 1 for url in shared)
+            if exact or title_match or unique_source:
+                edges.append((gi, di, 3 if exact else 2 if title_match else 1))
+    matches = {}
+    for gi, di, score in edges:
+        group_best = max(s for g, _, s in edges if g == gi)
+        detail_best = max(s for _, d, s in edges if d == di)
+        if (score == group_best == detail_best
+                and sum(g == gi and s == score for g, _, s in edges) == 1
+                and sum(d == di and s == score for _, d, s in edges) == 1):
+            matches[gi] = di
+
+    used = set(matches.values())
     entries = []
+    ids = set()
+
+    def add(entry):
+        if entry['id'] in ids:
+            raise BuildError('ambiguous_identity', 'Distinct extracted entries have the same identity.')
+        ids.add(entry['id'])
+        entries.append(entry)
+
     for group_index, group in enumerate(groups):
-        chosen = matches.get(group_index, [])
-        detail = details[chosen[0]] if len(chosen) == 1 else None
-        if detail is not None:
-            used.add(chosen[0])
-        dates = [d for row in group for d in row.get('dates', []) if d.get('kind') == 'deadline']
-        listed_dates = [d for row in group for d in row.get('dates', []) if d.get('kind') == 'listed']
-        raw = '\n'.join(str(d.get('raw_text', '')).strip() for d in dates)
-        normalized_cutoffs = [_date(d.get('raw_text'), issue_date, True) for d in dates]
-        complete_cutoffs = all(any(d.get('kind') == 'deadline' for d in row.get('dates', [])) for row in group)
-        cutoff = max(normalized_cutoffs) if normalized_cutoffs and complete_cutoffs and all(value is not None for value in normalized_cutoffs) else None
-        listed = _date(listed_dates[0].get('raw_text'), issue_date, False) if listed_dates else None
-        for field, value, present in [('cutoff', cutoff, bool(dates)), ('listed_on', listed, bool(listed_dates))]:
-            if present and value is None:
-                warnings.append({'filename': filename, 'code': 'unresolved_' + field, 'message': 'An invalid or ambiguous table date was retained as text.'})
-        evidence = '\n\n'.join(row['body_text'] for row in group)
-        if detail:
-            evidence += '\n\n' + detail['body_text']
-        all_items = group + ([detail] if detail else [])
-        strong = set().union(*(_strong_urls(item) for item in all_items))
-        urls = list(dict.fromkeys(url for item in all_items for value in item.get('source_urls', []) if (url := source_url(value)) in strong))
-        entries.append({'id': _identity(group[0], listed, issue_id, group_index), 'issue_id': issue_id, 'title': group[0]['title'], 'category': group[0].get('category') or (detail.get('category') if detail else None) or '', 'kind': 'activity', 'cutoff': cutoff, 'cutoff_raw': raw, 'listed_on': listed, 'time': _field(detail['body_text'], '(?:活动|演出|开课|比赛|讲座|参访|服务)?时间') if detail else None, 'location': _field(detail['body_text'], '(?:活动|演出|比赛|讲座|参访|服务)?地点') if detail else None, 'summary': _summary(detail['body_text']) if detail else '', 'text': evidence, 'source_urls': urls, 'page': detail['locator']['page'] if detail else group[0]['locator']['page']})
+        listings = [_listing(row, issue_date, filename, warnings) for row in group]
+        detail = details[matches[group_index]] if group_index in matches else None
+        listed = next((row['listed_on'] for row in listings if row['listed_on']), None)
+        add({'id': _identity(group[0], listed, issue_id, group_index, group_urls[group_index]),
+             'issue_id': issue_id,
+             'category': group[0].get('category') or (detail.get('category') if detail else None) or '',
+             'listings': listings, 'detail': _detail(detail, filename, warnings) if detail else None})
     for index, item in enumerate(details):
-        if index in used:
-            continue
-        body = item['body_text']
-        strong = _strong_urls(item)
-        urls = list(dict.fromkeys(url for value in item.get('source_urls', []) if (url := source_url(value)) in strong))
-        entries.append({'id': _identity(item, None, issue_id, index), 'issue_id': issue_id, 'title': item['title'], 'category': item.get('category') or '', 'kind': 'notice', 'cutoff': None, 'cutoff_raw': '', 'listed_on': None, 'time': _field(body, '(?:活动|演出|开课|比赛|讲座|参访|服务)?时间'), 'location': _field(body, '(?:活动|演出|比赛|讲座|参访|服务)?地点'), 'summary': _summary(body), 'text': body, 'source_urls': urls, 'page': item['locator']['page']})
+        if index not in used:
+            add({'id': _identity(item, None, issue_id, index), 'issue_id': issue_id,
+                 'category': item.get('category') or '', 'listings': [],
+                 'detail': _detail(item, filename, warnings)})
     return issue, entries, warnings
 
 
@@ -265,6 +380,6 @@ def build(input_dir, output, cache):
         entries.extend(issue_entries)
         warnings.extend(issue_warnings)
     issues.sort(key=lambda x: (x['date'], x['number']), reverse=True)
-    catalog = {'schema_version': 1, 'issues': issues, 'entries': entries, 'warnings': warnings}
+    catalog = {'schema_version': 2, 'issues': issues, 'entries': entries, 'warnings': warnings}
     _atomic_json(output, catalog)
     return {'issues': len(issues), 'entries': len(entries), 'warnings': len(warnings), 'duplicate_pdfs': len(files) - len(seen)}

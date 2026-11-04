@@ -1,11 +1,15 @@
-// Synthetic CI bundling input only. The publication job uses a separate checkout
-// and only tracked pdf/ sources; it never uploads this generated catalog.
+// Synthetic CI bundling input only. Publication has a separate checkout and
+// only tracked pdf/ sources, so this catalog is never uploaded or deployed.
 import { mkdir, writeFile } from 'node:fs/promises';
 const issueId = 'issue-' + 'a'.repeat(24);
 const catalog = {
-  schema_version: 1,
+  schema_version: 2,
   issues: [{ id: issueId, date: '2099-01-01', number: 1, title: '合成构建样例', filename: 'synthetic.pdf', sha256: 'a'.repeat(64) }],
-  entries: [{ id: 'entry-' + 'b'.repeat(24), issue_id: issueId, title: '合成消息，仅用于CI构建检查', category: '讲座', kind: 'activity', cutoff: '2099-01-02', cutoff_raw: '01-02', listed_on: '2099-01-01', time: '1月2日 10:00', location: '测试报告厅', summary: '这不是已发布消息。', text: '仅验证静态打包，不会作为发布内容。', source_urls: ['https://example.org/notice'], page: 1 }],
+  entries: [{
+    id: 'entry-' + 'b'.repeat(24), issue_id: issueId, category: '讲座',
+    listings: [{ title: '合成消息，仅用于CI构建检查', cutoff: '2099-01-02', cutoff_raw: '01-02', listed_on: '2099-01-01', listed_raw: '01-01', source_urls: ['https://example.org/notice'], page: 1 }],
+    detail: { title: '合成消息的本期说明', text: '这不是已发布消息。', fields: [{ label: '讲座时间', value: '1月2日10:00' }, { label: '讲座地点', value: '测试报告厅' }], source_urls: ['https://example.org/notice'], other_urls: [], page: 1 },
+  }],
   warnings: [],
 };
 await mkdir('.generated/site/data', { recursive: true });

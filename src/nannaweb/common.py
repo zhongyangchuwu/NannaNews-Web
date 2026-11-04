@@ -7,7 +7,7 @@ from datetime import date
 import re
 import unicodedata
 
-from urllib.parse import urlsplit, urlunsplit, quote
+from urllib.parse import urlsplit
 
 SCHEMA_VERSION = 1
 FULL_DATE = re.compile(r'(?<!\d)(\d{4})\s*[-/.年]\s*(\d{1,2})\s*[-/.月]\s*(\d{1,2})(?:日|号)?(?!\d)')
@@ -24,20 +24,17 @@ def source_url(value):
     """Accept only credential-free HTTP(S) URLs; never fetch them."""
     if not isinstance(value, str) or not value.strip() or len(value) > 8192:
         return None
-    value = value.strip()
     if re.search(r'[\x00-\x20\x7f\\]', value):
         return None
     try:
         parts = urlsplit(value)
         if parts.scheme.lower() not in ('http', 'https') or not parts.hostname or parts.username is not None or parts.password is not None:
             return None
-        host = parts.hostname.encode('idna').decode('ascii').lower()
+        parts.hostname.encode('idna')
         port = parts.port
         if port is not None and not 1 <= port <= 65535:
             return None
-        host = '[' + host + ']' if ':' in host else host
-        authority = host + (f':{port}' if port else '')
-        return urlunsplit((parts.scheme.lower(), authority, quote(parts.path or '/', safe="/%:@!$&'()*+,;=-._~"), quote(parts.query, safe="%/:?@!$&'()*+,;=-._~"), ''))
+        return value
     except (ValueError, UnicodeError):
         return None
 
