@@ -137,6 +137,39 @@ export function historyEntries(catalog: BulletinCatalog, issueId: string, query 
   return issueId === 'all' ? latestEntries({ ...catalog, entries }) : entries;
 }
 
+export interface DetailSource {
+  issue: BulletinIssue;
+  detail: BulletinDetail;
+}
+
+/** Preserve publication snapshots; index explanations without backfilling entries. */
+export function indexDetails(catalog: BulletinCatalog): Map<string, DetailSource[]> {
+  const issues = new Map(catalog.issues.map(issue => [issue.id, issue]));
+  const index = new Map<string, DetailSource[]>();
+  for (const entry of catalog.entries) {
+    const issue = issues.get(entry.issue_id);
+    if (!entry.detail || !issue) continue;
+    const sources = index.get(entry.id) ?? [];
+    sources.push({ issue, detail: entry.detail });
+    index.set(entry.id, sources);
+  }
+  for (const sources of index.values()) {
+    sources.sort((a, b) => b.issue.date.localeCompare(a.issue.date) || b.issue.number - a.issue.number);
+  }
+  return index;
+}
+
+/** Same-issue first, then the latest earlier explanation of the exact identity. */
+export function resolveDetail(entry: BulletinEntry, issue: BulletinIssue | undefined,
+  index: ReadonlyMap<string, readonly DetailSource[]>): DetailSource | null {
+  if (!issue) return null;
+  const sources = index.get(entry.id) ?? [];
+  return sources.find(source => source.issue.id === entry.issue_id) ??
+    sources.find(source => source.issue.date < issue.date ||
+      (source.issue.date === issue.date && source.issue.number <= issue.number)) ?? null;
+}
+
+
 export function filterEntries(entries: BulletinEntry[], query: string, category: string): BulletinEntry[] {
   const needle = query.trim().toLocaleLowerCase();
   return entries.filter(entry => (!category || entry.category === category) &&
