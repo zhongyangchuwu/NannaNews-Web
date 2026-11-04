@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, NavLink, useLocation, useNavigate, useSearchParams } from 'react-router';
+import { DiaryCalendar } from './DiaryCalendar';
 import { beijingToday, entryCutoff, filterEntries, indexDetails, listingGroups, parseCatalog, resolveDetail, resolveIdentity, safeSourceUrl } from './reader';
 import type { DetailSource as DatedDetail } from './reader';
 import { aggregateActivities, activityCutoff, filterActivityDeadlines, searchActivities } from './activities';
 import type { ActivityMatch, ActivityView, DeadlineStatus } from './activities';
-import { buildDiaryIndex, diaryDay, diaryWindow, formatSourceDate, isCalendarDate, openDiaryPublications, recentRecordedDay, shiftDay } from './diary';
+import { buildDiaryIndex, diaryDay, formatSourceDate, isCalendarDate, openDiaryPublications, recentRecordedDay } from './diary';
 import type { DiaryDay, PrintedMessage } from './diary';
 import { activityLink, diaryLink, legacyLocation, returnKey, returnTarget, sourceLink } from './navigation';
 import type { DiarySection, ReaderLink } from './navigation';
@@ -61,31 +62,6 @@ function PrintedArticle({ message, favorites, toggle, back, archive, showFavorit
   </article>;
 }
 
-function DateNavigation({ index, day, today, followToday, view, query, category, openOnly, select }: {
-  index: ReadonlyMap<string, DiaryDay>; day: DiaryDay; today: string; followToday: boolean; view: DiarySection;
-  query: string; category: string; openOnly: boolean; select: (date: string) => void;
-}) {
-  const context = { q: query, category, open: openOnly };
-  const epoch = Date.parse(`${day.date}T00:00:00Z`);
-  const radius = Math.min(3, Math.floor((epoch - Date.parse('0000-01-01T00:00:00Z')) / 86400000), Math.floor((Date.parse('9999-12-31T00:00:00Z') - epoch) / 86400000));
-  const days = diaryWindow(index, day.date, radius);
-  const previous = day.date > '0000-01-01' ? shiftDay(day.date, -1) : null;
-  const next = day.date < '9999-12-31' ? shiftDay(day.date, 1) : null;
-  const description = (item: DiaryDay) => item.state === 'new' ? `${item.details.length} 条新增说明` : item.state === 'no-new' ? '已收录，无新增说明' : '暂无已收录日报';
-  return <section className="date-navigation" aria-label="日报日期选择">
-    <div className="date-controls">
-      {previous ? <Link className="date-arrow" to={diaryLink(previous, view, context)} aria-label="前一天">←</Link> : <span className="date-arrow disabled">←</span>}
-      <label className="date-picker">查看日期<input type="date" value={day.date} onChange={event => { if (isCalendarDate(event.target.value)) select(event.target.value); }} /></label>
-      {next ? <Link className="date-arrow" to={diaryLink(next, view, context)} aria-label="后一天">→</Link> : <span className="date-arrow disabled">→</span>}
-      <Link className={`today-link${followToday ? ' following' : ''}`} to={diaryLink(null, view, context)}>{followToday ? '正在跟随今天' : '回到今天'}</Link>
-    </div>
-    <p className="date-window-range">{days[0].date} — {days[days.length - 1].date} · 北京时间</p>
-    <nav className="date-window" aria-label="附近日期的收录情况">{days.map(item => <Link key={item.date} to={diaryLink(item.date, view, context)} data-state={item.state} aria-current={item.date === day.date ? 'date' : undefined} aria-label={`${item.date}，${description(item)}`}>
-      <time dateTime={item.date}>{item.date.slice(5)}</time><span>{item.state === 'new' ? `${item.details.length} 条新增` : item.state === 'no-new' ? '无新增说明' : '未收录'}</span>
-    </Link>)}</nav>
-    <p className="date-legend">有新增 · 已收录但无新增说明 · 未收录（不代表当天没有消息）</p>
-  </section>;
-}
 
 function Filters({ query, category, categories, openOnly, onChange, clear, showCutoff, activityMode = false, status = 'all' }: {
   query: string; category: string; categories: string[]; openOnly: boolean; status?: DeadlineStatus;
@@ -299,7 +275,7 @@ export default function App() {
         <div className="page-heading"><div><p className="eyebrow">{followToday ? '默认跟随北京时间今天' : '按原刊日期阅读'}</p><h1>{selectedDate} 日报</h1></div><span className="issue-stamp">{day.issues.length ? `${day.issues.length} 期已收录` : '暂无已收录日报'}</span></div>
         {origin && <p className="context origin-return"><Link to={origin}>← {returnLabel(origin)}</Link></p>}
         {dateParam && !isCalendarDate(dateParam) && <p className="notice" role="status">链接中的日期无效，当前显示北京时间今天。</p>}
-        <DateNavigation index={diaryIndex} day={day} today={today} followToday={followToday} view={section} query={query} category={category} openOnly={openOnly} select={date => navigate(diaryLink(date, section, dateContext))} />
+        <DiaryCalendar index={diaryIndex} selectedDate={selectedDate} today={today} followToday={followToday} onSelect={date => navigate(diaryLink(date, section, dateContext))} />
         <nav className="diary-views" aria-label="日报阅读视图"><Link to={diaryLink(followToday ? null : selectedDate, 'new', dateContext)} aria-current={section === 'new' ? 'page' : undefined}>新增消息 <span>{day.state === 'unrecorded' ? '—' : day.details.length}</span></Link><Link to={diaryLink(followToday ? null : selectedDate, 'list', dateContext)} aria-current={section === 'list' ? 'page' : undefined}>原刊清单 <span>{day.state === 'unrecorded' ? '—' : day.publications.reduce((count, pub) => count + pub.listings.length, 0)}</span></Link></nav>
         <p className="context">{day.issues.map(issue => `${issue.date} · 第 ${issue.number} 期`).join('；') || '当前日期没有已收录的日报；不据此推断是否发布或停刊。'}</p>
         {day.state === 'unrecorded' ? <div className="empty unrecorded-day"><h2>{selectedDate === today ? '今天暂无已收录日报' : '这天暂无已收录日报'}</h2><p>这不代表当天没有消息，也不表示已经确认停刊。</p>{(recent || anyRecordedDate) && <Link to={diaryLink(recent ?? anyRecordedDate, section)}>查看{recent ? '最近' : '最早'}已收录日报：{recent ?? anyRecordedDate}</Link>}</div> : <>
