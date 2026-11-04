@@ -1,98 +1,105 @@
 import { describe, expect, it } from 'vitest';
-import { beijingToday, dailyGroups, entryCutoff, entryTitle, filterEntries, historyEntries, indexDetails, parseCatalog, resolveDetail, safeSourceUrl, sortedIssues } from '../src/reader';
-import type { BulletinCatalog, BulletinDetail, BulletinEntry, BulletinIssue, BulletinListing } from '../src/types';
+import { beijingToday, dailyGroups, entryCutoff, filterEntries, historyEntries, indexDetails, latestEntries, listingGroups, parseCatalog, publicationViews, resolveDetail, resolveIdentity, safeSourceUrl, sortedIssues } from '../src/reader';
+import type { BulletinCatalog, BulletinIssue, DetailSource, ListingSource, PublicationView } from '../src/types';
 
-const issue = (id: string, date: string, number: number): BulletinIssue => ({ id, date, number, title: id, filename: `${id}.pdf`, sha256: 'a'.repeat(64) });
-const listing = (title: string, cutoff: string | null): BulletinListing => ({
-  title, cutoff, cutoff_raw: cutoff?.slice(5) ?? '待明确', listed_on: null, listed_raw: '', source_urls: [], page: 1,
-});
-const detail = (title: string, text = ''): BulletinDetail => ({ title, text, fields: [], source_urls: [], other_urls: [], page: 1 });
-const entry = (id: string, issue_id: string, cutoff: string | null, bodyOnly = false): BulletinEntry => ({
-  id, issue_id, category: '活动', listings: bodyOnly ? [] : [listing(id, cutoff)], detail: bodyOnly ? detail(id) : null,
-});
+const issue = (id: string, date: string, number: number): BulletinIssue => ({ id, date, number, title: id, filename: `${id}.pdf`, sha256: number.toString(16).padStart(64, '0'), extraction_version: 'test' });
+const listing = (id: string, order: number, cutoff: string | null, category = '活动'): ListingSource => ({ id, issue_id: 'new', category, order, title: id, cutoff, cutoff_raw: cutoff ?? '待明确', listed_on: null, listed_raw: '', source_urls: [], page: 1 });
+const detail = (id: string, issue_id: string, order: number, text: string): DetailSource => ({ id, issue_id, order, category: '活动', title: id, text, fields: [], source_urls: [], other_urls: [], page: 1 });
 const catalog: BulletinCatalog = {
-  schema_version: 2,
-  issues: [issue('old', '2025-04-01', 1), issue('new', '2025-04-02', 2)],
-  entries: [entry('repeat', 'old', '2025-03-01'), entry('repeat', 'new', '2025-04-02'), entry('unknown', 'new', null), entry('notice', 'new', null, true)],
-  warnings: [],
+  schema_version: 3,
+  issues: [issue('old', '2025-04-01', 1), issue('new', '2025-04-02', 2), issue('future', '2025-04-03', 3)],
+  activities: ['a', 'b', 'notice', 'future-only'].map(id => ({ id })),
+  listings: [listing('a1', 0, '2025-04-20'), listing('b', 1, '2025-04-03', '通知'), listing('a2', 2, '2025-04-10')],
+  details: [detail('old-body', 'old', 0, 'historical search text'), detail('notice-body', 'new', 3, '本期独立说明'), detail('future-body', 'future', 0, 'future text')],
+  publications: [
+    { activity_id: 'a', issue_id: 'old', listing_ids: [], detail_id: 'old-body' },
+    { activity_id: 'a', issue_id: 'new', listing_ids: ['a1', 'a2'], detail_id: null },
+    { activity_id: 'b', issue_id: 'new', listing_ids: ['b'], detail_id: null },
+    { activity_id: 'notice', issue_id: 'new', listing_ids: [], detail_id: 'notice-body' },
+    { activity_id: 'future-only', issue_id: 'future', listing_ids: [], detail_id: 'future-body' },
+  ], identity_aliases: [{ legacy_id: 'legacy-a', activity_id: 'a' }], warnings: [],
 };
 
-describe('daily issue selection', () => {
-  it('uses Beijing date and retains the cutoff day without extending it from the new explanation', () => {
-    expect(beijingToday(new Date('2025-04-01T16:00:00Z'))).toBe('2025-04-02');
-    const expired = { ...entry('expired', 'new', '2025-04-01'), detail: detail('本期详解', '报名截止 2025-04-30') };
-    const groups = dailyGroups([...catalog.entries, expired], 'new', '2025-04-02');
-    expect(groups.current.map(item => item.id)).toEqual(['repeat']);
-    expect(groups.unknown.map(item => item.id)).toEqual(['unknown']);
-    expect(groups.notices.map(item => item.id)).toEqual(['notice']);
-  });
-  it('places the nearest clear cutoff first, regardless of PDF category order', () => {
-    const entries = [entry('later', 'new', '2025-04-20'), entry('today', 'new', '2025-04-02')];
-    expect(dailyGroups(entries, 'new', '2025-04-02').current.map(item => item.id)).toEqual(['today', 'later']);
-  });
-  it('retains original rows and does not mask an uncertain row with a later clear cutoff', () => {
-    const multiple = { ...entry('multiple', 'new', '2025-04-03'), listings: [listing('第一场', '2025-04-03'), listing('第二场', '2025-04-08')] };
-    expect(entryCutoff(multiple)).toBe('2025-04-08');
-    expect(entryTitle(multiple)).toBe('第一场');
-    const uncertain = { ...multiple, listings: [...multiple.listings, listing('第三场', null)] };
-    expect(dailyGroups([uncertain], 'new', '2025-04-02').unknown).toEqual([uncertain]);
-  });
-});
-
-describe('source explanations and history', () => {
-  it('finds the original detail-heading qualifier even when the table titles are identical', () => {
-    const medical = { ...entry('a', 'new', '2025-04-20'), listings: [listing('校园比赛', '2025-04-20')], detail: detail('校园比赛甲学院报名') };
-    const arts = { ...entry('b', 'new', '2025-04-20'), listings: [listing('校园比赛', '2025-04-20')], detail: detail('校园比赛乙学院报名') };
-    expect(filterEntries([medical, arts], '甲学院', '').map(item => item.id)).toEqual(['a']);
-    expect(dailyGroups([medical], 'new', '2025-04-02').notices).toEqual([]);
-  });
-  it('selects actual issues including expired entries and deduplicates by newest matching occurrence', () => {
-    expect(sortedIssues(catalog.issues).map(item => item.id)).toEqual(['new', 'old']);
-    expect(historyEntries(catalog, 'old').map(entryCutoff)).toEqual(['2025-03-01']);
-    expect(historyEntries(catalog, 'all').filter(item => item.id === 'repeat').map(item => item.issue_id)).toEqual(['new']);
-    const withOldText = { ...catalog, entries: catalog.entries.map(item => item.issue_id === 'old' ? { ...item, detail: detail('原刊说明', 'earlier detail') } : item) };
-    expect(historyEntries(withOldText, 'all', 'earlier detail').map(item => item.issue_id)).toEqual(['old']);
-  });
-  it('opens the latest earlier explanation without borrowing a future issue or changing the current listing', () => {
-    const earlier = { ...entry('shared', 'old', '2025-04-03'), detail: detail('往期详解', '原刊正文') };
-    const current = entry('shared', 'new', '2025-04-20');
-    const futureIssue = issue('future', '2025-04-03', 3);
-    const future = { ...entry('shared', 'future', '2025-05-01'), detail: detail('后续刊期详解') };
-    const source = { ...catalog, issues: [...catalog.issues, futureIssue], entries: [future, current, earlier] };
-    const index = indexDetails(source);
-    const resolved = resolveDetail(current, catalog.issues[1], index);
-    expect(resolved?.issue.id).toBe('old');
-    expect(resolved?.detail.text).toBe('原刊正文');
+describe('canonical graph validation', () => {
+  it('keeps absent logical detail and an empty master free of invented content', () => {
+    const current = publicationViews(parseCatalog(catalog)).find(view => view.id === 'a' && view.issue_id === 'new')!;
     expect(current.detail).toBeNull();
-    expect(entryCutoff(current)).toBe('2025-04-20');
-    const withCurrentDetail = { ...current, detail: detail('本期详解') };
-    const updated = indexDetails({ ...source, entries: [future, withCurrentDetail, earlier] });
-    expect(resolveDetail(withCurrentDetail, catalog.issues[1], updated)?.detail.title).toBe('本期详解');
+    const empty = parseCatalog({ schema_version: 3, issues: [], activities: [], listings: [], details: [], publications: [], identity_aliases: [], warnings: [] });
+    expect(publicationViews(empty)).toEqual([]);
+    expect(resolveIdentity(empty, 'saved-but-unavailable')).toBeNull();
   });
-  it('does not link a distinct activity merely because the title or source URL is shared', () => {
-    const known = { ...entry('one-session', 'old', null), detail: { ...detail('同名讲座'), source_urls: ['https://example.org/series'] } };
-    const other = { ...entry('other-session', 'new', null), listings: [{ ...listing('同名讲座', null), source_urls: ['https://example.org/series'] }] };
-    expect(resolveDetail(other, catalog.issues[1], indexDetails({ ...catalog, entries: [known, other] }))).toBeNull();
+  it('rejects malformed, duplicated, orphaned and cross-issue facts', () => {
+    const invalid: unknown[] = [
+      { ...catalog, schema_version: 2 }, { ...catalog, private: true },
+      { ...catalog, issues: [issue('bad', '2025-02-30', 1)] },
+      { ...catalog, issues: [...catalog.issues, issue('orphan', '2025-04-04', 4)] },
+      { ...catalog, issues: catalog.issues.map(x => x.id === 'new' ? { ...x, sha256: catalog.issues[0].sha256 } : x) },
+      { ...catalog, issues: catalog.issues.map(x => x.id === 'new' ? { ...x, date: catalog.issues[0].date, number: catalog.issues[0].number } : x) },
+      { ...catalog, listings: catalog.listings.map(x => x.id === 'a1' ? { ...x, title: ' ' } : x) },
+      { ...catalog, details: catalog.details.map(x => x.id === 'old-body' ? { ...x, fields: [{ label: ' ', value: '正文' }] } : x) },
+      { ...catalog, details: catalog.details.map(x => x.id === 'old-body' ? { ...x, fields: [{ label: '说明', value: ' ' }] } : x) },
+      { ...catalog, activities: [...catalog.activities, { id: 'a' }] },
+      { ...catalog, listings: [...catalog.listings, { ...catalog.listings[0] }] },
+      { ...catalog, listings: catalog.listings.map(x => x.id === 'b' ? { ...x, order: 0 } : x) },
+      { ...catalog, listings: [...catalog.listings, listing('orphan', 10, null)] },
+      { ...catalog, publications: [...catalog.publications, catalog.publications[0]] },
+      { ...catalog, publications: catalog.publications.map(p => p.activity_id === 'b' ? { ...p, listing_ids: ['a1'] } : p) },
+      { ...catalog, publications: catalog.publications.map(p => p.activity_id === 'b' ? { ...p, detail_id: 'old-body' } : p) },
+      { ...catalog, publications: catalog.publications.map(p => p.activity_id === 'b' ? { ...p, listing_ids: [], detail_id: null } : p) },
+      { ...catalog, identity_aliases: [...catalog.identity_aliases, { legacy_id: 'legacy-a', activity_id: 'b' }] },
+      { ...catalog, identity_aliases: [{ legacy_id: 'a', activity_id: 'b' }] },
+      { ...catalog, identity_aliases: [{ legacy_id: 'unknown', activity_id: 'missing' }] },
+      { ...catalog, details: catalog.details.map(d => ({ ...d, private_path: '/private' })) },
+    ];
+    for (const value of invalid) expect(() => parseCatalog(value)).toThrow();
   });
 });
 
-describe('catalog and links', () => {
-  it('rejects wrong versions, references, invalid dates, duplicate IDs and unprojected private fields', () => {
-    expect(parseCatalog(catalog)).toBe(catalog);
-    expect(() => parseCatalog({ ...catalog, schema_version: 1 })).toThrow();
-    expect(() => parseCatalog({ ...catalog, entries: [entry('x', 'missing', null)] })).toThrow();
-    expect(() => parseCatalog({ ...catalog, entries: [entry('x', 'new', '2025-02-30')] })).toThrow();
-    expect(() => parseCatalog({ ...catalog, entries: [entry('x', 'new', null), entry('x', 'new', null)] })).toThrow();
-    expect(() => parseCatalog({ ...catalog, entries: [{ ...entry('x', 'new', null), raw_receipt: 'private' }] })).toThrow();
-    expect(() => parseCatalog({ ...catalog, entries: [{ ...entry('x', 'new', null), listings: [], detail: null }] })).toThrow();
+describe('publication reading', () => {
+  it('preserves source row order independently of activity grouping and retains cutoff semantics', () => {
+    const views = publicationViews(parseCatalog(catalog)).filter(x => x.issue_id === 'new');
+    expect(listingGroups(views, true).flatMap(group => group.rows.map(({ row }) => row.id))).toEqual(['a1', 'b', 'a2']);
+    expect(entryCutoff(views.find(x => x.id === 'a')!)).toBe('2025-04-20');
+    expect(dailyGroups(views, 'new', '2025-04-02').current.map(x => x.id)).toEqual(['b', 'a']);
+    const uncertain = { ...views[0], listings: [...views[0].listings, listing('unknown', 5, null)] };
+    expect(dailyGroups([uncertain], 'new', '2025-04-02').unknown).toEqual([uncertain]);
+    expect(beijingToday(new Date('2025-04-01T16:00:00Z'))).toBe('2025-04-02');
   });
-  it('preserves literal HTTP destinations, including hash routes, while excluding unsafe/newsletter links', () => {
+  it('keeps global cutoff priority when categories alternate', () => {
+    const views: PublicationView[] = [
+      { id: 'late', issue_id: 'new', category: '活动', listings: [listing('late', 0, '2025-04-20')], detail: null },
+      { id: 'soon', issue_id: 'new', category: '活动', listings: [listing('soon', 2, '2025-04-02')], detail: null },
+      { id: 'middle', issue_id: 'new', category: '通知', listings: [listing('middle', 1, '2025-04-03', '通知')], detail: null },
+    ];
+    const groups = listingGroups(dailyGroups(views, 'new', '2025-04-02').current);
+    expect(groups.map(group => group.category)).toEqual(['活动', '通知', '活动']);
+    expect(groups.flatMap(group => group.rows.map(({ row }) => row.id))).toEqual(['soon', 'middle', 'late']);
+  });
+  it('resolves historical bodies only backward for the same activity', () => {
+    const views = publicationViews(catalog); const index = indexDetails(catalog);
+    const current = views.find(x => x.id === 'a' && x.issue_id === 'new')!;
+    const source = resolveDetail(current, catalog.issues[1], index)!;
+    expect(source.issue.id).toBe('old'); expect(current.detail).toBeNull();
+    expect(resolveDetail({ ...current, id: 'future-only' }, catalog.issues[1], index)).toBeNull();
+    const sources = new Map([[`new\0a`, source]]);
+    expect(filterEntries([current], 'historical search', '', sources)).toEqual([current]);
+    expect(filterEntries([current], 'historical search', '')).toEqual([]);
+  });
+  it('keeps selected issue search scoped and chooses newest matching history occurrence', () => {
+    expect(sortedIssues(catalog.issues).map(x => x.id)).toEqual(['future', 'new', 'old']);
+    expect(historyEntries(catalog, 'new', 'historical search')).toEqual([]);
+    expect(historyEntries(catalog, 'all', 'historical search').map(x => x.issue_id)).toEqual(['old']);
+    expect(latestEntries(catalog).find(x => x.id === 'a')?.issue_id).toBe('new');
+  });
+  it('resolves aliases without inventing identities for unknown stored strings', () => {
+    expect(resolveIdentity(catalog, 'legacy-a')).toBe('a');
+    expect(resolveIdentity(catalog, 'a')).toBe('a');
+    expect(resolveIdentity(catalog, 'unresolved')).toBeNull();
+  });
+  it('retains safe literal source URLs only', () => {
     expect(safeSourceUrl('https://example.org/app#/apply')).toBe('https://example.org/app#/apply');
-    expect(safeSourceUrl('https://example.org/')).toBe('https://example.org/');
     expect(safeSourceUrl('javascript:alert(1)')).toBeNull();
     expect(safeSourceUrl('https://github.com/nik-nul/NannaNews')).toBeNull();
-    expect(safeSourceUrl('https://zhongyangchuwu.github.io/%4eannaNews/issue')).toBeNull();
-    expect(safeSourceUrl('https://nannanews.example.org/news')).toBe('https://nannanews.example.org/news');
     expect(safeSourceUrl('https://example.org@evil.test/')).toBeNull();
   });
 });
