@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildDiaryIndex, diaryDay, diaryWindow, formatSourceDate, isCalendarDate, openDiaryPublications, recentRecordedDay, shiftDay } from '../src/diary';
+import { buildDiaryIndex, diaryDay, formatSourceDate, isCalendarDate, openDiaryPublications, recentRecordedDay, shiftDay } from '../src/diary';
 import { parseCatalog } from '../src/reader';
 import type { BulletinCatalog, BulletinIssue, DetailSource, ListingSource, PublicationView } from '../src/types';
 
@@ -101,7 +101,7 @@ describe('date diary model', () => {
     expect(data).toEqual(original);
   });
 
-  it('builds an inclusive ascending window and finds only recorded dates on or before selection', () => {
+  it('finds only recorded dates on or before selection without inventing missing days', () => {
     const index = buildDiaryIndex(catalog(
       [issue('with-body', '2025-12-31', 1), issue('without-body', '2026-01-02', 2)],
       [publication('message', 'with-body', [], 'body'), publication('listed', 'without-body', ['row'])],
@@ -109,13 +109,9 @@ describe('date diary model', () => {
       [detail('body', 'with-body', 0)],
     ));
 
-    expect(diaryWindow(index, '2026-01-01', 1).map(day => [day.date, day.state, day.details.length])).toEqual([
-      ['2025-12-31', 'new', 1], ['2026-01-01', 'unrecorded', 0], ['2026-01-02', 'no-new', 0],
-    ]);
     expect(recentRecordedDay(index, '2026-01-01')).toBe('2025-12-31');
     expect(recentRecordedDay(index, '2025-12-30')).toBeNull();
     expect(recentRecordedDay(index, '2025-12-31')).toBe('2025-12-31');
-    expect(() => diaryWindow(index, '2026-02-30')).toThrow(RangeError);
   });
 
   it('validates real calendar dates and shifts across leap days, months, years, and range boundaries', () => {

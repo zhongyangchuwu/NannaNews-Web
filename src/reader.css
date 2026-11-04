@@ -137,24 +137,6 @@ button, select, input[type="checkbox"] { cursor: pointer; }
 }
 
 /* Date-owned diary and identity-owned activity views share the same source data. */
-.date-navigation { padding: 15px; margin-bottom: 18px; border: 1px solid var(--line); background: var(--paper); }
-.date-controls { display: flex; align-items: end; flex-wrap: wrap; gap: 10px; }
-.date-picker { display: grid; gap: 3px; color: var(--muted); font-size: 12px; }
-.date-picker input { min-height: 40px; padding: 6px 10px; border: 1px solid #bac8be; border-radius: 4px; background: var(--paper); color: var(--ink); font-variant-numeric: tabular-nums; }
-.date-arrow, .today-link { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; font-size: 13px; }
-.date-arrow { min-width: 40px; font-size: 18px; }
-.date-arrow.disabled { color: var(--muted); opacity: .5; }
-.today-link { margin-left: auto; }
-.today-link.following { background: var(--teal-pale); border-color: var(--teal); }
-.date-window-range { margin: 15px 0 8px; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
-.date-window { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 7px; }
-.date-window a { display: grid; gap: 3px; padding: 9px 3px; border: 1px solid var(--line); border-radius: 4px; text-align: center; text-decoration: none; color: var(--soft); }
-.date-window time { font-size: 14px; font-variant-numeric: tabular-nums; }
-.date-window span { font-size: 10px; }
-.date-window [data-state="new"] { background: var(--teal-pale); color: var(--teal-dark); }
-.date-window [data-state="unrecorded"] { border-style: dashed; color: var(--muted); }
-.date-window [aria-current="date"] { outline: 2px solid var(--teal); outline-offset: 1px; }
-.date-legend { margin: 12px 0 0; color: var(--muted); font-size: 11px; }
 .diary-views { display: flex; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
 .diary-views a { display: inline-flex; align-items: center; gap: 8px; min-height: 49px; padding: 10px 20px; border-bottom: 3px solid transparent; color: var(--soft); text-decoration: none; font-size: 15px; }
 .diary-views a:first-child { font-weight: 750; }
@@ -197,15 +179,6 @@ button, select, input[type="checkbox"] { cursor: pointer; }
 .publication-history p { margin: 7px 0 0; font-size: 12px; }
 .history-date { display: block; margin: 3px 0; color: var(--muted); font-size: 11px; }
 @media (max-width: 760px) {
-  .date-navigation { padding: 12px; }
-  .date-controls { gap: 7px; }
-  .date-picker { flex: 1; min-width: 145px; }
-  .date-picker input { width: 100%; }
-  .today-link { margin-top: 3px; }
-  .date-window { gap: 4px; }
-  .date-window a { padding: 8px 1px; }
-  .date-window time { font-size: 12px; }
-  .date-window span { font-size: 9px; }
   .diary-views a { padding-inline: 15px; }
   .activity-card { padding: 15px; }
   .activity-card h2 { font-size: 17px; }

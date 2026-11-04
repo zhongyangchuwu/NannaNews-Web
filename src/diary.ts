@@ -87,17 +87,6 @@ export function shiftDay(date: string, days: number): string {
   return `${String(year).padStart(4, '0')}-${twoDigits(shifted.getUTCMonth() + 1)}-${twoDigits(shifted.getUTCDate())}`;
 }
 
-/** Return an inclusive, ascending window around the selected date. */
-export function diaryWindow(index: ReadonlyMap<string, DiaryDay>, selectedDate: string, radius = 3): DiaryDay[] {
-  if (!isCalendarDate(selectedDate)) throw new RangeError(`Invalid calendar date: ${selectedDate}`);
-  if (!Number.isSafeInteger(radius) || radius < 0) throw new RangeError('Window radius must be a non-negative safe integer');
-
-  const days: DiaryDay[] = [];
-  for (let offset = -radius; offset <= radius; offset += 1) {
-    days.push(diaryDay(index, shiftDay(selectedDate, offset)));
-  }
-  return days;
-}
 
 /** Find the newest recorded issue date no later than the supplied date. */
 export function recentRecordedDay(index: ReadonlyMap<string, DiaryDay>, onOrBeforeDate: string): string | null {
