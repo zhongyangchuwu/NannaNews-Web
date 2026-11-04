@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { activityCutoff, aggregateActivities, searchActivities } from '../src/activities';
+import { activityCutoff, aggregateActivities, filterActivityDeadlines, searchActivities } from '../src/activities';
 import { parseCatalog } from '../src/reader';
 import type { BulletinCatalog, BulletinIssue, DetailSource, ListingSource } from '../src/types';
 
@@ -73,6 +73,30 @@ describe('activity axis', () => {
     bodyOnly.details = bodyOnly.details.filter(detail => detail.id === 'a-new-body');
     bodyOnly.publications = bodyOnly.publications.filter(p => p.activity_id === 'a' && p.issue_id === 'latest');
     expect(activityCutoff(aggregateActivities(parseCatalog(bodyOnly))[0])).toBeNull();
+  });
+
+  it('filters concrete deadlines inclusively and orders current identities by cutoff then recency and identity', () => {
+    const catalog = fixture();
+    catalog.activities.push({ id: 'e' }, { id: 'f' }, { id: 'g' });
+    catalog.listings.push(
+      listing('e-list', 'latest', 3, 'Same day', 'Listing category', '2025-01-04'),
+      listing('f-list', 'middle', 6, 'Older issue', 'Listing category', '2025-01-04'),
+    );
+    catalog.details.push(detail('g-body', 'latest', 4, 'Body only', 'Body category', 'text'));
+    catalog.publications.push(
+      { activity_id: 'e', issue_id: 'latest', listing_ids: ['e-list'], detail_id: null },
+      { activity_id: 'f', issue_id: 'middle', listing_ids: ['f-list'], detail_id: null },
+      { activity_id: 'g', issue_id: 'latest', listing_ids: [], detail_id: 'g-body' },
+    );
+    const matches = searchActivities(aggregateActivities(parseCatalog(catalog)), '', '');
+    const ids = (status: 'all' | 'open' | 'passed' | 'unknown', today: string, current = false) =>
+      filterActivityDeadlines(matches, status, today, current).map(match => match.activity.id);
+    expect(ids('unknown', '2025-01-04', true)).toEqual(['c', 'e', 'f', 'a']);
+    expect(ids('open', '2025-01-04')).toEqual(['a', 'c', 'e', 'f']);
+    expect(ids('passed', '2025-02-02')).toEqual(['a', 'c', 'e', 'f']);
+    expect(ids('unknown', '2025-01-04')).toEqual(['b', 'g', 'd']);
+    expect(ids('all', '2025-12-31', true)).toEqual([]); // The older 2025-12-31 listing for a is not its current cutoff.
+    expect(ids('all', '2025-02-01', true)).toEqual(['a']);
   });
 
   it('uses the newest listing title but retains the latest actual older body', () => {

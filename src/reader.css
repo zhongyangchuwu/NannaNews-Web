@@ -98,6 +98,8 @@ button, select, input[type="checkbox"] { cursor: pointer; }
   .header-inner { padding: 10px 16px; }
   .header-note { display: none; }
   .nav-inner { padding: 0 4px; }
+  .nav-inner { overflow-x: auto; }
+  .nav-inner a { padding-inline: 9px; }
   .main { padding: 23px 15px 42px; }
   .page-heading { align-items: start; gap: 14px; padding-bottom: 15px; }
   .page-heading h1 { font-size: 24px; }
@@ -166,6 +168,11 @@ button, select, input[type="checkbox"] { cursor: pointer; }
 .results-count { margin: 0 0 14px; color: var(--muted); font-size: 12px; }
 .activity-list { display: grid; gap: 13px; }
 .activity-card { padding: 19px 21px; border: 1px solid var(--line); background: var(--paper); overflow-wrap: anywhere; }
+.current-card { padding: 12px 16px; }
+.activity-card.current-card h2 { margin-bottom: 4px; font-size: 16px; }
+.current-deadline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 3px 0; color: var(--teal-dark); font-size: 12px; }
+.current-deadline time { font-size: 16px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.current-deadline span { font-weight: 650; }
 .entry-heading { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
 .entry-heading > div { min-width: 0; }
 .category { color: var(--teal-dark); font-size: 11px; }
