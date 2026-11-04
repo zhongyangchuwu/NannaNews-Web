@@ -5,6 +5,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      upload_pr:
+        description: 'Upload PR number for non-default-branch testing'
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -15,6 +20,7 @@ concurrency:
 
 jobs:
   check:
+    if: github.event_name != 'workflow_dispatch' || inputs.upload_pr == ''
     runs-on: ubuntu-latest
     timeout-minutes: 15
     outputs:
@@ -45,6 +51,19 @@ jobs:
       - name: Check static bundling with synthetic data only
         run: node tests/prepare-build.mjs && npm run build
       # No artifact from this job is ever deployed. Real local inputs are absent.
+
+  upload-test:
+    if: >-
+      github.event_name == 'workflow_dispatch' && inputs.upload_pr != '' &&
+      github.ref_type == 'branch' && github.ref_name != github.event.repository.default_branch
+    permissions:
+      contents: write
+      pull-requests: read
+      checks: write
+    uses: ./.github/workflows/pdf-upload.yml
+    with:
+      pr_number: ${{ inputs.upload_pr }}
+      base_ref: ${{ github.ref_name }}
 
   content:
     needs: check
