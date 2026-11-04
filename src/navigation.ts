@@ -21,12 +21,13 @@ export function diaryLink(date: string | null, view: DiarySection = 'new', optio
   return { pathname: '/', search: params.size ? `?${params}` : '' };
 }
 
-export function activityLink(id: string | null, mode: 'activities' | 'favorites' = 'activities', options: Filters & { back?: string } = {}): ReaderLink {
+export function activityLink(id: string | null, mode: 'activities' | 'current' | 'favorites' = 'activities', options: Filters & { status?: 'passed' | 'unknown'; back?: string } = {}): ReaderLink {
   const params = new URLSearchParams();
   if (id) params.set('activity', id);
   if (options.q) params.set('q', options.q);
   if (options.category) params.set('category', options.category);
   if (options.open) params.set('open', '1');
+  if (options.status) params.set('status', options.status);
   if (options.back) params.set('back', options.back);
   return { pathname: `/${mode}`, search: params.size ? `?${params}` : '' };
 }
@@ -36,9 +37,9 @@ export function returnTarget(raw: string | null): ReaderLink | null {
   if (!raw || !raw.startsWith('/') || raw.startsWith('//') || raw.includes('\\')) return null;
   let url: URL;
   try { url = new URL(raw, 'https://reader.invalid'); } catch { return null; }
-  if (url.origin !== 'https://reader.invalid' || !['/', '/activities', '/favorites'].includes(url.pathname) || url.hash) return null;
+  if (url.origin !== 'https://reader.invalid' || !['/', '/current', '/activities', '/favorites'].includes(url.pathname) || url.hash) return null;
   const params = new URLSearchParams();
-  const allowed = url.pathname === '/' ? ['date', 'view', 'q', 'category', 'open', 'detail', 'row', 'missing'] : ['activity', 'q', 'category', 'open'];
+  const allowed = url.pathname === '/' ? ['date', 'view', 'q', 'category', 'open', 'detail', 'row', 'missing'] : ['activity', 'q', 'category', 'open', 'status'];
   for (const key of allowed) {
     const value = url.searchParams.get(key);
     if (value) params.set(key, value);
@@ -46,6 +47,7 @@ export function returnTarget(raw: string | null): ReaderLink | null {
   if (params.has('date') && !isCalendarDate(params.get('date'))) return null;
   if (params.has('view') && !['new', 'list'].includes(params.get('view')!)) return null;
   if (params.has('open') && params.get('open') !== '1') return null;
+  if (params.has('status') && !['passed', 'unknown'].includes(params.get('status')!)) return null;
   return { pathname: url.pathname, search: params.size ? `?${params}` : '' };
 }
 

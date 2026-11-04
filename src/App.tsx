@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, NavLink, useLocation, useNavigate, useSearchParams } from 'react-router';
 import { beijingToday, entryCutoff, filterEntries, indexDetails, listingGroups, parseCatalog, resolveDetail, resolveIdentity, safeSourceUrl } from './reader';
 import type { DetailSource as DatedDetail } from './reader';
-import { aggregateActivities, activityCutoff, searchActivities } from './activities';
-import type { ActivityMatch, ActivityView } from './activities';
+import { aggregateActivities, activityCutoff, filterActivityDeadlines, searchActivities } from './activities';
+import type { ActivityMatch, ActivityView, DeadlineStatus } from './activities';
 import { buildDiaryIndex, diaryDay, diaryWindow, formatSourceDate, isCalendarDate, openDiaryPublications, recentRecordedDay, shiftDay } from './diary';
 import type { DiaryDay, PrintedMessage } from './diary';
 import { activityLink, diaryLink, legacyLocation, returnKey, returnTarget, sourceLink } from './navigation';
@@ -43,6 +43,7 @@ function SourceLinks({ urls, label = '原文' }: { urls: string[]; label?: strin
 
 function returnLabel(target: ReaderLink): string {
   const params = new URLSearchParams(target.search);
+  if (target.pathname === '/current') return params.has('activity') ? '返回活动详情' : '返回当前活动';
   if (target.pathname === '/activities') return params.has('activity') ? '返回活动详情' : '返回所有活动';
   if (target.pathname === '/favorites') return params.has('activity') ? '返回收藏活动' : '返回我的收藏';
   return params.get('view') === 'list' ? '返回原刊清单' : '返回当天新增';
@@ -86,15 +87,15 @@ function DateNavigation({ index, day, today, followToday, view, query, category,
   </section>;
 }
 
-function Filters({ query, category, categories, openOnly, onChange, clear, showCutoff, activityMode = false }: {
-  query: string; category: string; categories: string[]; openOnly: boolean;
+function Filters({ query, category, categories, openOnly, onChange, clear, showCutoff, activityMode = false, status = 'all' }: {
+  query: string; category: string; categories: string[]; openOnly: boolean; status?: DeadlineStatus;
   onChange: (key: string, value: string) => void; clear: () => void; showCutoff: boolean; activityMode?: boolean;
 }) {
   return <div className="filters">
     <label className="search">关键词<input type="search" value={query} onChange={event => onChange('q', event.target.value)} placeholder={activityMode ? '搜索所有刊载标题与正文' : '搜索当天原刊标题与正文'} /></label>
     <label>{activityMode ? '曾刊栏目' : '栏目'}<select value={category} onChange={event => onChange('category', event.target.value)}><option value="">全部栏目</option>{category && !categories.includes(category) && <option value={category}>{category}</option>}{categories.map(value => <option key={value} value={value}>{value}</option>)}</select></label>
-    {showCutoff && <button className="filter-toggle" type="button" aria-pressed={openOnly} onClick={() => onChange('open', openOnly ? '' : '1')}>只看未过清单截止</button>}
-    {(query || category || openOnly) && <button className="clear-filter" type="button" onClick={clear}>清除筛选</button>}
+    {showCutoff && (activityMode ? <label>截止状态<select value={status} onChange={event => onChange('status', event.target.value)}><option value="all">全部截止状态</option><option value="open">未过截止</option><option value="passed">已过截止</option><option value="unknown">截止未知</option></select></label> : <button className="filter-toggle" type="button" aria-pressed={openOnly} onClick={() => onChange('open', openOnly ? '' : '1')}>只看未过清单截止</button>)}
+    {(query || category || openOnly || (showCutoff && status !== 'all')) && <button className="clear-filter" type="button" onClick={clear}>清除筛选</button>}
   </div>;
 }
 
@@ -125,18 +126,21 @@ function ListingTable({ entries, issueMap, detailIndex, favorites, toggle, today
 }
 
 function ActivityCards({ matches, favorites, toggle, mode, context, today }: {
-  matches: ActivityMatch[]; favorites: Favorites; toggle: (id: string) => void; mode: 'activities' | 'favorites'; context: ReaderLink; today: string;
+  matches: ActivityMatch[]; favorites: Favorites; toggle: (id: string) => void; mode: 'activities' | 'current' | 'favorites'; context: ReaderLink; today: string;
 }) {
   const contextParams = new URLSearchParams(context.search);
-  const recordOptions = { q: contextParams.get('q') ?? '', category: contextParams.get('category') ?? '', open: contextParams.get('open') === '1', back: returnKey(context) };
+  const status = contextParams.get('status');
+  const recordOptions = { q: contextParams.get('q') ?? '', category: contextParams.get('category') ?? '', open: contextParams.get('open') === '1', status: status === 'passed' || status === 'unknown' ? status : undefined, back: returnKey(context) } as const;
   return <div className="activity-list">{matches.map(({ activity, hits }) => {
     const cutoff = activityCutoff(activity);
     const raw = activity.latestListing?.publication.listings.map(row => row.cutoff_raw).filter(Boolean).join('／') ?? '';
     const hit = hits[0];
     const hitLink = hit ? hit.kind === 'detail' ? sourceLink(hit.issue, hit.source.id, context) : diaryLink(hit.issue.date, 'list', { row: hit.source.id, back: returnKey(context) }) : null;
-    return <article className="activity-card" key={activity.id}>
+    const days = cutoff ? Math.round((Date.parse(`${cutoff}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / 86400000) : null;
+    return <article className={`activity-card${mode === 'current' ? ' current-card' : ''}`} key={activity.id}>
       <div className="entry-heading"><div><span className="category">{activity.categories.filter(Boolean).join(' / ') || '未分类'}</span><h2><Link to={activityLink(activity.id, mode, recordOptions)}>{activity.title}</Link></h2></div><Bookmark id={activity.id} title={activity.title} favorites={favorites} toggle={toggle} /></div>
-      <p className="activity-meta"><span>最近刊载 {activity.latestPublication.issue.date}</span><span>{activity.publications.length} 次刊载</span>{activity.latestListing && <span className={cutoff && cutoff < today ? 'past-cutoff' : ''}>最近清单截止 {formatSourceDate(cutoff, raw)}</span>}</p>
+      {mode === 'current' && cutoff && <p className="current-deadline">清单截止 <time dateTime={cutoff}>{cutoff}</time><span>{days === 0 ? '今天截止' : `还有 ${days} 天`}</span></p>}
+      <p className="activity-meta"><span>最近刊载 {activity.latestPublication.issue.date}</span><span>{activity.publications.length} 次刊载</span>{mode !== 'current' && <span className={cutoff && cutoff < today ? 'past-cutoff' : ''}>最近清单截止 {activity.latestListing ? formatSourceDate(cutoff, raw) : '未知'}</span>}</p>
       <div className="activity-actions"><Link to={activityLink(activity.id, mode, recordOptions)}>活动详情与刊载历史</Link><span className="muted">{activity.detail ? `详解刊于 ${activity.detail.issue.date}` : '尚未收录原刊详解'}</span></div>
       {hit && hitLink && <p className="search-origin"><Link to={hitLink}>匹配来源：{hit.issue.date} · 第 {hit.issue.number} 期 · {hit.kind === 'detail' ? '原刊正文' : '清单标题'}</Link></p>}
     </article>;
@@ -169,9 +173,9 @@ export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  const activityMode = location.pathname === '/favorites' ? 'favorites' : 'activities';
+  const activityMode = location.pathname === '/favorites' ? 'favorites' : location.pathname === '/current' ? 'current' : 'activities';
   const diaryMode = location.pathname === '/' || location.pathname === '/history';
-  const knownPath = diaryMode || ['/activities', '/favorites'].includes(location.pathname);
+  const knownPath = diaryMode || ['/current', '/activities', '/favorites'].includes(location.pathname);
   const section: DiarySection = params.get('view') === 'list' ? 'list' : 'new';
   const dateParam = params.get('date');
   const selectedDate = isCalendarDate(dateParam) ? dateParam : today;
@@ -179,6 +183,8 @@ export default function App() {
   const query = params.get('q') ?? '';
   const category = params.get('category') ?? '';
   const openOnly = params.get('open') === '1' && (!diaryMode || section === 'list');
+  const statusParam = params.get('status');
+  const deadlineStatus: DeadlineStatus = statusParam === 'passed' || statusParam === 'unknown' ? statusParam : openOnly ? 'open' : 'all';
   const selectedActivityKey = diaryMode ? null : params.get('activity');
 
   useEffect(() => {
@@ -219,7 +225,7 @@ export default function App() {
   const unknownFavorites = catalog ? favorites.ids.filter(id => !resolveIdentity(catalog, id)) : [];
   const favoriteCount = favoriteIds.size + unknownFavorites.length;
   const aggregateScope = activityMode === 'favorites' ? activities.filter(activity => favoriteIds.has(activity.id)) : activities;
-  const activityResults = diaryMode ? [] : searchActivities(aggregateScope, query, category).filter(({ activity }) => !openOnly || !activity.latestListing || activityCutoff(activity) === null || activityCutoff(activity)! >= today);
+  const activityResults = diaryMode ? [] : filterActivityDeadlines(searchActivities(aggregateScope, query, category), deadlineStatus, today, activityMode === 'current');
   const selectedIdentity = catalog && selectedActivityKey ? resolveIdentity(catalog, selectedActivityKey) : null;
   const selectedActivity = selectedIdentity ? activities.find(activity => activity.id === selectedIdentity) : undefined;
   const categories = [...new Set(diaryMode ? day.publications.flatMap(publication => [...publication.listings.map(row => row.category), publication.detail?.category ?? '']) : aggregateScope.flatMap(activity => activity.categories))].filter(Boolean).sort((a, b) => a.localeCompare(b, 'zh-CN'));
@@ -230,8 +236,9 @@ export default function App() {
   const listingCount = listPublications.reduce((count, publication) => count + publication.listings.filter(row => !category || row.category === category).length, 0);
   const dateContext = { q: query, category, open: openOnly };
   const diaryContext = diaryLink(selectedDate, section, dateContext);
-  const aggregateContext = activityLink(null, activityMode, { q: query, category, open: openOnly });
-  const currentContext = diaryMode ? diaryContext : selectedActivity ? activityLink(selectedActivity.id, activityMode, { q: query, category, open: openOnly }) : aggregateContext;
+  const activityFilters = { q: query, category, open: activityMode !== 'current' && deadlineStatus === 'open', status: activityMode !== 'current' && (deadlineStatus === 'passed' || deadlineStatus === 'unknown') ? deadlineStatus : undefined } as const;
+  const aggregateContext = activityLink(null, activityMode, activityFilters);
+  const currentContext = diaryMode ? diaryContext : selectedActivity ? activityLink(selectedActivity.id, activityMode, activityFilters) : aggregateContext;
   const origin = returnTarget(params.get('back'));
   const back = origin ?? (diaryMode ? diaryLink(selectedDate, 'list') : aggregateContext);
   const legacy = catalog && ['/', '/history', '/favorites'].includes(location.pathname) && !selectedActivityKey ? legacyLocation(catalog, location.pathname, params, today) : null;
@@ -252,7 +259,11 @@ export default function App() {
   function changeFilter(key: string, value: string) {
     const next = new URLSearchParams(params);
     for (const name of ['detail', 'row', 'back', 'missing']) next.delete(name);
-    if (value) next.set(key, value); else next.delete(key);
+    if (key === 'status') {
+      next.delete('open'); next.delete('status');
+      if (value === 'open') next.set('open', '1');
+      else if (value === 'passed' || value === 'unknown') next.set('status', value);
+    } else if (value) next.set(key, value); else next.delete(key);
     navigate({ pathname: location.pathname, search: next.size ? `?${next}` : '' }, { replace: key === 'q' });
   }
   function clearFilters() {
@@ -278,7 +289,7 @@ export default function App() {
 
   return <div className="app">
     <header className="header"><div className="header-inner"><NavLink className="brand" to="/"><span className="brand-mark" aria-hidden="true">南</span><span>NannaNews <small>消息阅读</small></span></NavLink><span className="header-note">按日报读新增，按活动查资料</span></div>
-      <nav className="navigation" aria-label="主要导航"><div className="nav-inner"><NavLink end to="/">日报</NavLink><NavLink to="/activities">所有活动</NavLink><NavLink to="/favorites">我的收藏<span className="nav-count">{favoriteCount || ''}</span></NavLink></div></nav>
+      <nav className="navigation" aria-label="主要导航"><div className="nav-inner"><NavLink end to="/">日报</NavLink><NavLink to="/current">当前活动</NavLink><NavLink to="/activities">所有活动</NavLink><NavLink to="/favorites">我的收藏<span className="nav-count">{favoriteCount || ''}</span></NavLink></div></nav>
     </header>
     <main className="main">
       {favorites.error && <p className="notice" role="alert">{favorites.error}</p>}
@@ -311,12 +322,12 @@ export default function App() {
             })}
           </section>}
         </>}
-      </> : selectedActivityKey ? selectedActivity ? <ActivityRecord activity={selectedActivity} favorites={displayFavorites} toggle={toggleFavorite} back={back} context={currentContext} /> : <div className="empty"><h1>暂时无法对应这条活动</h1><p>旧身份或资料尚未恢复时，不猜测另一条活动替代它。</p><Link to={aggregateContext}>返回{activityMode === 'favorites' ? '我的收藏' : '所有活动'}</Link></div> : <>
-        <div className="page-heading"><div><p className="eyebrow">{activityMode === 'favorites' ? '用户收藏独立于原刊数据' : '按稳定身份聚合，不按刊期重复列出'}</p><h1>{activityMode === 'favorites' ? '我的收藏' : '所有活动'}</h1></div><span className="section-count">{activityMode === 'favorites' ? favoriteIds.size : activities.length} 个已收录活动</span></div>
-        <Filters query={query} category={category} categories={categories} openOnly={openOnly} onChange={changeFilter} clear={clearFilters} showCutoff activityMode />
-        <p className="context">同一活动只列一次，按最近真实刊载排序。搜索涵盖所有已收录标题和正文；清单截止来自最近一份有清单的刊载，不表示报名仍开放。</p>
+      </> : selectedActivityKey ? selectedActivity ? <ActivityRecord activity={selectedActivity} favorites={displayFavorites} toggle={toggleFavorite} back={back} context={currentContext} /> : <div className="empty"><h1>暂时无法对应这条活动</h1><p>旧身份或资料尚未恢复时，不猜测另一条活动替代它。</p><Link to={aggregateContext}>返回{activityMode === 'favorites' ? '我的收藏' : activityMode === 'current' ? '当前活动' : '所有活动'}</Link></div> : <>
+        <div className="page-heading"><div><p className="eyebrow">{activityMode === 'favorites' ? '用户收藏独立于原刊数据' : '按稳定身份聚合，不按刊期重复列出'}</p><h1>{activityMode === 'favorites' ? '我的收藏' : activityMode === 'current' ? '当前活动' : '所有活动'}</h1></div><span className="section-count">{activityMode === 'current' ? `${activityResults.length} 个匹配活动` : `${activityMode === 'favorites' ? favoriteIds.size : activities.length} 个已收录活动`}</span></div>
+        <Filters query={query} category={category} categories={categories} openOnly={activityMode !== 'current' && openOnly} status={deadlineStatus} onChange={changeFilter} clear={clearFilters} showCutoff={activityMode !== 'current'} activityMode />
+        <p className="context">{activityMode === 'current' ? `按北京时间 ${today} 筛选，截止当天保留，未知截止不列出；按截止日期升序排列。` : '同一活动只列一次，按最近真实刊载排序。'}搜索涵盖所有已收录标题和正文；清单截止来自最近一份有清单的刊载，不表示报名仍开放。{activityMode === 'current' && <> <Link to={activityLink(null, 'activities', { status: 'unknown' })}>查找截止未知的活动</Link></>}</p>
         <p className="results-count" role="status">当前匹配 {activityResults.length} 个活动</p>
-        {!activityResults.length ? <div className="empty"><p>{query || category || openOnly ? '没有符合筛选条件的活动。' : activityMode === 'favorites' ? (favorites.ids.length ? '已保存的收藏暂时无法对应当前活动，原记录仍保留。' : '还没有收藏的活动，点击收藏按钮即可保存在本机。') : '当前资料中还没有已收录活动。'}</p>{(query || category || openOnly) && <button type="button" onClick={clearFilters}>清除筛选</button>}</div> : <ActivityCards matches={activityResults} favorites={displayFavorites} toggle={toggleFavorite} mode={activityMode} context={aggregateContext} today={today} />}
+        {!activityResults.length ? <div className="empty"><p>{query || category || (activityMode !== 'current' && deadlineStatus !== 'all') ? '没有符合筛选条件的活动。' : activityMode === 'current' ? '当前没有已知截止日期尚未过去的活动。' : activityMode === 'favorites' ? (favorites.ids.length ? '已保存的收藏暂时无法对应当前活动，原记录仍保留。' : '还没有收藏的活动，点击收藏按钮即可保存在本机。') : '当前资料中还没有已收录活动。'}</p>{(query || category || (activityMode !== 'current' && deadlineStatus !== 'all')) && <button type="button" onClick={clearFilters}>清除筛选</button>}</div> : <ActivityCards matches={activityResults} favorites={displayFavorites} toggle={toggleFavorite} mode={activityMode} context={aggregateContext} today={today} />}
         {activityMode === 'favorites' && unknownFavorites.length > 0 && <p className="context">{unknownFavorites.length} 条历史收藏暂时无法对应当前活动，原记录已保留，不自动删除。</p>}
       </>)}
       {catalog && <p className="page-footnote">日期导航按原刊刊期，不是活动发生日期。“未收录”不代表没有消息。原刊内容不补写或校对，参与方式请以原始通知为准。</p>}

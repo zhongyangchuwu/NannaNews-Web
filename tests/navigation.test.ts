@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { activityLink, diaryLink, legacyLocation, returnKey, returnTarget } from '../src/navigation';
+import { activityLink, diaryLink, legacyLocation, returnKey, returnTarget, sourceLink } from '../src/navigation';
 import type { BulletinCatalog, BulletinIssue } from '../src/types';
 
 const issue = (id: string, date: string, number: number): BulletinIssue => ({ id, date, number, title: id, filename: `${id}.pdf`, sha256: number.toString(16).padStart(64, '0'), extraction_version: 'test' });
@@ -75,4 +75,20 @@ it('only accepts internal reading locations as return targets and drops nested r
   expect(params.get('open')).toBe('1');
   expect(params.has('back')).toBe(false);
   expect(returnTarget(returnKey(safe))).toEqual(safe);
+});
+
+it('retains activity filters through record and source returns on each activity route', () => {
+  for (const mode of ['current', 'activities', 'favorites'] as const) {
+    const filters = { q: '原文', category: '活动', ...(mode === 'current' ? {} : { status: 'unknown' as const }) };
+    const index = activityLink(null, mode, filters);
+    const record = activityLink('activity', mode, { ...filters, back: returnKey(index) });
+    expect(returnTarget(new URLSearchParams(record.search).get('back'))).toEqual(index);
+    const source = sourceLink(catalog.issues[0], 'old-body', record);
+    const returnedRecord = returnTarget(new URLSearchParams(source.search).get('back'))!;
+    expect(returnedRecord).toEqual(activityLink('activity', mode, filters));
+    expect(returnTarget(returnKey(activityLink(null, mode, filters)))).toEqual(index);
+  }
+  expect(returnTarget('/activities?status=unexpected')).toBeNull();
+  const open = activityLink(null, 'favorites', { open: true });
+  expect(returnTarget(returnKey(open))).toEqual(open);
 });

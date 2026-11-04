@@ -78,3 +78,19 @@ export function searchActivities(activities: readonly ActivityView[], query: str
 export function activityCutoff(activity: ActivityView): string | null {
   return activity.latestListing ? entryCutoff(activity.latestListing.publication) : null;
 }
+
+export type DeadlineStatus = 'all' | 'open' | 'passed' | 'unknown';
+
+/** Filter identity matches by their latest listing snapshot; current results are deadline ordered. */
+export function filterActivityDeadlines(matches: ActivityMatch[], status: DeadlineStatus, today: string, current = false): ActivityMatch[] {
+  const filtered = matches.filter(({ activity }) => {
+    const cutoff = activityCutoff(activity);
+    if (current || status === 'open') return cutoff !== null && cutoff >= today;
+    if (status === 'passed') return cutoff !== null && cutoff < today;
+    if (status === 'unknown') return cutoff === null;
+    return true;
+  });
+  if (current) filtered.sort((a, b) => activityCutoff(a.activity)!.localeCompare(activityCutoff(b.activity)!) ||
+    compareIssues(a.activity.latestPublication.issue, b.activity.latestPublication.issue) || a.activity.id.localeCompare(b.activity.id));
+  return filtered;
+}
