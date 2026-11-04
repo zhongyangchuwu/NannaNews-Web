@@ -29,6 +29,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0 # Validate original links against their pinned source commit.
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '24'
@@ -49,7 +50,7 @@ jobs:
       - run: npm test
       - run: python -m pytest -q
       - name: Check static bundling with synthetic data only
-        run: node tests/prepare-build.mjs && npm run build
+        run: node tests/prepare-build.mjs && npm run check && npx vite build
       # No artifact from this job is ever deployed. Real local inputs are absent.
 
   upload-test:
@@ -78,10 +79,17 @@ jobs:
         with:
           node-version: '24'
       - run: npm ci --ignore-scripts
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
       - name: Stage reviewed canonical master read-only
         run: npm run stage:data -- data/catalog.json
+      - name: Stage pinned complete historical resources and original metadata
+        run: npm run stage:history
       - name: Validate and build publication
         run: npm run build
+      - name: Check total Pages publication size
+        run: node scripts/check-site-size.mjs
       - name: Package real publication only
         if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

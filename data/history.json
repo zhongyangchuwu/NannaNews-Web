@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "generator": "nannanews-history-source-v1",
+  "repository": "zhongyangchuwu/NannaNews-Web",
+  "data_version": "01fac6fe6df4ea1f1808cc0a3a72fa12a8e0674d802127e4dd67442de80da5e1",
+  "counts": {
+    "documents": 511,
+    "images": 3103,
+    "issues": 510,
+    "items": 7140,
+    "occurrences": 27487,
+    "pdfs": 2
+  },
+  "archive": {
+    "url": "https://github.com/zhongyangchuwu/NannaNews-Web/releases/download/history-archive-01fac6fe/history-resources-01fac6fe.zip",
+    "size": 866100307,
+    "sha256": "762f56d4cbff0793ce0e3a24b62e892c33874f84d9ef741eff38f7f11b7ecb22"
+  }
+}

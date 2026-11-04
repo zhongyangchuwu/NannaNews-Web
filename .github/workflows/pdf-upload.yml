@@ -84,6 +84,7 @@ jobs:
         with:
           ref: ${{ github.sha }}
           persist-credentials: false
+          fetch-depth: 0 # Verify original links against the reviewed historical source commit.
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: pdf-upload-candidate
@@ -115,9 +116,11 @@ jobs:
           node --experimental-strip-types scripts/published-inputs.mjs
           npm test
           python -m pytest -q
-          node tests/prepare-build.mjs && npm run build
+          node tests/prepare-build.mjs && npm run check && npx vite build
           npm run stage:data -- data/catalog.json
+          npm run stage:history
           npm run build
+          node scripts/check-site-size.mjs
           git diff --exit-code
           cmp data/catalog.json upload-artifact/catalog.json
 

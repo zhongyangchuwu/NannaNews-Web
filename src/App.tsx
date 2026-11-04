@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, NavLink, useLocation, useNavigate, useSearchParams } from 'react-router';
 import { DiaryCalendar } from './DiaryCalendar';
+import { HistoryArchive } from './HistoryArchive';
 import { beijingToday, entryCutoff, filterEntries, indexDetails, listingGroups, parseCatalog, resolveDetail, resolveIdentity, safeSourceUrl } from './reader';
 import type { DetailSource as DatedDetail } from './reader';
 import { aggregateActivities, activityCutoff, filterActivityDeadlines, searchActivities } from './activities';
@@ -151,7 +152,8 @@ export default function App() {
   const [params] = useSearchParams();
   const activityMode = location.pathname === '/favorites' ? 'favorites' : location.pathname === '/current' ? 'current' : 'activities';
   const diaryMode = location.pathname === '/' || location.pathname === '/history';
-  const knownPath = diaryMode || ['/current', '/activities', '/favorites'].includes(location.pathname);
+  const archiveMode = location.pathname === '/archive';
+  const knownPath = diaryMode || archiveMode || ['/current', '/activities', '/favorites'].includes(location.pathname);
   const section: DiarySection = params.get('view') === 'list' ? 'list' : 'new';
   const dateParam = params.get('date');
   const selectedDate = isCalendarDate(dateParam) ? dateParam : today;
@@ -247,7 +249,7 @@ export default function App() {
   }
   function toggleFavorite(id: string) {
     if (favorites.error) return;
-    const ids = favoriteIds.has(id) ? favorites.ids.filter(item => !catalog || resolveIdentity(catalog, item) !== id) : [...favorites.ids, id];
+    const ids = favoriteIds.has(id) ? favorites.ids.filter(item => !catalog || resolveIdentity(catalog, item) !== id) : favorites.ids.includes(id) ? favorites.ids.filter(item => item !== id) : [...favorites.ids, id];
     try { localStorage.setItem(storageKey, JSON.stringify(ids)); setFavorites({ ids, error: null }); }
     catch { setFavorites({ ids: favorites.ids, error: '无法保存本地收藏，本次更改未保存。请检查浏览器存储设置。' }); }
   }
@@ -265,13 +267,13 @@ export default function App() {
 
   return <div className="app">
     <header className="header"><div className="header-inner"><NavLink className="brand" to="/"><span className="brand-mark" aria-hidden="true">南</span><span>NannaNews <small>消息阅读</small></span></NavLink><span className="header-note">按日报读新增，按活动查资料</span></div>
-      <nav className="navigation" aria-label="主要导航"><div className="nav-inner"><NavLink end to="/">日报</NavLink><NavLink to="/current">当前活动</NavLink><NavLink to="/activities">所有活动</NavLink><NavLink to="/favorites">我的收藏<span className="nav-count">{favoriteCount || ''}</span></NavLink></div></nav>
+      <nav className="navigation" aria-label="主要导航"><div className="nav-inner"><NavLink end to="/">日报</NavLink><NavLink to="/current">当前活动</NavLink><NavLink to="/activities">所有活动</NavLink><NavLink to="/archive">历史档案</NavLink><NavLink to="/favorites">我的收藏<span className="nav-count">{favoriteCount || ''}</span></NavLink></div></nav>
     </header>
     <main className="main">
       {favorites.error && <p className="notice" role="alert">{favorites.error}</p>}
       {load.status === 'loading' && <p className="empty" role="status">正在读取已收录的日报资料…</p>}
       {load.status === 'error' && <div className="empty" role="alert"><h1>资料读取失败</h1><p>{load.message}</p><p>读取失败不表示今天没有新消息。</p><button type="button" onClick={() => setAttempt(value => value + 1)}>重试</button></div>}
-      {catalog && (!knownPath || invalidLegacyIssue ? <div className="empty"><h1>暂时无法对应这个阅读链接</h1><p>原刊期或消息可能尚未收录，不会替换成其他刊期的内容。</p><Link to="/">回到今天的日报</Link> · <Link to="/activities">查找所有已收录活动</Link></div> : diaryMode ? <>
+      {catalog && (archiveMode ? <HistoryArchive nativeIssues={catalog.issues} favoriteIds={favorites.ids} favoritesDisabled={!!favorites.error} toggleFavorite={toggleFavorite} /> : !knownPath || invalidLegacyIssue ? <div className="empty"><h1>暂时无法对应这个阅读链接</h1><p>原刊期或消息可能尚未收录，不会替换成其他刊期的内容。</p><Link to="/">回到今天的日报</Link> · <Link to="/activities">查找所有已收录活动</Link></div> : diaryMode ? <>
         <div className="page-heading"><div><p className="eyebrow">{followToday ? '默认跟随北京时间今天' : '按原刊日期阅读'}</p><h1>{selectedDate} 日报</h1></div><span className="issue-stamp">{day.issues.length ? `${day.issues.length} 期已收录` : '暂无已收录日报'}</span></div>
         {origin && <p className="context origin-return"><Link to={origin}>← {returnLabel(origin)}</Link></p>}
         {dateParam && !isCalendarDate(dateParam) && <p className="notice" role="status">链接中的日期无效，当前显示北京时间今天。</p>}
@@ -300,13 +302,15 @@ export default function App() {
         </>}
       </> : selectedActivityKey ? selectedActivity ? <ActivityRecord activity={selectedActivity} favorites={displayFavorites} toggle={toggleFavorite} back={back} context={currentContext} /> : <div className="empty"><h1>暂时无法对应这条活动</h1><p>旧身份或资料尚未恢复时，不猜测另一条活动替代它。</p><Link to={aggregateContext}>返回{activityMode === 'favorites' ? '我的收藏' : activityMode === 'current' ? '当前活动' : '所有活动'}</Link></div> : <>
         <div className="page-heading"><div><p className="eyebrow">{activityMode === 'favorites' ? '用户收藏独立于原刊数据' : '按稳定身份聚合，不按刊期重复列出'}</p><h1>{activityMode === 'favorites' ? '我的收藏' : activityMode === 'current' ? '当前活动' : '所有活动'}</h1></div><span className="section-count">{activityMode === 'current' ? `${activityResults.length} 个匹配活动` : `${activityMode === 'favorites' ? favoriteIds.size : activities.length} 个已收录活动`}</span></div>
+        {activityMode === 'activities' && <p className="history-entry">寻找更早的资料？<Link to="/archive">浏览完整历史档案（活动、刊期与原件） →</Link></p>}
         <Filters query={query} category={category} categories={categories} openOnly={activityMode !== 'current' && openOnly} status={deadlineStatus} onChange={changeFilter} clear={clearFilters} showCutoff={activityMode !== 'current'} activityMode />
         <p className="context">{activityMode === 'current' ? `按北京时间 ${today} 筛选，截止当天保留，未知截止不列出；按截止日期升序排列。` : '同一活动只列一次，按最近真实刊载排序。'}搜索涵盖所有已收录标题和正文；清单截止来自最近一份有清单的刊载，不表示报名仍开放。{activityMode === 'current' && <> <Link to={activityLink(null, 'activities', { status: 'unknown' })}>查找截止未知的活动</Link></>}</p>
         <p className="results-count" role="status">当前匹配 {activityResults.length} 个活动</p>
         {!activityResults.length ? <div className="empty"><p>{query || category || (activityMode !== 'current' && deadlineStatus !== 'all') ? '没有符合筛选条件的活动。' : activityMode === 'current' ? '当前没有已知截止日期尚未过去的活动。' : activityMode === 'favorites' ? (favorites.ids.length ? '已保存的收藏暂时无法对应当前活动，原记录仍保留。' : '还没有收藏的活动，点击收藏按钮即可保存在本机。') : '当前资料中还没有已收录活动。'}</p>{(query || category || (activityMode !== 'current' && deadlineStatus !== 'all')) && <button type="button" onClick={clearFilters}>清除筛选</button>}</div> : <ActivityCards matches={activityResults} favorites={displayFavorites} toggle={toggleFavorite} mode={activityMode} context={aggregateContext} today={today} />}
-        {activityMode === 'favorites' && unknownFavorites.length > 0 && <p className="context">{unknownFavorites.length} 条历史收藏暂时无法对应当前活动，原记录已保留，不自动删除。</p>}
+        {activityMode === 'favorites' && favorites.ids.some(id => id.startsWith('item-')) && <HistoryArchive nativeIssues={catalog.issues} favoriteIds={favorites.ids} favoritesDisabled={!!favorites.error} toggleFavorite={toggleFavorite} favoritesOnly />}
+        {activityMode === 'favorites' && unknownFavorites.some(id => !id.startsWith('item-')) && <p className="context">部分收藏暂时无法对应当前活动，原记录已保留，不自动删除。</p>}
       </>)}
-      {catalog && <p className="page-footnote">日期导航按原刊刊期，不是活动发生日期。“未收录”不代表没有消息。原刊内容不补写或校对，参与方式请以原始通知为准。</p>}
+      {catalog && !archiveMode && <p className="page-footnote">日期导航按原刊刊期，不是活动发生日期。“未收录”不代表没有消息。日报原刊内容不补写或校对；历史档案为独立整理资料。参与方式请以原始通知为准。</p>}
     </main>
   </div>;
 }
