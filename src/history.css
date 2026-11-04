@@ -1,0 +1,32 @@
+.history-archive { min-width: 0; color: #263b30; }
+.history-archive a { overflow-wrap: anywhere; }
+.history-tabs { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0; border-bottom: 1px solid #cbd8c9; }
+.history-tabs a { padding: .7rem 1rem; color: #365e47; text-decoration: none; }
+.history-tabs a[aria-current='page'] { border-bottom: 3px solid #3d7851; font-weight: 700; }
+.history-entry { padding: 1rem; background: #edf4e9; border-left: 4px solid #5e8c69; }
+.history-entry a { margin-left: .5rem; }
+.history-filters { display: flex; flex-wrap: wrap; align-items: end; gap: .8rem; margin: 1.25rem 0; }
+.history-filters label { display: grid; gap: .35rem; min-width: 0; font-weight: 600; }
+.history-filters label:first-child { flex: 1 1 15rem; }
+.history-filters input, .history-filters select { box-sizing: border-box; max-width: 100%; min-width: 0; padding: .65rem; border: 1px solid #aabdaf; border-radius: 4px; background: #fffefa; color: inherit; font: inherit; }
+.history-list { display: grid; gap: .8rem; }
+.history-list article, .history-occurrence, .history-issue { min-width: 0; padding: 1.1rem; border: 1px solid #d3dfd0; background: #fffef9; border-radius: 4px; overflow-wrap: anywhere; }
+.history-list h3, .history-occurrence h3 { margin: 0 0 .5rem; }
+.history-list p { margin: .5rem 0; }
+.history-title { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+.history-title h2, .history-title h3 { min-width: 0; }
+.history-pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem; margin: 1.5rem 0; }
+.history-pager button { padding: .55rem .9rem; }
+.history-occurrence { margin: 1rem 0; }
+.history-occurrence h4 { margin-bottom: .4rem; }
+.history-body { white-space: pre-wrap; overflow-wrap: anywhere; }
+.history-links { display: flex; flex-wrap: wrap; gap: .5rem 1rem; min-width: 0; }
+.history-links a { min-width: 0; }
+.history-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+.history-images figure { margin: 0; min-width: 0; }
+.history-images img { display: block; max-width: 100%; height: auto; }
+.history-archive pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.history-archive code { overflow-wrap: anywhere; }
+.history-archive details { margin: .75rem 0; }
+.history-archive summary { cursor: pointer; }
+@media (max-width: 390px) { .history-tabs a { padding-inline: .55rem; } .history-list article, .history-occurrence, .history-issue { padding: .8rem; } }

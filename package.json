@@ -4,10 +4,14 @@
   "private": true,
   "type": "module",
   "license": "GPL-3.0-only",
-  "engines": { "node": ">=22.12.0", "npm": ">=10" },
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10"
+  },
   "scripts": {
     "import:pdf": "node scripts/import-pdf.mjs",
     "stage:data": "node --experimental-strip-types scripts/stage-data.ts",
+    "stage:history": "python3 scripts/stage-history.py && node --experimental-strip-types scripts/stage-history-originals.ts",
     "dev": "vite --host 127.0.0.1",
     "check": "tsc -b",
     "test": "vitest run",
@@ -15,6 +19,7 @@
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
+    "minisearch": "7.2.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-router": "8.4.0"
