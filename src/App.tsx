@@ -114,7 +114,7 @@ function ActivityCards({ matches, favorites, toggle, mode, context, today }: {
     const hit = hits[0];
     const hitLink = hit ? hit.kind === 'detail' ? sourceLink(hit.issue, hit.source.id, context) : diaryLink(hit.issue.date, 'list', { row: hit.source.id, back: returnKey(context) }) : null;
     const days = cutoff ? Math.round((Date.parse(`${cutoff}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / 86400000) : null;
-    return <article className={`activity-card${mode === 'current' ? ' current-card' : ''}`} key={activity.id}>
+    return <article className="activity-card" key={activity.id}>
       <div className="entry-heading"><div><span className="category">{activity.categories.filter(Boolean).join(' / ') || '未分类'}</span><h2><Link to={activityLink(activity.id, mode, recordOptions)}>{activity.title}</Link></h2></div><Bookmark id={activity.id} title={activity.title} favorites={favorites} toggle={toggle} /></div>
       {mode === 'current' && cutoff && <p className="current-deadline">清单截止 <time dateTime={cutoff}>{cutoff}</time><span>{days === 0 ? '今天截止' : `还有 ${days} 天`}</span></p>}
       <p className="activity-meta"><span>最近刊载 {activity.latestPublication.issue.date}</span><span>{activity.publications.length} 次刊载</span>{mode !== 'current' && <span className={cutoff && cutoff < today ? 'past-cutoff' : ''}>最近清单截止 {activity.latestListing ? formatSourceDate(cutoff, raw) : '未知'}</span>}</p>
@@ -277,7 +277,11 @@ export default function App() {
         <div className="page-heading"><div><h1>{selectedDate} 日报</h1></div><span className="issue-stamp">{day.issues.length ? `${day.issues.length} 期已收录` : '暂无已收录日报'}</span></div>
         {origin && <p className="context origin-return"><Link to={origin}>← {returnLabel(origin)}</Link></p>}
         {dateParam && !isCalendarDate(dateParam) && <p className="notice" role="status">链接中的日期无效，当前显示北京时间今天。</p>}
-        <DiaryCalendar index={diaryIndex} selectedDate={selectedDate} today={today} followToday={followToday} onSelect={date => navigate(diaryLink(date, section, dateContext))} />
+        <div className="diary-layout">
+          <aside className="diary-sidebar" aria-label="日期导航">
+            <DiaryCalendar index={diaryIndex} selectedDate={selectedDate} today={today} followToday={followToday} onSelect={date => navigate(diaryLink(date, section, dateContext))} />
+          </aside>
+          <div className="diary-content">
         <nav className="diary-views" aria-label="日报阅读视图"><Link to={diaryLink(followToday ? null : selectedDate, 'new', dateContext)} aria-current={section === 'new' ? 'page' : undefined}>新增消息 <span>{day.state === 'unrecorded' ? '—' : day.details.length}</span></Link><Link to={diaryLink(followToday ? null : selectedDate, 'list', dateContext)} aria-current={section === 'list' ? 'page' : undefined}>原刊清单 <span>{day.state === 'unrecorded' ? '—' : day.publications.reduce((count, pub) => count + pub.listings.length, 0)}</span></Link></nav>
         {day.issues.length > 0 && <p className="context">{day.issues.map(issue => `${issue.date} · 第 ${issue.number} 期`).join('；')}</p>}
         {day.state === 'unrecorded' ? <div className="empty unrecorded-day"><h2>{selectedDate === today ? '今天暂无已收录日报' : '这天暂无已收录日报'}</h2>{(recent || anyRecordedDate) && <Link to={diaryLink(recent ?? anyRecordedDate, section)}>查看{recent ? '最近' : '最早'}已收录日报：{recent ?? anyRecordedDate}</Link>}</div> : <>
@@ -300,6 +304,8 @@ export default function App() {
             })}
           </section>}
         </>}
+          </div>
+        </div>
       </> : selectedActivityKey ? selectedActivity ? <ActivityRecord activity={selectedActivity} favorites={displayFavorites} toggle={toggleFavorite} back={back} context={currentContext} /> : <div className="empty"><h1>暂时无法对应这条活动</h1><p>暂无对应资料。</p><Link to={aggregateContext}>返回{activityMode === 'favorites' ? '我的收藏' : activityMode === 'current' ? '当前活动' : '所有活动'}</Link></div> : <>
         <div className="page-heading"><div><h1>{activityMode === 'favorites' ? '我的收藏' : activityMode === 'current' ? '当前活动' : '所有活动'}</h1></div><span className="section-count" role="status">{activityMode === 'current' ? `${activityResults.length} 个匹配活动` : activityMode === 'favorites' ? `${favoriteIds.size} 个原刊收藏` : `${activities.length} 个已收录活动`}</span></div>
         <Filters query={query} category={category} categories={categories} openOnly={activityMode !== 'current' && openOnly} status={deadlineStatus} onChange={changeFilter} clear={clearFilters} showCutoff={activityMode !== 'current'} activityMode />

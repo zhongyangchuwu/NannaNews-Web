@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { DiaryDay } from './diary';
 import { calendarDayAvailability, calendarMonthForDate, calendarMonthGrid, shiftCalendarMonth } from './calendar';
 import './calendar.css';
@@ -21,6 +21,8 @@ function formatYear(year: number): string {
 export function DiaryCalendar({ index, selectedDate, today, followToday, onSelect }: DiaryCalendarProps) {
   const [viewMonth, setViewMonth] = useState(() => calendarMonthForDate(selectedDate));
   const [yearDraft, setYearDraft] = useState(() => formatYear(calendarMonthForDate(selectedDate).year));
+  const [expanded, setExpanded] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setViewMonth(calendarMonthForDate(selectedDate));
@@ -47,39 +49,45 @@ export function DiaryCalendar({ index, selectedDate, today, followToday, onSelec
     }
     setViewMonth(current => ({ ...current, year }));
   }
+  function collapseCalendar() {
+    if (!expanded) return;
+    setExpanded(false);
+    toggleRef.current?.focus({ preventScroll: true });
+  }
 
 
   function selectDate(date: string) {
     setViewMonth(calendarMonthForDate(date));
+    collapseCalendar();
     onSelect(date);
   }
 
   function returnToToday() {
     setViewMonth(todayMonth);
     setYearDraft(formatYear(todayMonth.year));
+    collapseCalendar();
     onSelect(null);
   }
 
 
-  return <section className="diary-calendar" aria-label="日报日期选择">
+  return <section className="diary-calendar" aria-label="日报日期选择" data-expanded={expanded}>
     <div className="diary-calendar__heading">
-      <div>
-        <h2>日期导航</h2>
-        <p>北京时间 · 选择日期后固定查看</p>
-      </div>
+      <h2>日期导航</h2>
       <button className="diary-calendar__today" type="button" aria-pressed={followToday} onClick={returnToToday}>
         {followToday ? '正在跟随今天' : '回到今天'}
       </button>
+      <button className="diary-calendar__toggle" ref={toggleRef} type="button" aria-expanded={expanded} onClick={() => setExpanded(value => !value)}>{expanded ? '收起' : '选择日期'}</button>
     </div>
+    <div className="diary-calendar__body">
 
     <div className="diary-calendar__controls" aria-label="月份与年份导航">
       <button className="diary-calendar__step" type="button" aria-label="上一个月" disabled={!previousMonth} onClick={() => { if (previousMonth) setViewMonth(previousMonth); }}>←</button>
-      <label className="diary-calendar__month">月份
+      <label className="diary-calendar__month">
         <select aria-label="显示月份" value={viewMonth.month} onChange={event => setViewMonth(current => ({ ...current, month: Number(event.target.value) }))}>
           {MONTH_NAMES.map((name, month) => <option key={month} value={month}>{name}</option>)}
         </select>
       </label>
-      <label className="diary-calendar__year">年份
+      <label className="diary-calendar__year">
         <input aria-label="显示年份" type="number" min={0} max={9999} step={1} inputMode="numeric" value={yearDraft}
           onChange={event => setYearDraft(event.target.value)} onBlur={commitYear}
           onKeyDown={event => { if (event.key === 'Enter') { event.preventDefault(); commitYear(); } }} />
@@ -107,7 +115,7 @@ export function DiaryCalendar({ index, selectedDate, today, followToday, onSelec
           <button className={classes} type="button" data-state={availability.state} aria-label={accessibleLabel}
             aria-current={isToday ? 'date' : undefined} aria-pressed={selected} title={accessibleLabel} onClick={() => selectDate(cell.date)}>
             <span className="diary-calendar__day-number"><time dateTime={cell.date}>{Number(cell.date.slice(8, 10))}</time>{isToday && <span className="diary-calendar__today-mark">今</span>}</span>
-            <span className="diary-calendar__availability">{availability.label}</span>
+            <span className="diary-calendar__availability">{day && availability.state === 'new' ? `${day.details.length}条` : availability.label}</span>
           </button>
         </td>;
       })}</tr>)}</tbody>
@@ -117,6 +125,7 @@ export function DiaryCalendar({ index, selectedDate, today, followToday, onSelec
       <span><i data-state="new" aria-hidden="true" />有新增</span>
       <span><i data-state="no-new" aria-hidden="true" />无新增</span>
       <span><i data-state="unrecorded" aria-hidden="true" />未收录</span>
+    </div>
     </div>
   </section>;
 }
