@@ -28,7 +28,6 @@ button, select, input[type="checkbox"] { cursor: pointer; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-size: 19px; font-weight: 750; text-decoration: none; }
 .brand small { color: var(--muted); font-size: 12px; font-weight: 500; }
 .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--line); background: var(--teal-pale); color: var(--teal); font-family: serif; }
-.header-note { color: var(--muted); font-size: 12px; }
 .navigation { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .nav-inner { display: flex; padding: 0 17px; }
 .nav-inner a { min-height: 47px; padding: 11px 13px 8px; border-bottom: 3px solid transparent; color: var(--soft); font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; }
@@ -48,15 +47,14 @@ button, select, input[type="checkbox"] { cursor: pointer; }
 .filter-toggle, .clear-filter, .empty button { min-height: 40px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); color: var(--soft); font-size: 13px; }
 .filter-toggle[aria-pressed="true"] { border-color: var(--teal); background: var(--teal-pale); color: var(--teal-dark); }
 .clear-filter { border-color: transparent; background: transparent; }
-.context, .page-footnote { margin: 0 0 24px; color: var(--muted); font-size: 12px; }
-.page-footnote { margin: 30px 0 0; padding-top: 15px; border-top: 1px solid var(--line); }
+.context { margin: 0 0 24px; color: var(--muted); font-size: 12px; }
 .notice, .empty { margin: 0 0 20px; padding: 18px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); color: var(--soft); }
 .notice { border-color: #e4d7b9; background: #fff8e8; color: #6a5224; }
 .empty p { margin: 0 0 10px; }
 .section-heading, .section-heading > div { display: flex; align-items: baseline; gap: 10px; }
 .section-heading { justify-content: space-between; flex-wrap: wrap; margin-bottom: 12px; }
 .section-heading h2 { margin: 0; font-size: 19px; }
-.section-count, .section-hint { color: var(--muted); font-size: 12px; }
+.section-count { color: var(--muted); font-size: 12px; }
 .section-empty { margin: 0; padding: 20px; border: 1px dashed var(--line); color: var(--muted); font-size: 13px; }
 .listing-paper { border: 1px solid var(--line); background: var(--paper); }
 .listing-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13px; }
@@ -96,7 +94,6 @@ button, select, input[type="checkbox"] { cursor: pointer; }
 .back-to-list { min-height: 30px; border: 0; padding: 0; background: transparent; color: var(--teal-dark); text-decoration: underline; text-underline-offset: 3px; font-size: 11px; white-space: nowrap; }
 @media (max-width: 760px) {
   .header-inner { padding: 10px 16px; }
-  .header-note { display: none; }
   .nav-inner { padding: 0 4px; }
   .nav-inner { overflow-x: auto; }
   .nav-inner a { padding-inline: 9px; }
@@ -109,7 +106,6 @@ button, select, input[type="checkbox"] { cursor: pointer; }
   .filters label.search { min-width: 150px; }
   .section-heading { gap: 3px 12px; }
   .section-heading h2 { font-size: 18px; }
-  .section-hint { margin-left: 27px; font-size: 11px; }
   .listing-table, .listing-table tbody { display: block; }
   .listing-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   .listing-table tr { display: grid; grid-template-columns: 72px minmax(0, 1fr) minmax(0, 1fr); }
