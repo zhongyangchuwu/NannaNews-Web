@@ -1,4 +1,4 @@
-"""Gate a single public PDF batch and commit its validated catalog to the PR head."""
+"""Validate a public PDF batch, then merge and publish its exact accepted head."""
 import base64
 import hashlib
 import json
@@ -26,13 +26,15 @@ class GitHub:
         self.token, self.repository = token, repository
         self.root = '/repos/' + repository
 
-    def request(self, path, body=None):
+    def request(self, path, body=None, *, method=None):
         data = json.dumps(body).encode() if body is not None else None
         request = Request('https://api.github.com' + path, data=data, headers={
             'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + self.token,
             'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json',
-        })
+        }, method=method)
         with urlopen(request, timeout=30) as response:
+            if response.status == 204:
+                return None
             return json.load(response)
 
     def get(self, path):
@@ -189,6 +191,28 @@ def publish(api, manifest, catalog):
     return sha
 
 
+def auto_publish(api, manifest, head_sha):
+    pr = api.get('/pulls/' + str(manifest['number']))
+    base, head = pr['base'], pr['head']
+    require(pr.get('state') == 'open' and not pr.get('draft'), 'Upload PR is no longer open and ready.')
+    require(base['repo']['full_name'].lower() == api.repository.lower() and
+            base['repo'].get('private') is False and head.get('repo') and
+            head['repo']['id'] == base['repo']['id'], 'Upload repository changed before merge.')
+    require(base['ref'] == manifest['base_ref'] and base['sha'] == manifest['base_sha'],
+            'Base changed after validation; inspect the upload PR before retrying.')
+    require(head['ref'] == manifest['head_ref'] and head['sha'] == head_sha,
+            'Upload head changed after validation; refusing automatic merge.')
+    if base['ref'] != base['repo']['default_branch']:
+        return None
+    result = api.request(api.root + f"/pulls/{manifest['number']}/merge",
+                         {'sha': head_sha, 'merge_method': 'merge'}, method='PUT')
+    require(result.get('merged') is True and bool(re.fullmatch(r'[0-9a-f]{40}', result.get('sha', ''))),
+            'Automatic merge was rejected; inspect the upload PR.')
+    # Token-created pushes do not trigger Actions; dispatch the normal guarded Pages workflow.
+    api.request(api.root + '/actions/workflows/site.yml/dispatches', {'ref': base['ref']})
+    return result['sha']
+
+
 def main():
     if sys.argv[1] == 'validate':
         manifest = json.loads(Path('upload-manifest.json').read_text(encoding='utf-8'))
@@ -210,6 +234,11 @@ def main():
         require(current == previous, 'PR changed while the candidate was being validated.')
         sha = publish(api, current, Path('upload-artifact/catalog.json'))
         print('Validated candidate SHA:', sha)
+        merged = auto_publish(api, current, sha)
+        if merged:
+            print('Automatic publication queued for merged SHA:', merged)
+        else:
+            print('Non-default-branch test: candidate validated without merge or publication.')
     else:
         raise UploadError('Unknown upload operation.')
 
