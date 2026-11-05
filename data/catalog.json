@@ -135,6 +135,15 @@
       "filename": "南哪消息2026.11.01.pdf",
       "sha256": "c46ec61323e0c110b7602b1c6adf4aa9c59890104fd7c381d8edc81127cdae8e",
       "extraction_version": "2.14.4-poppler-xml-1-canonical-3"
+    },
+    {
+      "id": "2026-11-04-469",
+      "date": "2026-11-04",
+      "number": 469,
+      "title": "南哪大专醒前消息",
+      "filename": "南哪消息2026.11.04.pdf",
+      "sha256": "4c69b1d97a7593d46e10fe08dce040f88c0f1269b6642903eca0ad2ab103b1da",
+      "extraction_version": "2.14.4-poppler-xml-1-canonical-3"
     }
   ],
   "activities": [
@@ -2051,6 +2060,81 @@
     },
     {
       "id": "855cd9b483654f5f985c5c32e8b65ac6"
+    },
+    {
+      "id": "e13c69503c5e4a9c8bfa7d2dd87f745a"
+    },
+    {
+      "id": "3120297fce9b4fecbbff8cba0293bb76"
+    },
+    {
+      "id": "da92ada27e124a648d957c937038d1b8"
+    },
+    {
+      "id": "539865cd225345cd85d3a18abde17f8a"
+    },
+    {
+      "id": "fc380a1e64be451cb5867cc9ca66d7e2"
+    },
+    {
+      "id": "05e585d1e22b4ba4aa16ae93eac0aace"
+    },
+    {
+      "id": "e2f6eb7c99c648a78ee4844e32738b87"
+    },
+    {
+      "id": "1ad4c01771b1491399444f28500d8740"
+    },
+    {
+      "id": "56272104fa6441899051693e94a1bdfb"
+    },
+    {
+      "id": "d445f16395604e15a87aaeb866881ac6"
+    },
+    {
+      "id": "9de8d3441d78432e9458a0cc138534b1"
+    },
+    {
+      "id": "99430701279c460c9a94caf60ccffd93"
+    },
+    {
+      "id": "760a3a0610c94440afd520b12a7c6cef"
+    },
+    {
+      "id": "5de2e096094b486ebcb8e1c50f01726b"
+    },
+    {
+      "id": "2f67491bf7b2462aad596a739ae83010"
+    },
+    {
+      "id": "3a5309a973104b63beba2ec42d0e8e70"
+    },
+    {
+      "id": "c0b84e9781f64db2bad4332e4d25f052"
+    },
+    {
+      "id": "25a5847697644c828af96438125b8a60"
+    },
+    {
+      "id": "03e956fc73dc47d385a0e1a680facbb3"
+    },
+    {
+      "id": "1381eaa7981d4b2490c7f8fa33cfde69"
+    },
+    {
+      "id": "4f6897238035403fa2ca89c136041ad7"
+    },
+    {
+      "id": "de45a384ce61449b95e3508dbda887d6"
+    },
+    {
+      "id": "5d56c960bd784feca7cab892854cd8d0"
+    },
+    {
+      "id": "97d6c917e82f43d89d8bf10df81408f0"
+    },
+    {
+      "id": "82604830f2604c0d81e175a839a9fb59"
     }
   ],
   "listings": [
@@ -34099,6 +34183,1926 @@
         "https://job.nju.edu.cn/career/mutual-selections/615578006810791938"
       ],
       "page": 1
+    },
+    {
+      "id": "fd0fc4fcaf0c57336e272356f60d31be3e1f2923963687bcb4b13eba94b04ea0",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 0,
+      "title": "11 月 6-7 日普通话测试\n报名通知",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-10-12",
+      "listed_raw": "10-12",
+      "source_urls": [
+        "https://jw.nju.edu.cn/e8/28/c26263a845864/page.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "d79fdd830f7f422024f2921560552065ebeebcb6db51e388f1084f6908c8cda1",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 1,
+      "title": "东海大学 2027 冬季研学\n营",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-10-29",
+      "listed_raw": "10-29",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/xnK6d08dqhhDJEq5_vKQJQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "ee9491d79aa2faa4f26966d577f354aa0ff271d823d4cb65911f7be4dae0a87b",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 2,
+      "title": "第三届行业研究大赛决赛",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/TBtFOzf54fgGa6ZneU1ZTw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "b03d84897c92f27d756cb5e37a77670fe3927d42e0fc4642ad919541b5e5ae19",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 3,
+      "title": "台港澳青年乡村振兴考察",
+      "cutoff": "2026-11-07",
+      "cutoff_raw": "11-07",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/9-LvLqFzWvTqW5_49zPe3Q"
+      ],
+      "page": 1
+    },
+    {
+      "id": "b506653385c658ed39288441b71a6a8b310555bbf3c2e59c881ba2ccb56ae796",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 4,
+      "title": "专利智能助手 1.0 上线",
+      "cutoff": "2026-11-10",
+      "cutoff_raw": "11-10",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/KjcHUG7jb4xgW7WL_SPh1A"
+      ],
+      "page": 1
+    },
+    {
+      "id": "b52c9e4906a92be067a80921ddb1d9ebecf35d350fe039fd3947b40242caade8",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 5,
+      "title": "2027 年港澳师生交流计\n划申报",
+      "cutoff": "2026-11-11",
+      "cutoff_raw": "11-11",
+      "listed_on": "2026-10-28",
+      "listed_raw": "10-28",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/hpPYgSCOdEU4io6z2T7SIg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "075c935505de4e7147e331b37687a4fd23203b3258fee5f54fba089cd4db47fb",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 6,
+      "title": "第三届“满天星”调研报告\n大赛",
+      "cutoff": "2026-11-15",
+      "cutoff_raw": "11-15",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/FwYbc-PMmyCr-WJIIq1Y3Q"
+      ],
+      "page": 1
+    },
+    {
+      "id": "2a83ecd66cffdb56a717dd8132ecc305ab4b2cfe5477fc29d805f61138123b4a",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 7,
+      "title": "2027 年大学生创新训练\n计划",
+      "cutoff": "2026-11-18",
+      "cutoff_raw": "11-18",
+      "listed_on": "2026-10-28",
+      "listed_raw": "10-28",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/vRcTY3arivBrWAj2n1lyQQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "a24e62c4e71f2f498fecad8f314b686adb10c22b39b23da1f5ada7c9d3cb9dcc",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 8,
+      "title": "2027 年“南星梦想计\n划”报名",
+      "cutoff": "2026-11-20",
+      "cutoff_raw": "11-20",
+      "listed_on": "2026-10-29",
+      "listed_raw": "10-29",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/g3wI15fNhiPjj7GYTq4f7w"
+      ],
+      "page": 1
+    },
+    {
+      "id": "b6efdcf40a15a79f24d8a5a11aa734f6ad8849c4cccfeb1848abb0bfedd7408a",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 9,
+      "title": "普通话水平测试报名",
+      "cutoff": "2026-11-21",
+      "cutoff_raw": "11-21",
+      "listed_on": "2026-10-29",
+      "listed_raw": "10-29",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/N9IjSKE4o8cMCLyFY4kf9Q"
+      ],
+      "page": 1
+    },
+    {
+      "id": "fd992cd8633930b4831b98bb099ca70048508598241f0af3ad396b3fb5be2a22",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 10,
+      "title": "台港澳青年迎新年晚会招\n募",
+      "cutoff": "2026-11-21",
+      "cutoff_raw": "11-21",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/2BTrwoO_O8kPXfWODtZcTw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "2f3567080fc45386e1c0125349e9416600bc210aff62a8b23225733a56364984",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 11,
+      "title": "国际组织实习任职信息登\n记",
+      "cutoff": "2026-12-01",
+      "cutoff_raw": "12-01",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/888Q_UOOwDRg6dBO0G_7Pw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "18cc293519fd981f52aee9844fe501f83f2723c003aef19cb8dd1b795b90bf5e",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 12,
+      "title": "艾滋病劳育",
+      "cutoff": "2026-12-15",
+      "cutoff_raw": "12-15",
+      "listed_on": "2026-10-29",
+      "listed_raw": "10-29",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/bBnnMzcEo3h1IoEKlhWn8g"
+      ],
+      "page": 1
+    },
+    {
+      "id": "1a844c149d5cbbcf42b462af2338c4ff5db7114ac15a60b98ddb291a74a3e9be",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 13,
+      "title": "爱心书吧旧书流转",
+      "cutoff": "2026-12-31",
+      "cutoff_raw": "12-31",
+      "listed_on": "2026-10-29",
+      "listed_raw": "10-29",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/lD3hjCQOQmIfCfEex5Ipdg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "c55a9af7cba052514d3a12fe8f53820e20f15cb1511419ffab82ade9439cd0de",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 14,
+      "title": "赛珍珠中英文创意写作大\n赛",
+      "cutoff": "2027-01-15",
+      "cutoff_raw": "01-15",
+      "listed_on": "2026-10-08",
+      "listed_raw": "10-08",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/hXERXBU9svz6XsW5hL7SWA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "adf680d48a7d4aded1b1db0c32d0f3a379b783c7059af070d6ef260681a5dafa",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 16,
+      "title": "从海量检索到智能精读：AI 赋能\n的文献调研实战",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "13f01fe7df5b8c533a2dd55a94d908677769ed0955c6e5d75e383b0c0b316754",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 17,
+      "title": "Reverberation lags\nviewed in hard X-rays\nfrom an accreting\nstellar-mass black hole",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-10-27",
+      "listed_raw": "10-27",
+      "source_urls": [
+        "https://astronomy.nju.edu.cn/xshd/xsbg/20261027/i427460.html"
+      ],
+      "page": 1
+    },
+    {
+      "id": "2e3dbb5680d6829dff5918351452510d2c5e6c2629375723271347f32f6fd57c",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 18,
+      "title": "场阈理论下的环境健康保护伞",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-10-29",
+      "listed_raw": "10-29",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/Ce4ai2Pk0DpulPDzdAiR0g"
+      ],
+      "page": 1
+    },
+    {
+      "id": "7633380a3ab2e94ff0ff0b88243f977346a627771fb519d5ecbf29be6816a389",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 19,
+      "title": "基于双功能配体的新颖钙钛矿及\n其光物理性质",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-10-29",
+      "listed_raw": "10-29",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/wwSZR7ze8kXP9w0lnpOpGw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "aebebbb828c048b7ca479714641748a815bc719b2a4726775a1f7c368f2e219c",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 20,
+      "title": "库存对货币政策传导的减速效应",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-10-30",
+      "listed_raw": "10-30",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/GJ4pPup5VtXw7EYazUoAVQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "d2addab710bf2f607f6c5bc76b69442ddcd7f29a128f2aadec5f45b937cfdc14",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 21,
+      "title": "国关青年海外科考分享沙龙：\n「视」界之外，世界辽阔",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-01",
+      "listed_raw": "11-01",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/63eGXFRXXF6hphBrOXGO8A"
+      ],
+      "page": 1
+    },
+    {
+      "id": "bd36b59eee173813ce089ae30be05a4ed2a5f83295349b89b54ad9d37b4e22c5",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 22,
+      "title": "如何“授人以渔”：中国与东盟国\n家技术人才培养合作的制度逻辑",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-01",
+      "listed_raw": "11-01",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/1twi5D_AnKtgBvCAWheLcA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "b28491910f746be77d4291ddb16683a5e295b497bb0fbfaf0088d6dd75e831f9",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 23,
+      "title": "Stimuli-responsive\nMaterials for Biomedical\nApplications",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-01",
+      "listed_raw": "11-01",
+      "source_urls": [
+        "https://chem.nju.edu.cn/ee/e0/c12640a847584/page.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "9cf9637c3e226cadb7788dcba7efc85bfaa3bdece00e5f9d47df1c082d36f095",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 24,
+      "title": "从氢原子谱到粒子散射的形状：\n复自旋的理论和实验 70 年",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://physics.nju.edu.cn/xwdt/xshd/20261102/i428215.html"
+      ],
+      "page": 1
+    },
+    {
+      "id": "03715804c70b8d5506d0013494b050e6ef7410025ebc6ecf74c5bfc07604633f",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 25,
+      "title": "人文学科的认知目标",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/SnUvBnnJtw-k88gN3JSZRA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "1145ce3b50d38154a7b3a2050f5c216cb43944cbef0a78d79941d2e706b47924",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 26,
+      "title": "Twisting Higgs modules\nand the p-adic Simpson\ncorrespondence",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-10-09",
+      "listed_raw": "10-09",
+      "source_urls": [
+        "https://math.nju.edu.cn/xsbg/jrbg/20261009/i421788.html"
+      ],
+      "page": 1
+    },
+    {
+      "id": "24c951d2889b1808c03552a31576126aa91a38becb9f7fd0a1665648eaececfb",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 27,
+      "title": "揭示复杂系统的多稳态：解景观\n的新进展",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-10-27",
+      "listed_raw": "10-27",
+      "source_urls": [
+        "https://math.nju.edu.cn/xsbg/jrbg/20261027/i427649.html"
+      ],
+      "page": 1
+    },
+    {
+      "id": "386e648126a7a059a39f689bc5c0afd200f82b0dd46dfec30a1277b8fdb27d6d",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 28,
+      "title": "鲸跃计划留学经验分享会：去看\n看更大的世界",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/ml0A7g6sMuU_S3hog1M5qA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "7668a6d0aa01d4d519e35bb2ceb36fd1e18db5f8d76d921cf503ed1209362487",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 29,
+      "title": "Sunlight absorption\naloft shifts meridional\nheat transport into\nmiddle atmospheres",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/c38iDES7V-kx770cF4YOvQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "4d5b5f7e1e9e4d887d7addf86652cad715f6393d08f60b25f950c59926ad874b",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 30,
+      "title": "社会演化、政治心理学与民主媒\n体：美国思想市场中的“看不见的\n手”",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/D7YxLVmieYvyYupODB0MPg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "892abc69a64f018f0587b42bfcefdbde37ae75dd8fa9217607de15fa01b10111",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 31,
+      "title": "田野调查如何回答普遍大问题？\n——来自一个村庄案例的启示",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/KjiMHQ00slQBE3WDUt2Abg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "5455a59b657edf3bafdee74d1476be6730d84474d8fef14d99ed833d70da4e19",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 32,
+      "title": "青年奥德赛：文学、游戏与异世\n界旅行",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/m1Iq29UL_iMrQ98nIGPsAw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "7376d97cdffffe2ed4178940df8e9f90d6f5b0b2b7ef5ce8ea50f80d125c1782",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 33,
+      "title": "城市大气 PM₂.₅有机组分人体内\n部暴露潜力研究：从化学探针到\n器官芯片",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/x1PZhH2Ic7gXZCj9X-ubFA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "56430db3bc36273575a628ff6d78db9e3e120a85c343ba8ea4c5aa92d90ec741",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 34,
+      "title": "基金持仓披露中的战略性择时",
+      "cutoff": "2026-11-07",
+      "cutoff_raw": "11-07",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/LFYPeqADU6h-l-uqnga0wg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "6ef768c1b4b78220066bb24fd69e61b4527c2859bc4e4f3fa159489e78e76064",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 35,
+      "title": "淮河中游安徽段瓷业考古研究",
+      "cutoff": "2026-11-08",
+      "cutoff_raw": "11-08",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/qVvzzeHsk_kIjhEJnveiQw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "3087602a81945cbf291928168efb1d3369ef820b3d1aa38b84c6e5cead797cc4",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 36,
+      "title": "Twisting Higgs modules\nand the p-adic Simpson\ncorrespondence",
+      "cutoff": "2026-11-09",
+      "cutoff_raw": "11-09",
+      "listed_on": "2026-10-09",
+      "listed_raw": "10-09",
+      "source_urls": [
+        "https://math.nju.edu.cn/xsbg/jrbg/20261009/i421788.html"
+      ],
+      "page": 1
+    },
+    {
+      "id": "a3fccdae39f63ad4047f23363a5ac5b96fbeb14ee2aeb7629196bd68c8011c00",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 37,
+      "title": "领域知识增强的软件维护智能体",
+      "cutoff": "2026-11-09",
+      "cutoff_raw": "11-09",
+      "listed_on": "2026-10-29",
+      "listed_raw": "10-29",
+      "source_urls": [
+        "https://keysoftlab.nju.edu.cn/ed/04/c1576a847108/page.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "dbfc91f465a99cd5acd7ca726fdc5500776569ab76b881b9a962ff0cddb9829e",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 38,
+      "title": "另一种打开方式——行管项目制课\n程的设计与脑洞分享",
+      "cutoff": "2026-11-09",
+      "cutoff_raw": "11-09",
+      "listed_on": "2026-10-30",
+      "listed_raw": "10-30",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/8jEtAL4uP2EqCQsV2wqdbg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "5fb54f820692e852160d7a6d25f7b7f72cc4765c3691c512f07a5314f9fb6ef3",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 39,
+      "title": "汉字里的健康密码",
+      "cutoff": "2026-11-09",
+      "cutoff_raw": "11-09",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/UljUPuvrm0LEOYXcOt7gMw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "04aa94bce639fd945a534c44a72ee352ef1b9e4e637ff8ebcf44ad941fc8170e",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 40,
+      "title": "藏族民间祭祀文化研究",
+      "cutoff": "2026-11-09",
+      "cutoff_raw": "11-09",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://sociology.nju.edu.cn/f0/38/c17645a847928/pagem.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "0d2846b7057b7da07103327e9c8e5778c798f04738fd4ddf3ee3f288b0b0db16",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 41,
+      "title": "学位论文网络资源的检索与搜集",
+      "cutoff": "2026-11-10",
+      "cutoff_raw": "11-10",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "5b92e379fb4159769b5c46906f2834fb5e84741d934cd64ba10a61e556451d5e",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 42,
+      "title": "盐与英国经济的现代化\n（1700-1914 年）",
+      "cutoff": "2026-11-10",
+      "cutoff_raw": "11-10",
+      "listed_on": "2026-10-30",
+      "listed_raw": "10-30",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/LoTp3lJpC3aIAmyTFgQ-3Q"
+      ],
+      "page": 1
+    },
+    {
+      "id": "a68a99cec3e095e3ebe4bc0a5eaffbaca287127dad816fb45e891adc10cf2346",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 43,
+      "title": "实体瘤与 T 细胞的代谢交互机制\n与应用",
+      "cutoff": "2026-11-10",
+      "cutoff_raw": "11-10",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/1bY5dX6i6fA2LITA18P9Qw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "6d0026272e29c193f57b465c205cceedf1836bc783851ac2732b2bdbd9b0401f",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 44,
+      "title": "海量资源带您徜徉学研之旅：解\n锁 CADAL 学术宝库",
+      "cutoff": "2026-11-11",
+      "cutoff_raw": "11-11",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "fcfb6b5002e31acabef842208158612d56b0cc0466a72745e73f6d40ab4bbd8d",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 45,
+      "title": "数字浪潮：一个虚拟前沿部署工\n程师（FDE）的数字治理历程",
+      "cutoff": "2026-11-11",
+      "cutoff_raw": "11-11",
+      "listed_on": "2026-10-30",
+      "listed_raw": "10-30",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/8jEtAL4uP2EqCQsV2wqdbg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "b24b13b1da78fc03f026f638ddc466bc565d3cd99d4347047cb0ad1b4800a090",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 46,
+      "title": "涉互联网民事纠纷案件中平台责\n任的主要类型及审理思路",
+      "cutoff": "2026-11-11",
+      "cutoff_raw": "11-11",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/fhADSSd_et9cDW7MZLsYSQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "119d99eeb5db815e54ca0317acc7bafe07cfc3ae398752862b8a3936f9a752dd",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 47,
+      "title": "中国共产党与香港左翼社会的生\n成（1945-1950）",
+      "cutoff": "2026-11-11",
+      "cutoff_raw": "11-11",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/d6T50wJm-6ybSNiJWODgzw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "28984c31a0a4376ad841b027a4c740264c482354d6caf5242a4e27f95b167fd4",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 48,
+      "title": "来华留学生的迁移决策制定与跨\n文化适应",
+      "cutoff": "2026-11-11",
+      "cutoff_raw": "11-11",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/3t_vsXfsP0yqzb9lB5M52g"
+      ],
+      "page": 1
+    },
+    {
+      "id": "49ed10b118c6c98ec2e76227cc25b80442bb68fcd52d233a323621ab1329ab70",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 49,
+      "title": "持续学习视角下的 NeuroAI 协\n同演化",
+      "cutoff": "2026-11-11",
+      "cutoff_raw": "11-11",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/rlX8BeARB8Qnkt0BG08EyQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "c89fdf43e31f3634a54973babddf01697c42f7629495f63b85a6b763647e7fd5",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 50,
+      "title": "独辟蹊径，与众不同——使用南大\n图书馆特藏文献以助研究",
+      "cutoff": "2026-11-12",
+      "cutoff_raw": "11-12",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "02bf6a971d2340a0f69a2911179d5bd84ae729504b10110675952e991605871a",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 51,
+      "title": "Sharp large-time\nasymptotics and optimal\ndecay for the fractional\nNavier-Stokes equations",
+      "cutoff": "2026-11-13",
+      "cutoff_raw": "11-13",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://math.nju.edu.cn/xsbg/jrbg/20261103/i428343.html"
+      ],
+      "page": 1
+    },
+    {
+      "id": "dc7e7af46048f5e01f346f3f40592e2255cf1a681d03978f026893be5274428b",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 52,
+      "title": "IMB Student and Postdoc\nSeminar Series 第六期",
+      "cutoff": "2026-11-13",
+      "cutoff_raw": "11-13",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/xaGx5dSa9hooRoDi3u0mDg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "a1e33395a65536ee91230237735ae4c0403008daa11a496d36afced3ade2a0c7",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 53,
+      "title": "人工智能、未来就业与社会保障：\n当 AI 改变工作，谁来保障我们\n的未来？",
+      "cutoff": "2026-11-16",
+      "cutoff_raw": "11-16",
+      "listed_on": "2026-10-30",
+      "listed_raw": "10-30",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/8jEtAL4uP2EqCQsV2wqdbg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "4d655cdda29332fdf9eb9b879c4fa1e4870c98681cf950ea68272e2a221befa2",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 54,
+      "title": "馆藏专利资源的检索与利用",
+      "cutoff": "2026-11-17",
+      "cutoff_raw": "11-17",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "7f4cd3ed5ca0f620614faa0ec3e2cb6ee7a32c967acf3c660aab21c89372822c",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 55,
+      "title": "安邦从 0 到 1，手把手教你做科\n研（三）",
+      "cutoff": "2026-11-18",
+      "cutoff_raw": "11-18",
+      "listed_on": "2026-10-10",
+      "listed_raw": "10-10",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/JEmlnDTzcxaD1r_UU5CYEA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "ce4a0eb0fc6e8a354e1b54f4e310ee5b3ff07af05ada16614218a94aed1d4098",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 56,
+      "title": "Gale Scholar：为您呈现 1.7\n亿页历史一次文献",
+      "cutoff": "2026-11-18",
+      "cutoff_raw": "11-18",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "7a60540235ad8da95d7720b9d7417ddc5d28018e8a0096386b0efe7ddd8853b2",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 57,
+      "title": "在庙堂和江湖之间：如何研究商\n业精英？",
+      "cutoff": "2026-11-18",
+      "cutoff_raw": "11-18",
+      "listed_on": "2026-10-30",
+      "listed_raw": "10-30",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/8jEtAL4uP2EqCQsV2wqdbg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "550a2abb15aade609fec871a85ef61213251643a2ab8a5b3464c29d96f70b65a",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 58,
+      "title": "烽火弦歌：抗战时期古籍流亡的\n三重叙事与文明守护",
+      "cutoff": "2026-11-19",
+      "cutoff_raw": "11-19",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "d191e44441b63da6cd369595f1ed8518a55d6dc3f6a522db87484966a4f6247d",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 59,
+      "title": "校外文献获取秘籍——馆际互借·\n文献传递使用指南",
+      "cutoff": "2026-11-24",
+      "cutoff_raw": "11-24",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "e4580ec096f98da02c5e688d9c99e06457c4431efef09107b2e8e0614777ef2c",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 60,
+      "title": "从科幻愿景到临床落地：脑机接\n口技术发展现状与挑战",
+      "cutoff": "2026-11-25",
+      "cutoff_raw": "11-25",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "146724aba11e66cfab515bc1b87f517383245a1819b810c9e0daa3fa7f2a9cfe",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 61,
+      "title": "“五校联盟”博士生学术论坛",
+      "cutoff": "2026-11-26",
+      "cutoff_raw": "11-26",
+      "listed_on": "2026-10-21",
+      "listed_raw": "10-21",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/IcL3AHsCu27gvrFIGKY6GA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "ee08899b6c6c10b8cdbe53f78f952ecd67697e859dd459224bbf9188b76e86e6",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 62,
+      "title": "青山吟——中国古代青绿山水画治",
+      "cutoff": "2026-11-26",
+      "cutoff_raw": "11-26",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "1421cb6e8ee4f2e363b584e6a07e055bdecef85c9cf9ba5f6a5038664d3a61a9",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 63,
+      "title": "学术写作入门——巧用 NE，EN，\nAI 工具助力写作",
+      "cutoff": "2026-12-02",
+      "cutoff_raw": "12-02",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://lib.nju.edu.cn/info/1012/4370.htm"
+      ],
+      "page": 1
+    },
+    {
+      "id": "4d28030e6dc5ab0e18780562e8ef7c3393e71f09ceacfc41e8cd3cb0cf0ec76c",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 64,
+      "title": "安邦从 0 到 1，手把手教你做科\n研（四）",
+      "cutoff": "2026-12-09",
+      "cutoff_raw": "12-09",
+      "listed_on": "2026-10-10",
+      "listed_raw": "10-10",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/JEmlnDTzcxaD1r_UU5CYEA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "64a41e499866caa30bb54dceafbf6969f695a29ffe484b7dada204370c02b15b",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 74,
+      "title": "有训书院答疑自习室",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-10-30",
+      "listed_raw": "10-30",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/mEYxqApHkiuAMIrzuG1LtQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "546599d48dabe5ea773db50823de9629d08cd6af91483c40b03b07ae4075c1f3",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 75,
+      "title": "镂木留痕雕版版画体验",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/lFI8SkraQLJQXzlHv3eO5g"
+      ],
+      "page": 1
+    },
+    {
+      "id": "41a6e7b2a2c23c373d43e0b7613b1e9d130002824adedb10be4a6dd8a1125c61",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 76,
+      "title": "计院硕转博经验分享会",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/ZdkJbRAHIw9JDgTbzurymQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "bcb933d8b7eb187d7608883b0fced0a48622a3ba13594c585094ed320d90488b",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 77,
+      "title": "政管院“青途引路，政途\n共叙”经验分享会",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/PIgYdx3UsjElcAzSFTzKsQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "4f93f38fcdbae56e0b86f4096cd6560282fbb04bdd3bf09ca7276fa94b7c621f",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 78,
+      "title": "艺术学院“秋日灵感补给\n站”",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/go27ZFgxje4F79DNOQcf9Q"
+      ],
+      "page": 1
+    },
+    {
+      "id": "45ec85bd0f1f86bfe5d88ec4febf775fdec8072a2d11944b234a619ba0267453",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 79,
+      "title": "政管院团委招新",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/ZKutmGIillXX7nyvNFXvTw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "55b07d32ecdb2ef7664f6610bf93740fee3ff61a94f81062caba100df128ff4a",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 80,
+      "title": "红色主题原创剧本征集",
+      "cutoff": "2026-11-07",
+      "cutoff_raw": "11-07",
+      "listed_on": "2026-10-08",
+      "listed_raw": "10-08",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/6KF6mDeVaYJJgzCJ9A1zlA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "7f7be67ff36d4c67b553af6e625b6f6c3fff9cc367bb733507e3eb2db0076f80",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 81,
+      "title": "有训书院秋季「采色拾\n字」主题漫步",
+      "cutoff": "2026-11-07",
+      "cutoff_raw": "11-07",
+      "listed_on": "2026-10-15",
+      "listed_raw": "10-15",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/gTZRek4KLVCbN87gkgoxOg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "60ac4ce1499137debf0c80a9ec7b5d72edf7a6199bb746e68b4a6ca11ca355fe",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 82,
+      "title": "“法言新声”宪法演讲校内\n选拔",
+      "cutoff": "2026-11-07",
+      "cutoff_raw": "11-07",
+      "listed_on": "2026-10-30",
+      "listed_raw": "10-30",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/lAD_IBd_QHwM6Wkt3Wkd6Q"
+      ],
+      "page": 1
+    },
+    {
+      "id": "f6a9c3532e3f8b2d62889f35516da4b79f7fd2eb348dc64c1f62889b917c69c6",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 83,
+      "title": "哲院师生素拓活动",
+      "cutoff": "2026-11-07",
+      "cutoff_raw": "11-07",
+      "listed_on": "2026-11-01",
+      "listed_raw": "11-01",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/wdgeHW2y_Dq1QfZMAFLiag"
+      ],
+      "page": 1
+    },
+    {
+      "id": "a591f499ca4a2244934e83fdef2fe88e39010eb8eee3c3b663521e08e7a22089",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 84,
+      "title": "商院“青年党员面对面”第\n四期",
+      "cutoff": "2026-11-07",
+      "cutoff_raw": "11-07",
+      "listed_on": "2026-11-01",
+      "listed_raw": "11-01",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/dqrjNtzQyCUKjyqtrCc16g"
+      ],
+      "page": 1
+    },
+    {
+      "id": "255b2eba68021add710205ccb6ac083ac36a1d61f148919859dc03692b35371e",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 85,
+      "title": "六院王者荣耀友谊赛",
+      "cutoff": "2026-11-08",
+      "cutoff_raw": "11-08",
+      "listed_on": "2026-10-21",
+      "listed_raw": "10-21",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/TMkqBZ8MrGLIfNY5QEmqNQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "08f7a619033fca5cdf19475ee3ec443b69fb3b6f2860cc7ff9be97f027cdf8dc",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 86,
+      "title": "毓琇书院 3D 打印大赛",
+      "cutoff": "2026-11-09",
+      "cutoff_raw": "11-09",
+      "listed_on": "2026-10-25",
+      "listed_raw": "10-25",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/nzAYgL5q1uQtYuzSRqkjrA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "7a482b3b4387eaf45ce1cf0c7bbb681c85e0dc310399238fce54e5724d388ca6",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 87,
+      "title": "新传院“南新印象”约拍队\n2026 秋季招募",
+      "cutoff": "2026-11-09",
+      "cutoff_raw": "11-09",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/asp2PwIUErU9ofBFh_fOIA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "9ed456d72c5a71ceef432741c59c8f326888e63cf474cf5aec260670b31ad18e",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 88,
+      "title": "「交界」AI 影像创作大赛\n征稿",
+      "cutoff": "2026-11-10",
+      "cutoff_raw": "11-10",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/IcXjqokWXC-eLhRUNkDnJQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "b5735190554c943dfd54f4671e02128e0760602829025f2cde7e7112e6235a2f",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 89,
+      "title": "《演化——地球生命简史》\n新书发布会",
+      "cutoff": "2026-11-11",
+      "cutoff_raw": "11-11",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/Lt6m39rhhhH4tXkyBDrtpg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "86279443bf00049f0f55a0f618fd25f2bb01a634ca1873a497c01f8a8030643e",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 90,
+      "title": "数院学生会招新",
+      "cutoff": "2026-11-11",
+      "cutoff_raw": "11-11",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/YCDCSOlRYhZLDfDyb6kZpQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "5e29113a8202a1d18307bf8821f1e8b180e6177e35548279e38488626678221e",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 91,
+      "title": "商院 MBA 新歌声",
+      "cutoff": "2026-11-12",
+      "cutoff_raw": "11-12",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/FmXZDtmqOIUxs1jmsWIt5w"
+      ],
+      "page": 1
+    },
+    {
+      "id": "a2b2b17eee077c728ec7d21516abad480cf032845cf37148ea241d63844aa129",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 92,
+      "title": "地科院李四光中队讲师团\n第二轮招新",
+      "cutoff": "2026-11-12",
+      "cutoff_raw": "11-12",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/SmU98kg0URsNifSh9LiRTA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "6bcef298028844b75218927079b8a6e528b659221454bcbf3a8e86fdf9767f08",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 93,
+      "title": "社院校运会招募",
+      "cutoff": "2026-11-13",
+      "cutoff_raw": "11-13",
+      "listed_on": "2026-10-30",
+      "listed_raw": "10-30",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/FxjZaCpYElL3sRp0kQNO6A"
+      ],
+      "page": 1
+    },
+    {
+      "id": "0c2e0f4acdb6d199c1d5bb7cfcd7fcff7045728436ac142e3e9662532dd0f898",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 94,
+      "title": "医学院毕业生专场招聘会",
+      "cutoff": "2026-11-14",
+      "cutoff_raw": "11-14",
+      "listed_on": "2026-10-13",
+      "listed_raw": "10-13",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/4aXrNRo02pzycSMDP85rtw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "79d3bf504177412c1b2f209314c9048000a0a59ed49e9c7f29898ef34dca1f54",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 95,
+      "title": "天光云影校园摄影大赛",
+      "cutoff": "2026-11-15",
+      "cutoff_raw": "11-15",
+      "listed_on": "2026-10-20",
+      "listed_raw": "10-20",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/KGIhKP7o1q-LN5NEUD4Pvw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "1dba0137ba68024d2abb144b5ff2819cbc9ce0106a4483796fe175b5bf95ed4c",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 96,
+      "title": "哲院院史志愿讲解团招募",
+      "cutoff": "2026-11-15",
+      "cutoff_raw": "11-15",
+      "listed_on": "2026-10-29",
+      "listed_raw": "10-29",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/UNNU_cv9ZWldfkg6zl0QmQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "b2841f6be98c552236ddd9e8ed615264238c917522a35ca9a4f219496f3ab647",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 97,
+      "title": "八院联合迎新晚会招募",
+      "cutoff": "2026-11-15",
+      "cutoff_raw": "11-15",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/oWOaYGf2rM-lMfUODHwSSQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "b6466601e081bedf7ec51f4ab469dac8b22005b785a85ca0ca000f1f192d7c35",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 98,
+      "title": "现工院“同帧寻迹”新生摄\n影比赛",
+      "cutoff": "2026-11-15",
+      "cutoff_raw": "11-15",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/LZitMet9jqS6IcjixWevwA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "350238e16d6923dc3d7b5dafe87988610e224c85157e7f0c38116a9d35448713",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 99,
+      "title": "首届数字治理能力竞赛",
+      "cutoff": "2026-11-20",
+      "cutoff_raw": "11-20",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/jGPAdsHmWUbb0KUIo6OhvQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "138a258ac4e106109aebf5b2b36ddd635a57a3db93972da5332507e9ad8302d6",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 100,
+      "title": "哲院钟山文化走读",
+      "cutoff": "2026-11-22",
+      "cutoff_raw": "11-22",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/35qnjivjTxPJaOLLmKA8XQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "526a6b96868e6f3d8cb4a81336ad3e97547d4667f2f7af30ca55388a877852ee",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 101,
+      "title": "博雅达杯第三届研究生公\n共管理案例大赛",
+      "cutoff": "2026-11-29",
+      "cutoff_raw": "11-29",
+      "listed_on": "2026-10-19",
+      "listed_raw": "10-19",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/U-GixtrynDQsbXXFMFvg7w"
+      ],
+      "page": 1
+    },
+    {
+      "id": "289a9841b372f45ef25ace94e80a2962a16854baf96c9198e2924ebf53c3f072",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 102,
+      "title": "“苏法杯”法学素养征文赛",
+      "cutoff": "2026-11-30",
+      "cutoff_raw": "11-30",
+      "listed_on": "2026-11-01",
+      "listed_raw": "11-01",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/clKyMIX9Knp_urtygEYWPg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "e22f8e50b80501f45fe816b53bf349124a55dc14e9e9ab4c6c40bacafc84178c",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 103,
+      "title": "「我和我的老师」主题征\n文",
+      "cutoff": "2026-12-01",
+      "cutoff_raw": "12-01",
+      "listed_on": "2026-10-21",
+      "listed_raw": "10-21",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/Wh2mjrczmqTAD2PcovAa_g"
+      ],
+      "page": 1
+    },
+    {
+      "id": "60d7e1df96f20f8bd0876da6fc4d58c168261deee1154809af473a9bfb1ad0cd",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 104,
+      "title": "青春歌咏大赛",
+      "cutoff": "2026-12-06",
+      "cutoff_raw": "12-06",
+      "listed_on": "2026-10-17",
+      "listed_raw": "10-17",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/GY0hLapZT4Wi5aRxpn_myw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "5b9216edc7c4f959c6f0231bf78ef5cfed8c2ab27f2f177dd683dc71a4a269c9",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 105,
+      "title": "青春歌咏大赛",
+      "cutoff": "2026-12-06",
+      "cutoff_raw": "12-06",
+      "listed_on": "2026-10-17",
+      "listed_raw": "10-17",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/Bkyf1rBgAXU-kdcntjUFbA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "eef6451c78ffcf19ecd4de3a5247d5ed554ae8c0e263211356502d33972b3750",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 112,
+      "title": "院系杯篮球赛战报与赛程",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/kpcolBDy4Lk5X5kKMPTvWA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "c597db1e75f0240f4cf77e6dcbcbef848b448f3ee901523fc601c3d0bd75cdd9",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 113,
+      "title": "南苏四季匠心香牌手作",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-10-30",
+      "listed_raw": "10-30",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/hgwbcnd1ZzaEDAFod2whrQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "e4d322243bfd9c763cba270a29f612323082c3634f756132ab4d5429e68708a6",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 114,
+      "title": "南说喜剧开放麦",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/640sBxHagWXCe2CtM6ISAw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "49ae157e64409089c0509bbe1f402c6fa6327a0711910a8fb557d9dff3e5dfb5",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 115,
+      "title": "果壳手作疗愈工坊",
+      "cutoff": "2026-11-07",
+      "cutoff_raw": "11-07",
+      "listed_on": "2026-11-01",
+      "listed_raw": "11-01",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/jpub_8RreLKMU2hps4OamQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "0d033eb444e379e17c85192bc6f730d34f3d781db6759f03d96015b96159c530",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 116,
+      "title": "南大排协招新",
+      "cutoff": "2026-11-08",
+      "cutoff_raw": "11-08",
+      "listed_on": "2026-10-27",
+      "listed_raw": "10-27",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/vNrttW7B2-IOAZH-OnsXmg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "2f3ff9fc2c0631c0116f99fd790e8f16a2ab849852490c9e9a3a62e6ae6cdcce",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 117,
+      "title": "《The Last Dance》剧\n本杀",
+      "cutoff": "2026-11-08",
+      "cutoff_raw": "11-08",
+      "listed_on": "2026-11-01",
+      "listed_raw": "11-01",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/tatT5KIGKgyScFP9Q4bshg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "94cb17d0ce2480ba4a1c821d47a7e05362babdda32a3cbf742e187ddcebe9487",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 118,
+      "title": "NEC 英语角：Beyond\nthe Surface",
+      "cutoff": "2026-11-08",
+      "cutoff_raw": "11-08",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/m4u7zlDrFHwKo5VTCYl01Q"
+      ],
+      "page": 1
+    },
+    {
+      "id": "bd1e538c878029bb46be54ef7b39dcc048cc3c58e0707d99c5954edac988b57f",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 119,
+      "title": "摇滚联盟“扭泵”音乐节",
+      "cutoff": "2026-11-08",
+      "cutoff_raw": "11-08",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/f4TUA4uFfoiJdhuqpQXjaw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "01d0b85ed7af6933b52b548f4bc053340f0bbaa4995447923c2c3790ad1211e4",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 120,
+      "title": "昆曲研习社拍曲",
+      "cutoff": "2026-11-08",
+      "cutoff_raw": "11-08",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/QapzN2ltWn58qFRN8eg3aQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "af356c946f947177679ec304922b9302ce425dab1d3603c594574f51e5e413ed",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 121,
+      "title": "第六届天文台个人计时赛",
+      "cutoff": "2026-11-09",
+      "cutoff_raw": "11-09",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/A2gwe7TxYJ2-WZC6cjfpdw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "b4e08624864aa10a1f994d1c9ce43e7277c2b11a9a5b2027780aaf24cac3938f",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 122,
+      "title": "好书传乡·阅助振兴",
+      "cutoff": "2026-11-10",
+      "cutoff_raw": "11-10",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/dm4oEEemZjNlwhBePJZ7tQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "e37faa9ab30eb242d8ec325a85b599979d5997676f5d8141b6d81245e5674ee1",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 123,
+      "title": "南京高校模拟联合国大会",
+      "cutoff": "2026-11-13",
+      "cutoff_raw": "11-13",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/LYs2zQSNhY_mNjLzx8Q8JQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "bd00946de7483ba93919453ccbf7c3b612f8454281c0018ca47cf62a90fc4fc3",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 124,
+      "title": "“织爱·暖冬行动”围巾招\n募",
+      "cutoff": "2026-11-15",
+      "cutoff_raw": "11-15",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/EOp2KB17D1Ng1mFLyOjmWg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "613f21af8982d61890b475af967a41da7abaa081704e5fc96c0838308b78023b",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 125,
+      "title": "艺启成长之光影森林（生\n科院场）",
+      "cutoff": "2026-11-17",
+      "cutoff_raw": "11-17",
+      "listed_on": "2026-10-17",
+      "listed_raw": "10-17",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/siKAeuTAt_WE9cnF4ZZHug"
+      ],
+      "page": 1
+    },
+    {
+      "id": "db5eb769a1b30ae6934415f4cf08f74ac5e724e27eba24d965e809b5aa820346",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 126,
+      "title": "艺启成长之豆荚娃娃（数\n智里场）",
+      "cutoff": "2026-11-25",
+      "cutoff_raw": "11-25",
+      "listed_on": "2026-10-17",
+      "listed_raw": "10-17",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/siKAeuTAt_WE9cnF4ZZHug"
+      ],
+      "page": 1
+    },
+    {
+      "id": "fd59be91e3156da39af11b25838451e1a81ff0bc1099f2ff55975ff6668e18ab",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 127,
+      "title": "艺启成长之豆荚娃娃（生\n科院场）",
+      "cutoff": "2026-12-01",
+      "cutoff_raw": "12-01",
+      "listed_on": "2026-10-17",
+      "listed_raw": "10-17",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/siKAeuTAt_WE9cnF4ZZHug"
+      ],
+      "page": 1
+    },
+    {
+      "id": "0e9414df5e5c27b50767b581d59c440c1d56a4669fe6a92a150c9587bc9a1b8d",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 133,
+      "title": "广西 2027 年定向选调生\n招录公告",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-10-15",
+      "listed_raw": "10-15",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/EuXpU8N54rYYJApOnP5GBQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "65807cfe4927a37bec51c60699b0118507444aec0072bd3008eeac629818c126",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 134,
+      "title": "走近名企：走进歌尔",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-01",
+      "listed_raw": "11-01",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/4bob0JlzdWqdX1OCAsMgcw"
+      ],
+      "page": 1
+    },
+    {
+      "id": "1397c6810c42caa72c1e8e8929b6eb6b47fc26e20253028f1dac99afef8d629e",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 135,
+      "title": "同程旅行×临沂文旅 2027\n届校园招聘宣讲会",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/specifics/639764851027087362"
+      ],
+      "page": 1
+    },
+    {
+      "id": "57e8a492c50718733ae4ef02ca182d86ede403983a6f8edc3aa340d3d4b683fb",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 136,
+      "title": "同程旅行×临沂文旅路演\n（上午场）",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/specifics/639059647034036226"
+      ],
+      "page": 1
+    },
+    {
+      "id": "56c17eb83607f9d94dbdbe92236f6fe050042ce0b6310bca170d1115cf76933e",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 137,
+      "title": "同程旅行×临沂文旅路演\n（下午场）",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/specifics/639059249804087298"
+      ],
+      "page": 1
+    },
+    {
+      "id": "4b6f2bd66b8fbd49e4c9d1b886c496622204483e913721b741f611c952a65f4c",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 138,
+      "title": "苏商银行 2027 届校园招\n聘宣讲会",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/specifics/638312029072920577"
+      ],
+      "page": 1
+    },
+    {
+      "id": "385294efee1ca55db80f22b1d3af44707dc43838e50267046ba21e587bc7dc14",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 139,
+      "title": "鹏华基金 2027 届校园招\n聘宣讲会",
+      "cutoff": "2026-11-05",
+      "cutoff_raw": "11-05",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/specifics/620278330502942721"
+      ],
+      "page": 1
+    },
+    {
+      "id": "de04403faad16af39e57d39f22456c1804d103b0bffe1819672e9014fdf0e5f8",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 140,
+      "title": "双高衔接重点中学引才双\n选会",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-10-12",
+      "listed_raw": "10-12",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/KZo96D1L-jOev4UYDqtpBg"
+      ],
+      "page": 1
+    },
+    {
+      "id": "9576474a16cb421d7373b9d7d56609b3cbe52ad165726878ee9c4d51d1d2c5ce",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 141,
+      "title": "双高衔接重点高中引才双\n选会",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-10-12",
+      "listed_raw": "10-12",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/mutual-selections/631510651763691522"
+      ],
+      "page": 1
+    },
+    {
+      "id": "173e5c3708e5e887ad786670a74b0a9105bcc9860c9d2e3a6c0490436cbd5d91",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 142,
+      "title": "西湖大学工学院、南科大\n环境学院研究生招生宣讲\n会",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/JRk8d1srT3-R6NiIeSXtpA"
+      ],
+      "page": 1
+    },
+    {
+      "id": "36464d3d23c5017c0122ba2f5f429054744a7e0fe5d8570c0e927d9505d70d14",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 143,
+      "title": "上外附中 2027 学年招聘\n宣讲会",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/specifics/640210139319635969"
+      ],
+      "page": 1
+    },
+    {
+      "id": "a5df538fbfff9cd99f6975930fbf641517211ba736418ebbcc50ff68faa2b2d2",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 144,
+      "title": "中国期货监控 2027 届校\n园招聘宣讲会",
+      "cutoff": "2026-11-06",
+      "cutoff_raw": "11-06",
+      "listed_on": "2026-11-04",
+      "listed_raw": "11-04",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/specifics/635517786461835266"
+      ],
+      "page": 1
+    },
+    {
+      "id": "1b49b85cf5239ffc266be556343695967c9e914d6214867dd3039446ed516131",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 145,
+      "title": "国央企就业经验分享会山\n西电网专场",
+      "cutoff": "2026-11-08",
+      "cutoff_raw": "11-08",
+      "listed_on": "2026-11-03",
+      "listed_raw": "11-03",
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/QWvUZcvxxfXRCuxE80IJDQ"
+      ],
+      "page": 1
+    },
+    {
+      "id": "7dbae9be1279148e42b677bf9c7c8bd8cbb1a1c547f7c242de18493913f2852b",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 146,
+      "title": "秋季文科专场双选会",
+      "cutoff": "2026-11-14",
+      "cutoff_raw": "11-14",
+      "listed_on": "2026-10-12",
+      "listed_raw": "10-12",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/mutual-selections/626718699243442177"
+      ],
+      "page": 1
+    },
+    {
+      "id": "bbf8f7701cb6907d6beb6f475ff494857f00c2de04809a7f47bd289a84f344aa",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 147,
+      "title": "秋季理科专场双选会",
+      "cutoff": "2026-11-14",
+      "cutoff_raw": "11-14",
+      "listed_on": "2026-10-12",
+      "listed_raw": "10-12",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/mutual-selections/626739284858114049"
+      ],
+      "page": 1
+    },
+    {
+      "id": "8d6caff8eec77036e871d2c5501bdb0cc45395ec7f5ff9db9b33b29add3e4057",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 148,
+      "title": "秋季双选会仙林专场\n（11.15）",
+      "cutoff": "2026-11-15",
+      "cutoff_raw": "11-15",
+      "listed_on": "2026-10-12",
+      "listed_raw": "10-12",
+      "source_urls": [
+        "https://job.nju.edu.cn/career/mutual-selections/615578006810791938"
+      ],
+      "page": 1
     }
   ],
   "details": [
@@ -48550,6 +50554,700 @@
       ],
       "source_urls": [
         "https://job.nju.edu.cn/career/specifics/637609373685780482"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "b311b8e807e06b3f8de7c5e9d47b6adee00bf87cf5a000bd72635ae2ba73cab8",
+      "issue_id": "2026-11-04-469",
+      "category": "活动",
+      "order": 15,
+      "title": "南京大学专利智能助手1.0上线",
+      "text": "上线时间：2026 年 11 月 10 日（读书节开幕后全\n面开启）\n面向对象：全校师生\n使用方式：访问 https://patent-\nassistant.app.workbuddy.host/，使用南\n大邮箱注册登录\n详见：https://mp.weixin.qq.\ncom/s/KjcHUG7jb4xgW7WL_SPh1A",
+      "fields": [
+        {
+          "label": "上线时间",
+          "value": "2026 年 11 月 10 日（读书节开幕后全面开启）"
+        },
+        {
+          "label": "面向对象",
+          "value": "全校师生"
+        },
+        {
+          "label": "使用方式",
+          "value": "访问 https://patent-"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/KjcHUG7jb4xgW7WL_SPh1A"
+      ],
+      "other_urls": [
+        "https://patent-assistant.app.workbuddy.host/"
+      ],
+      "page": 1
+    },
+    {
+      "id": "5fb0e73906d4c4a513773e5f0f5740b8340f41b7c47949c4f26537a080b824e5",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 65,
+      "title": "Inverse Optimization: A Rich Framework to Learn Complex Behaviors",
+      "text": "时间：11 月 4 日 22:00\n地点：Zoom 会议\n主讲人：Peyman Mohajerin Esfahani 多伦多大学\n教授\n线上参与方式：https://utoronto.zoom.\nus/j/88699407697，Meeting ID: 886 9940\n7697，Passcode: 998346\n详见：https://math.nju.edu.cn/xsbg/\njrbg/20261104/i428457.html",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 4 日 22:00"
+        },
+        {
+          "label": "地点",
+          "value": "Zoom 会议"
+        },
+        {
+          "label": "主讲人",
+          "value": "Peyman Mohajerin Esfahani 多伦多大学教授"
+        },
+        {
+          "label": "线上参与方式",
+          "value": "https://utoronto.zoom."
+        }
+      ],
+      "source_urls": [
+        "https://math.nju.edu.cn/xsbg/jrbg/20261104/i428457.html"
+      ],
+      "other_urls": [
+        "https://utoronto.zoom.us/j/88699407697"
+      ],
+      "page": 1
+    },
+    {
+      "id": "a92ea49b99af274f007261414e4fbd5a8388263cc32407e64d46f2115b712940",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 66,
+      "title": "人文学科的认知目标",
+      "text": "时间：11 月 5 日 19:30\n地点：南京大学哲学学院 218\n主讲人：Stephen Grimm 美国 Fordham\nUniversity 哲学与人文学科 Robert Southwell, S.J.\n杰出教授\n主持人：胡星铭 南京大学\n线上参与方式：腾讯会议\n详见：https://mp.weixin.qq.\ncom/s/SnUvBnnJtw-k88gN3JSZRA",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 5 日 19:30"
+        },
+        {
+          "label": "地点",
+          "value": "南京大学哲学学院 218"
+        },
+        {
+          "label": "主讲人",
+          "value": "Stephen Grimm 美国 Fordham"
+        },
+        {
+          "label": "主持人",
+          "value": "胡星铭 南京大学"
+        },
+        {
+          "label": "线上参与方式",
+          "value": "腾讯会议"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/SnUvBnnJtw-k88gN3JSZRA"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "ce0d57fc38f787393d6aa87a8c0b96612b28d835c475f7f6db8f4f642e45a597",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 67,
+      "title": "实体瘤与T细胞的代谢交互机制与应用",
+      "text": "时间：11 月 10 日 09:00\n地点：现工院一楼报告厅\n主讲人：边英杰 广州国家实验室教授\n主持人：周佳佳 教授\n详见：https://mp.weixin.qq.\ncom/s/1bY5dX6i6fA2LITA18P9Qw",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 10 日 09:00"
+        },
+        {
+          "label": "地点",
+          "value": "现工院一楼报告厅"
+        },
+        {
+          "label": "主讲人",
+          "value": "边英杰 广州国家实验室教授"
+        },
+        {
+          "label": "主持人",
+          "value": "周佳佳 教授"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/1bY5dX6i6fA2LITA18P9Qw"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "4c316536b3b502eb60ae91455eec5a8724513b923b0935c30c6888271f3008c4",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 68,
+      "title": "IMB Student and Postdoc Seminar Series 第六期",
+      "text": "时间：11 月 13 日 19:00\n地点：仙 II-105\n主讲人：孔云辉 南京大学现代生物研究院博士生、\n吉龙涛 南京大学现代生物研究院博士生\n详见：https://mp.weixin.qq.\ncom/s/xaGx5dSa9hooRoDi3u0mDg",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 13 日 19:00"
+        },
+        {
+          "label": "地点",
+          "value": "仙 II-105"
+        },
+        {
+          "label": "主讲人",
+          "value": "孔云辉 南京大学现代生物研究院博士生、吉龙涛 南京大学现代生物研究院博士生"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/xaGx5dSa9hooRoDi3u0mDg"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "3a04b21a62ffae8023a6cd5911cef90c4bac9a0df8b8b13b4423bca0aac0ec29",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 69,
+      "title": "藏族民间祭祀文化研究",
+      "text": "时间：11 月 9 日 12:00\n地点：南京大学仙林校区社会学院河仁楼 401 室\n主讲人：万代吉 青海师范大学法学与社会学学院\n教授、硕士生导师\n主持人：杨德睿 南京大学社会学院人类学研究所\n教授、博导\n报名方法见原文\n详见：https://sociology.nju.\nedu.cn/f0/38/c17645a847928/\npagem.htm",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 9 日 12:00"
+        },
+        {
+          "label": "地点",
+          "value": "南京大学仙林校区社会学院河仁楼 401 室"
+        },
+        {
+          "label": "主讲人",
+          "value": "万代吉 青海师范大学法学与社会学学院教授、硕士生导师"
+        },
+        {
+          "label": "主持人",
+          "value": "杨德睿 南京大学社会学院人类学研究所教授、博导"
+        }
+      ],
+      "source_urls": [
+        "https://sociology.nju.edu.cn/f0/38/c17645a847928/pagem.htm"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "23dc7e6d281fdbbe3f64ed15c941b7a4a212f376b65ff1f1073c25ca2514d1d4",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 70,
+      "title": "来华留学生的迁移决策制定与跨文化适应",
+      "text": "时间：11 月 11 日 16:30\n地点：中美文化研究中心 A106 会议室\n主讲人：刘杨 北京外国语大学英语学院副教授、\n跨文化研究中心主任\n主持人：孙雯 南京大学法学院教授、中美文化研\n究中心副主任\n详见：https://mp.weixin.qq.\ncom/s/3t_vsXfsP0yqzb9lB5M52g",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 11 日 16:30"
+        },
+        {
+          "label": "地点",
+          "value": "中美文化研究中心 A106 会议室"
+        },
+        {
+          "label": "主讲人",
+          "value": "刘杨 北京外国语大学英语学院副教授、跨文化研究中心主任"
+        },
+        {
+          "label": "主持人",
+          "value": "孙雯 南京大学法学院教授、中美文化研究中心副主任"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/3t_vsXfsP0yqzb9lB5M52g"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "99f7eb013d56bf3e4b7f9ac29d7cd2d61cce839289d746ce23b692d08a33fd0f",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 71,
+      "title": "城市大气PM₂.₅有机组分人体内部暴露潜力研究：从化学探针到器官芯片",
+      "text": "时间：11 月 6 日 14:00\n地点：南京大学苏州校区苏教 B104\n主讲人：杨新 南方科技大学环境科学与工程学院\n讲席教授、姚波 复旦大学大气与海洋科学系教授\n详见：https://mp.weixin.qq.\ncom/s/x1PZhH2Ic7gXZCj9X-ubFA",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 6 日 14:00"
+        },
+        {
+          "label": "地点",
+          "value": "南京大学苏州校区苏教 B104"
+        },
+        {
+          "label": "主讲人",
+          "value": "杨新 南方科技大学环境科学与工程学院讲席教授、姚波 复旦大学大气与海洋科学系教授"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/x1PZhH2Ic7gXZCj9X-ubFA"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "0cf5656b516fca984303df7e79180a4defcabb929fc2a17c42847837425bf627",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 72,
+      "title": "持续学习视角下的NeuroAI协同演化",
+      "text": "时间：11 月 11 日 10:30\n地点：人工智能学院 C209 室\n主讲人：王立元 清华大学心理与认知科学系助理\n教授\n详见：https://mp.weixin.qq.\ncom/s/rlX8BeARB8Qnkt0BG08EyQ",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 11 日 10:30"
+        },
+        {
+          "label": "地点",
+          "value": "人工智能学院 C209 室"
+        },
+        {
+          "label": "主讲人",
+          "value": "王立元 清华大学心理与认知科学系助理教授"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/rlX8BeARB8Qnkt0BG08EyQ"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "2ad611cc3cdf4b2d9fb744ab713a48447a7417526a638a6482be12dd6c8b0bf5",
+      "issue_id": "2026-11-04-469",
+      "category": "讲座",
+      "order": 73,
+      "title": "淮河中游安徽段瓷业考古研究",
+      "text": "时间：11 月 8 日 15:00\n地点：南京大学历史学院 223 室\n主讲人：陈超 南京大学历史学院博士生\n主持人：水涛 南京大学历史学院教授、博士生导\n师（答辩主席）\n详见：https://mp.weixin.qq.\ncom/s/qVvzzeHsk_kIjhEJnveiQw",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 8 日 15:00"
+        },
+        {
+          "label": "地点",
+          "value": "南京大学历史学院 223 室"
+        },
+        {
+          "label": "主讲人",
+          "value": "陈超 南京大学历史学院博士生"
+        },
+        {
+          "label": "主持人",
+          "value": "水涛 南京大学历史学院教授、博士生导师（答辩主席）"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/qVvzzeHsk_kIjhEJnveiQw"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "7826502006b177bf3a1900c6269cb44d6456b428b44c31868464ecfc5b5455fd",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 106,
+      "title": "「交界」AI影像创作大赛征稿倒计时",
+      "text": "征稿截止：11 月 10 日\n面向对象：计算机学院全体师生、开甲书院计算\n机科学与技术专业学生\n类别：纯 AI 创作 / AI 赋能摄影\n投稿方式：通过 box 链接提交\n详见：https://mp.weixin.qq.\ncom/s/IcXjqokWXC-eLhRUNkDnJQ",
+      "fields": [
+        {
+          "label": "征稿截止",
+          "value": "11 月 10 日"
+        },
+        {
+          "label": "面向对象",
+          "value": "计算机学院全体师生、开甲书院计算机科学与技术专业学生"
+        },
+        {
+          "label": "类别",
+          "value": "纯 AI 创作 / AI 赋能摄影"
+        },
+        {
+          "label": "投稿方式",
+          "value": "通过 box 链接提交"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/IcXjqokWXC-eLhRUNkDnJQ"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "b2310deb178e335de147c38c027f275faa3bd48bb27f1846e17ed0aef3970d59",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 107,
+      "title": "艺术学院“秋日灵感补给站”",
+      "text": "活动时间：11 月 6 日（周五）13:00—17:00\n活动地点：南京大学浦口校区图书馆、操场、艺\n术楼外空地\n参与对象：校内同学，无需绘画或手作基础\n参与方式：现场参与\n详见：https://mp.weixin.qq.\ncom/s/go27ZFgxje4F79DNOQcf9Q",
+      "fields": [
+        {
+          "label": "活动时间",
+          "value": "11 月 6 日（周五）13:00—17:00"
+        },
+        {
+          "label": "活动地点",
+          "value": "南京大学浦口校区图书馆、操场、艺术楼外空地"
+        },
+        {
+          "label": "参与对象",
+          "value": "校内同学，无需绘画或手作基础"
+        },
+        {
+          "label": "参与方式",
+          "value": "现场参与"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/go27ZFgxje4F79DNOQcf9Q"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "0641c6760bb31e073e7329080d535d3d7404e5315aad8cc974bd933133ad864c",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 108,
+      "title": "政管院团委招新",
+      "text": "招新对象：行知书院社会科学试验班 2026 级本科\n生、政府管理学院 2025 级本科生、2026 级硕士生\n报名截止：11 月 6 日（周五）17:00\n面试：11 月上旬，地点暂定圣达楼\n报名方式：填写申请汇总表并上传至南大云盘\n详见：https://mp.weixin.qq.\ncom/s/ZKutmGIillXX7nyvNFXvTw",
+      "fields": [
+        {
+          "label": "招新对象",
+          "value": "行知书院社会科学试验班 2026 级本科生、政府管理学院 2025 级本科生、2026 级硕士生"
+        },
+        {
+          "label": "报名截止",
+          "value": "11 月 6 日（周五）17:00"
+        },
+        {
+          "label": "面试",
+          "value": "11 月上旬，地点暂定圣达楼"
+        },
+        {
+          "label": "报名方式",
+          "value": "填写申请汇总表并上传至南大云盘"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/ZKutmGIillXX7nyvNFXvTw"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "ffeb62591e7e29f38a2850fd219f0c89cfceb153a7a8733fdc60039389cf1864",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 109,
+      "title": "两院首届数字治理能力竞赛",
+      "text": "两院指行知书院、政府管理学院\n报名截止：11 月 20 日\n参赛对象：行知书院全体学生及选修《政府管理\n导论》课程的同学，3—5 人组队\n报名方式：参加 11 月 11 日赛前动员会获取报名\n二维码；咨询 QQ 群 277798138\n详见：https://mp.weixin.qq.\ncom/s/jGPAdsHmWUbb0KUIo6OhvQ",
+      "fields": [
+        {
+          "label": "报名截止",
+          "value": "11 月 20 日"
+        },
+        {
+          "label": "参赛对象",
+          "value": "行知书院全体学生及选修《政府管理导论》课程的同学，3—5 人组队"
+        },
+        {
+          "label": "报名方式",
+          "value": "参加 11 月 11 日赛前动员会获取报名二维码；咨询 QQ 群 277798138"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/jGPAdsHmWUbb0KUIo6OhvQ"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "44b967fb75aeed3fb7d690385ad863fc51919a44c89513c5ec7e49bb232fae78",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 110,
+      "title": "地科院李四光中队讲师团第二轮招新",
+      "text": "招新对象：南京大学全体在校本科生、研究生\n报名截止：11 月 12 日\n报名方式：扫码填写报名问卷，并加入 QQ 群\n（群号 83835996）\n详见：https://mp.weixin.qq.\ncom/s/SmU98kg0URsNifSh9LiRTA",
+      "fields": [
+        {
+          "label": "招新对象",
+          "value": "南京大学全体在校本科生、研究生"
+        },
+        {
+          "label": "报名截止",
+          "value": "11 月 12 日"
+        },
+        {
+          "label": "报名方式",
+          "value": "扫码填写报名问卷，并加入 QQ 群"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/SmU98kg0URsNifSh9LiRTA"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "ac54df5df7d6c474c1830195e14a34e93f2fbaf4f253cee27ab04eddcdbd2c09",
+      "issue_id": "2026-11-04-469",
+      "category": "院级活动",
+      "order": 111,
+      "title": "数院学生会招新",
+      "text": "招新对象：数学学院学生\n报名截止：2026 年 11 月 11 日\n报名方式：扫描二维码或点击“阅读原文”填写报名\n信息，提交后扫码加入 QQ 群\n详见：https://mp.weixin.qq.\ncom/s/YCDCSOlRYhZLDfDyb6kZpQ",
+      "fields": [
+        {
+          "label": "招新对象",
+          "value": "数学学院学生"
+        },
+        {
+          "label": "报名截止",
+          "value": "2026 年 11 月 11 日"
+        },
+        {
+          "label": "报名方式",
+          "value": "扫描二维码或点击“阅读原文”填写报名信息，提交后扫码加入 QQ 群"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/YCDCSOlRYhZLDfDyb6kZpQ"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "65b4045f9157535bf5d91d9c2c0e567bb8658bd1c500c24ba916b5baf6c9a6da",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 128,
+      "title": "南说喜剧开放麦",
+      "text": "时间：11 月 6 日（周五）19:00\n地点：敬文学生活动中心（大活）二楼 213 心理\n中心活动室\n请扫码报名\n详见：https://mp.weixin.qq.\ncom/s/640sBxHagWXCe2CtM6ISAw",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 6 日（周五）19:00"
+        },
+        {
+          "label": "地点",
+          "value": "敬文学生活动中心（大活）二楼 213 心理中心活动室"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/640sBxHagWXCe2CtM6ISAw"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "66046f607150a149f909f242a0e3678010a574dd31efcceade133b8f53d98771",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 129,
+      "title": "南大昆曲研习社拍曲",
+      "text": "拍曲时间：11 月 8 日（周日）9:30\n拍曲地点：仙林校区香雪海园林内松风水月榭\n朱继云老师教授《渔家乐·刺梁》，校内师生可径\n直前往\n校外人员可报名南京大学昆曲珍稀资源传承班\n（第 4 期）\n详见：https://mp.weixin.qq.\ncom/s/QapzN2ltWn58qFRN8eg3aQ",
+      "fields": [
+        {
+          "label": "拍曲时间",
+          "value": "11 月 8 日（周日）9:30"
+        },
+        {
+          "label": "拍曲地点",
+          "value": "仙林校区香雪海园林内松风水月榭"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/QapzN2ltWn58qFRN8eg3aQ"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "272538903677a642231d9648a96b299279caaa3fc1d77eb077d6bd4aaf2251fc",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 130,
+      "title": "摇滚联盟“扭泵”音乐节",
+      "text": "时间：11 月 8 日 18:00\n地点：仙林校区炜华体育场\n免票入场，直接到场\n详见：https://mp.weixin.qq.\ncom/s/f4TUA4uFfoiJdhuqpQXjaw",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 8 日 18:00"
+        },
+        {
+          "label": "地点",
+          "value": "仙林校区炜华体育场"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/f4TUA4uFfoiJdhuqpQXjaw"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "143a12476f18186a2124f88d11b67fd5084f2d61fcafc5bcf1d09287e1df7ba9",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 131,
+      "title": "院系杯篮球赛今日战报&明日赛程",
+      "text": "比赛时间：11 月 5 日 17:00—18:00\n比赛地点：一组团篮球场\n对阵：环院 vs 化学（研究生院系杯小组赛）\n详见：https://mp.weixin.qq.\ncom/s/kpcolBDy4Lk5X5kKMPTvWA",
+      "fields": [
+        {
+          "label": "比赛时间",
+          "value": "11 月 5 日 17:00—18:00"
+        },
+        {
+          "label": "比赛地点",
+          "value": "一组团篮球场"
+        },
+        {
+          "label": "对阵",
+          "value": "环院 vs 化学（研究生院系杯小组赛）"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/kpcolBDy4Lk5X5kKMPTvWA"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "9eb4bfcf9a02372de48ade25e414efd05e6a0e44fe148d3322f9b4c980a324d7",
+      "issue_id": "2026-11-04-469",
+      "category": "社团活动",
+      "order": 132,
+      "title": "NEC英语角：Beyond the Surface",
+      "text": "时间：11 月 8 日 19:00—20:30\n地点：仙林校区仙 1-303\n直接到场参与，无需报名\n详见：https://mp.weixin.qq.\ncom/s/m4u7zlDrFHwKo5VTCYl01Q",
+      "fields": [
+        {
+          "label": "时间",
+          "value": "11 月 8 日 19:00—20:30"
+        },
+        {
+          "label": "地点",
+          "value": "仙林校区仙 1-303"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/m4u7zlDrFHwKo5VTCYl01Q"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "cb979b6d3a0ff65a620ef8b31fa0271b268bb6839f968d75199467dd38c15f56",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 149,
+      "title": "西湖大学工学院、南方科技大学环境科学与工程学院研究生招生宣讲会",
+      "text": "活动时间：11 月 6 日（周五）16:00\n活动地点：南京大学苏州校区西区教学楼 B104\n面向对象：大气科学、环境科学与工程、地球科\n学、化学、物理、数学、化学工程、土木工程、\n人工智能、合成生物学等专业本科生、硕士生\n报名方式：扫码报名\n详见：https://mp.weixin.qq.\ncom/s/JRk8d1srT3-R6NiIeSXtpA",
+      "fields": [
+        {
+          "label": "活动时间",
+          "value": "11 月 6 日（周五）16:00"
+        },
+        {
+          "label": "活动地点",
+          "value": "南京大学苏州校区西区教学楼 B104"
+        },
+        {
+          "label": "面向对象",
+          "value": "大气科学、环境科学与工程、地球科学、化学、物理、数学、化学工程、土木工程、人工智能、合成生物学等专业本科生、硕士生"
+        },
+        {
+          "label": "报名方式",
+          "value": "扫码报名"
+        }
+      ],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/JRk8d1srT3-R6NiIeSXtpA"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "68ac39762c70dac01fff3175fd89e490fe467aa87c57a9975bb50caf1ffeb0a4",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 150,
+      "title": "上海外国语大学附属外国语学校2027学年校园招聘宣讲会",
+      "text": "活动时间：11 月 6 日（周五）13:30\n活动地点：仙林校区十食堂三楼就业中心 301 大\n会议室\n报名方式：请关注南京大学就业门户\n详见：https://job.nju.edu.cn/\ncareer/specifics/640210139319635969",
+      "fields": [
+        {
+          "label": "活动时间",
+          "value": "11 月 6 日（周五）13:30"
+        },
+        {
+          "label": "活动地点",
+          "value": "仙林校区十食堂三楼就业中心 301 大会议室"
+        },
+        {
+          "label": "报名方式",
+          "value": "请关注南京大学就业门户"
+        }
+      ],
+      "source_urls": [
+        "https://job.nju.edu.cn/career/specifics/640210139319635969"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "c96507010ac00cab388879246ff52ef5b54eecbd4d6cfb331301bf3f2035c2f2",
+      "issue_id": "2026-11-04-469",
+      "category": "招聘升学宣讲",
+      "order": 151,
+      "title": "中国期货市场监控中心2027年度校园招聘宣讲会",
+      "text": "活动时间：11 月 6 日（周五）15:00\n活动地点：仙林校区十食堂三楼就业中心 307\n报名方式：请关注南京大学就业门户\n详见：https://job.nju.edu.cn/\ncareer/specifics/635517786461835266",
+      "fields": [
+        {
+          "label": "活动时间",
+          "value": "11 月 6 日（周五）15:00"
+        },
+        {
+          "label": "活动地点",
+          "value": "仙林校区十食堂三楼就业中心 307"
+        },
+        {
+          "label": "报名方式",
+          "value": "请关注南京大学就业门户"
+        }
+      ],
+      "source_urls": [
+        "https://job.nju.edu.cn/career/specifics/635517786461835266"
+      ],
+      "other_urls": [],
+      "page": 1
+    },
+    {
+      "id": "4e653d1c0e6dd5d207e64605b5060c8d94d0fec2b9551e7d4e9973e5548a8df9",
+      "issue_id": "2026-11-04-469",
+      "category": "参考消息",
+      "order": 152,
+      "title": "南京大学本科生院、信息化建设管理服务中心关于智慧教室系统有关情况的说明",
+      "text": "近日，我校智慧教室建设工作受到师生、校友和社会的关注，现将有关情况说明如下：\n当前，智慧教室在国内外高校已经广泛普及，以“智”助学、助教已是大势所趋。我校围绕升级课堂音视频环境、实现课程直播与跨校区互动、支持课程\n回放与教学数据复用、服务课堂质量有效提升等目标，对仙林校区原有教学设备进行了智慧教室改造。该项目严格遵守政府采购法律法规有关信息公开\n要求，经专家论证、公开采购招标等程序，于今年暑期施工完成安装。\n期中教学检查是我校教学管理常规工作，包括教学秩序检查、教学档案检查等内容。本学期拟试点通过智慧教室系统进行到课率统计，以客观数据支撑\n后续教学改革、课程建设等工作。网传有教师通知期中教学检查是上级部门检查、到课率将与平时成绩挂钩等信息均不属实。未经授权，我校智慧教室\n系统在教学应用中不采集人脸等生物特征信息、不进行人脸识别。考虑到课堂学习方式更加多元，当前我校智慧教室系统已不再统计抬头率数据，网传\n的教室拍摄画面系苏州校区今年 5 月在线督导的个人截屏。\n身处数智时代，智慧教室是未来课堂的基本载体，能够辅助教师改进课堂教学，支持同学们课后使用课堂讲授视频，服务同学们更加便捷多样地学习。\n未来，我校将一如既往地坚持以生为本，在充分尊重和保护学生隐私的前提下，帮助同学们更方便地获取学习资源，真正让数智赋能学习。\n详见：https://mp.weixin.qq.com/s/7GQSu_pRZy7GIoW7ITKfQw\n2026 年 11 月 4 日",
+      "fields": [],
+      "source_urls": [
+        "https://mp.weixin.qq.com/s/7GQSu_pRZy7GIoW7ITKfQw"
       ],
       "other_urls": [],
       "page": 1
@@ -65746,6 +68444,1035 @@
       "issue_id": "2026-11-01-467",
       "listing_ids": [],
       "detail_id": "584d772cd6054e0021a0ae57086ef299fc3f7a79aed1e03605478e5649ed9a81"
+    },
+    {
+      "activity_id": "196e03d089cb458282c5f7de9ef001e2",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "fd0fc4fcaf0c57336e272356f60d31be3e1f2923963687bcb4b13eba94b04ea0"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "bbfc0e8d812b43c6a900dfd7355e109f",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "d79fdd830f7f422024f2921560552065ebeebcb6db51e388f1084f6908c8cda1"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "17391b2574c9482a8581f7106ab0defe",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "ee9491d79aa2faa4f26966d577f354aa0ff271d823d4cb65911f7be4dae0a87b"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "ad86b2a0a0fb49efa272389387cdc7af",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "b03d84897c92f27d756cb5e37a77670fe3927d42e0fc4642ad919541b5e5ae19"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "e13c69503c5e4a9c8bfa7d2dd87f745a",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "b506653385c658ed39288441b71a6a8b310555bbf3c2e59c881ba2ccb56ae796"
+      ],
+      "detail_id": "b311b8e807e06b3f8de7c5e9d47b6adee00bf87cf5a000bd72635ae2ba73cab8"
+    },
+    {
+      "activity_id": "880046f6dd8346238bd41535398f4ee1",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "b52c9e4906a92be067a80921ddb1d9ebecf35d350fe039fd3947b40242caade8"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "a23a401ff6474d2d9dc36e7c92f9b9c5",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "075c935505de4e7147e331b37687a4fd23203b3258fee5f54fba089cd4db47fb"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "a34450b959f6444d9023b7a3327b20fe",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "2a83ecd66cffdb56a717dd8132ecc305ab4b2cfe5477fc29d805f61138123b4a"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "7be36d75c57e48d9b7c72599de2dbc2c",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "a24e62c4e71f2f498fecad8f314b686adb10c22b39b23da1f5ada7c9d3cb9dcc"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "d9753103473447dea1011e48588a8888",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "b6efdcf40a15a79f24d8a5a11aa734f6ad8849c4cccfeb1848abb0bfedd7408a"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "542684eb896d4071b577c57835d746c9",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "fd992cd8633930b4831b98bb099ca70048508598241f0af3ad396b3fb5be2a22"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "d480082aeea64b329b803faeceee3997",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "2f3567080fc45386e1c0125349e9416600bc210aff62a8b23225733a56364984"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "9b89fe006d9941f1b91f3a015e44cfa9",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "18cc293519fd981f52aee9844fe501f83f2723c003aef19cb8dd1b795b90bf5e"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "89e6a049f9dd4d759e56e8e7152b84d8",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "1a844c149d5cbbcf42b462af2338c4ff5db7114ac15a60b98ddb291a74a3e9be"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "7a21412f90f24893b1c9ef501036fa44",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "c55a9af7cba052514d3a12fe8f53820e20f15cb1511419ffab82ade9439cd0de"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "ef8d9771970b40e3a48dce9f1fe46cd9",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "adf680d48a7d4aded1b1db0c32d0f3a379b783c7059af070d6ef260681a5dafa"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "a11052b2599c4bfa86e4689e33eb21bc",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "13f01fe7df5b8c533a2dd55a94d908677769ed0955c6e5d75e383b0c0b316754"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "3858976b604549feb0b5de144f835294",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "2e3dbb5680d6829dff5918351452510d2c5e6c2629375723271347f32f6fd57c"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "dc3dd01c5e2a4dd7880c1cb6f4c787e1",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "7633380a3ab2e94ff0ff0b88243f977346a627771fb519d5ecbf29be6816a389"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "46096d1c89d047ef876b234c4c28614d",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "aebebbb828c048b7ca479714641748a815bc719b2a4726775a1f7c368f2e219c"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "a279fe3757984d549a8501b6f9cdab9b",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "d2addab710bf2f607f6c5bc76b69442ddcd7f29a128f2aadec5f45b937cfdc14"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "584e5cc006ed47f9964ee5cd268919e7",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "bd36b59eee173813ce089ae30be05a4ed2a5f83295349b89b54ad9d37b4e22c5"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "54d77cfa2eec472cb9c2ea6cd161727c",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "b28491910f746be77d4291ddb16683a5e295b497bb0fbfaf0088d6dd75e831f9"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "fdccb4868f1b46faabe89165ad985c44",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "9cf9637c3e226cadb7788dcba7efc85bfaa3bdece00e5f9d47df1c082d36f095"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "3120297fce9b4fecbbff8cba0293bb76",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "03715804c70b8d5506d0013494b050e6ef7410025ebc6ecf74c5bfc07604633f"
+      ],
+      "detail_id": "a92ea49b99af274f007261414e4fbd5a8388263cc32407e64d46f2115b712940"
+    },
+    {
+      "activity_id": "09c065afc1824992b0afd7db412ed7cf",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "1145ce3b50d38154a7b3a2050f5c216cb43944cbef0a78d79941d2e706b47924",
+        "3087602a81945cbf291928168efb1d3369ef820b3d1aa38b84c6e5cead797cc4"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "4f9f66db0bc942248d6dc9020597f3d1",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "24c951d2889b1808c03552a31576126aa91a38becb9f7fd0a1665648eaececfb"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "054e31ee16154e85ac42d9c166f22643",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "386e648126a7a059a39f689bc5c0afd200f82b0dd46dfec30a1277b8fdb27d6d"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "e1fb9f869f2042f49a5c26a334ba67bd",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "7668a6d0aa01d4d519e35bb2ceb36fd1e18db5f8d76d921cf503ed1209362487"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "e1a29974b48548e0a871e605b54d53ea",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "4d5b5f7e1e9e4d887d7addf86652cad715f6393d08f60b25f950c59926ad874b"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "f6fd29ec92ff414fbc184785c5991bd6",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "892abc69a64f018f0587b42bfcefdbde37ae75dd8fa9217607de15fa01b10111"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "08884264b00d471e8a88ada215b3925d",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "5455a59b657edf3bafdee74d1476be6730d84474d8fef14d99ed833d70da4e19"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "da92ada27e124a648d957c937038d1b8",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "7376d97cdffffe2ed4178940df8e9f90d6f5b0b2b7ef5ce8ea50f80d125c1782"
+      ],
+      "detail_id": "99f7eb013d56bf3e4b7f9ac29d7cd2d61cce839289d746ce23b692d08a33fd0f"
+    },
+    {
+      "activity_id": "247b921c62a34c4abe36cf618675cb42",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "56430db3bc36273575a628ff6d78db9e3e120a85c343ba8ea4c5aa92d90ec741"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "539865cd225345cd85d3a18abde17f8a",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "6ef768c1b4b78220066bb24fd69e61b4527c2859bc4e4f3fa159489e78e76064"
+      ],
+      "detail_id": "2ad611cc3cdf4b2d9fb744ab713a48447a7417526a638a6482be12dd6c8b0bf5"
+    },
+    {
+      "activity_id": "8d5e064a08954837bd5da40077df7550",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "a3fccdae39f63ad4047f23363a5ac5b96fbeb14ee2aeb7629196bd68c8011c00"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "096997cbf6b34de68916552509336dfa",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "dbfc91f465a99cd5acd7ca726fdc5500776569ab76b881b9a962ff0cddb9829e"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "32061bdbabd5480e828e7ed1bc80f6d5",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "5fb54f820692e852160d7a6d25f7b7f72cc4765c3691c512f07a5314f9fb6ef3"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "fc380a1e64be451cb5867cc9ca66d7e2",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "04aa94bce639fd945a534c44a72ee352ef1b9e4e637ff8ebcf44ad941fc8170e"
+      ],
+      "detail_id": "3a04b21a62ffae8023a6cd5911cef90c4bac9a0df8b8b13b4423bca0aac0ec29"
+    },
+    {
+      "activity_id": "c1df79fe15fa406b82a8b6660007c5cb",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "0d2846b7057b7da07103327e9c8e5778c798f04738fd4ddf3ee3f288b0b0db16"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "f53e2449440b4fd68116baa896113d7e",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "5b92e379fb4159769b5c46906f2834fb5e84741d934cd64ba10a61e556451d5e"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "05e585d1e22b4ba4aa16ae93eac0aace",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "a68a99cec3e095e3ebe4bc0a5eaffbaca287127dad816fb45e891adc10cf2346"
+      ],
+      "detail_id": "ce0d57fc38f787393d6aa87a8c0b96612b28d835c475f7f6db8f4f642e45a597"
+    },
+    {
+      "activity_id": "2b143cff6a0a45edb21670b543b297ff",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "6d0026272e29c193f57b465c205cceedf1836bc783851ac2732b2bdbd9b0401f"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "21969db2a5644bde94ee61b2ea7838bf",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "fcfb6b5002e31acabef842208158612d56b0cc0466a72745e73f6d40ab4bbd8d"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "8bb6dd71ed2d4077a5656cfd730a3813",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "b24b13b1da78fc03f026f638ddc466bc565d3cd99d4347047cb0ad1b4800a090"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "4c8fb705286d4dd4b2360a75ba572ecf",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "119d99eeb5db815e54ca0317acc7bafe07cfc3ae398752862b8a3936f9a752dd"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "e2f6eb7c99c648a78ee4844e32738b87",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "28984c31a0a4376ad841b027a4c740264c482354d6caf5242a4e27f95b167fd4"
+      ],
+      "detail_id": "23dc7e6d281fdbbe3f64ed15c941b7a4a212f376b65ff1f1073c25ca2514d1d4"
+    },
+    {
+      "activity_id": "1ad4c01771b1491399444f28500d8740",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "49ed10b118c6c98ec2e76227cc25b80442bb68fcd52d233a323621ab1329ab70"
+      ],
+      "detail_id": "0cf5656b516fca984303df7e79180a4defcabb929fc2a17c42847837425bf627"
+    },
+    {
+      "activity_id": "852133cfa01342bb989bd35b2d333643",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "c89fdf43e31f3634a54973babddf01697c42f7629495f63b85a6b763647e7fd5"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "bca59f7d24e646aebd309ca4149381a4",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "02bf6a971d2340a0f69a2911179d5bd84ae729504b10110675952e991605871a"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "56272104fa6441899051693e94a1bdfb",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "dc7e7af46048f5e01f346f3f40592e2255cf1a681d03978f026893be5274428b"
+      ],
+      "detail_id": "4c316536b3b502eb60ae91455eec5a8724513b923b0935c30c6888271f3008c4"
+    },
+    {
+      "activity_id": "ef610dfc26374d24b10994b3196fcadb",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "a1e33395a65536ee91230237735ae4c0403008daa11a496d36afced3ade2a0c7"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "a628053e994146ae8a5a68a27870cada",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "4d655cdda29332fdf9eb9b879c4fa1e4870c98681cf950ea68272e2a221befa2"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "60f3e8d093544fa1bc3f6debef0441a4",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "7f4cd3ed5ca0f620614faa0ec3e2cb6ee7a32c967acf3c660aab21c89372822c"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "012450ffffdb4283b7818bbf35bfe8f7",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "ce4a0eb0fc6e8a354e1b54f4e310ee5b3ff07af05ada16614218a94aed1d4098"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "b7b0d5200ad7472ea3139c38644b98db",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "7a60540235ad8da95d7720b9d7417ddc5d28018e8a0096386b0efe7ddd8853b2"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "f65531bef202490a9b7d7f2d8d4954ce",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "550a2abb15aade609fec871a85ef61213251643a2ab8a5b3464c29d96f70b65a"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "27479fa3470c44c1bc0b6b26ed32f97e",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "d191e44441b63da6cd369595f1ed8518a55d6dc3f6a522db87484966a4f6247d"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "15178ec022504c3db1adad529df52854",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "e4580ec096f98da02c5e688d9c99e06457c4431efef09107b2e8e0614777ef2c"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "def75b1c85104ba78cbcf81d0d8ffad6",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "146724aba11e66cfab515bc1b87f517383245a1819b810c9e0daa3fa7f2a9cfe"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "116888032a6344919289df054901923c",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "ee08899b6c6c10b8cdbe53f78f952ecd67697e859dd459224bbf9188b76e86e6"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "72cbece87920456aa06b46e8397ded88",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "1421cb6e8ee4f2e363b584e6a07e055bdecef85c9cf9ba5f6a5038664d3a61a9"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "a595abd144194b75ac5466f19f736ba2",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "4d28030e6dc5ab0e18780562e8ef7c3393e71f09ceacfc41e8cd3cb0cf0ec76c"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "a79bccc744914bdc8abf60ec0425a08a",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "64a41e499866caa30bb54dceafbf6969f695a29ffe484b7dada204370c02b15b"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "1ee8645c837841f8a35a145266d98475",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "546599d48dabe5ea773db50823de9629d08cd6af91483c40b03b07ae4075c1f3"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "90a0fd48058b40909564780f47e27f96",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "41a6e7b2a2c23c373d43e0b7613b1e9d130002824adedb10be4a6dd8a1125c61"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "04f281a9dec94ccb9496ca276e4c544d",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "bcb933d8b7eb187d7608883b0fced0a48622a3ba13594c585094ed320d90488b"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "d445f16395604e15a87aaeb866881ac6",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "4f93f38fcdbae56e0b86f4096cd6560282fbb04bdd3bf09ca7276fa94b7c621f"
+      ],
+      "detail_id": "b2310deb178e335de147c38c027f275faa3bd48bb27f1846e17ed0aef3970d59"
+    },
+    {
+      "activity_id": "9de8d3441d78432e9458a0cc138534b1",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "45ec85bd0f1f86bfe5d88ec4febf775fdec8072a2d11944b234a619ba0267453"
+      ],
+      "detail_id": "0641c6760bb31e073e7329080d535d3d7404e5315aad8cc974bd933133ad864c"
+    },
+    {
+      "activity_id": "e9703cb5f7704e0b8dc950fbd37582dc",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "55b07d32ecdb2ef7664f6610bf93740fee3ff61a94f81062caba100df128ff4a"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "5a2e44082c1844fd8b5b06f230273372",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "7f7be67ff36d4c67b553af6e625b6f6c3fff9cc367bb733507e3eb2db0076f80"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "49f6e5855b484c59a24577cd92b1de05",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "60ac4ce1499137debf0c80a9ec7b5d72edf7a6199bb746e68b4a6ca11ca355fe"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "c8d2efd519414d588030036e988d603e",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "f6a9c3532e3f8b2d62889f35516da4b79f7fd2eb348dc64c1f62889b917c69c6"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "1fb63c0353134ce29f34bc62ceb8583c",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "a591f499ca4a2244934e83fdef2fe88e39010eb8eee3c3b663521e08e7a22089"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "5b8875e3f3ff4c8f9b15088f20643fd8",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "255b2eba68021add710205ccb6ac083ac36a1d61f148919859dc03692b35371e"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "a64d8ca635ea4b529c914401d4b08f9e",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "08f7a619033fca5cdf19475ee3ec443b69fb3b6f2860cc7ff9be97f027cdf8dc"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "8ccd0838434d410fbe61e577baeaeba5",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "7a482b3b4387eaf45ce1cf0c7bbb681c85e0dc310399238fce54e5724d388ca6"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "99430701279c460c9a94caf60ccffd93",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "9ed456d72c5a71ceef432741c59c8f326888e63cf474cf5aec260670b31ad18e"
+      ],
+      "detail_id": "7826502006b177bf3a1900c6269cb44d6456b428b44c31868464ecfc5b5455fd"
+    },
+    {
+      "activity_id": "bb1fddc68e0b40fcb553ccf9ac60f7ab",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "b5735190554c943dfd54f4671e02128e0760602829025f2cde7e7112e6235a2f"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "760a3a0610c94440afd520b12a7c6cef",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "86279443bf00049f0f55a0f618fd25f2bb01a634ca1873a497c01f8a8030643e"
+      ],
+      "detail_id": "ac54df5df7d6c474c1830195e14a34e93f2fbaf4f253cee27ab04eddcdbd2c09"
+    },
+    {
+      "activity_id": "269cd075b7934c1c920b78ed0f44e994",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "5e29113a8202a1d18307bf8821f1e8b180e6177e35548279e38488626678221e"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "5de2e096094b486ebcb8e1c50f01726b",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "a2b2b17eee077c728ec7d21516abad480cf032845cf37148ea241d63844aa129"
+      ],
+      "detail_id": "44b967fb75aeed3fb7d690385ad863fc51919a44c89513c5ec7e49bb232fae78"
+    },
+    {
+      "activity_id": "d363e61018524f7a9ed2f9a1d1e23eda",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "6bcef298028844b75218927079b8a6e528b659221454bcbf3a8e86fdf9767f08"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "f77ab6469e8f450a92763610dc954796",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "0c2e0f4acdb6d199c1d5bb7cfcd7fcff7045728436ac142e3e9662532dd0f898"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "1c5927417ee043da9b82157b874ec32f",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "79d3bf504177412c1b2f209314c9048000a0a59ed49e9c7f29898ef34dca1f54"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "acb29414098b4871b0013e18ff585f2b",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "1dba0137ba68024d2abb144b5ff2819cbc9ce0106a4483796fe175b5bf95ed4c"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "5685ac8c9e5b402495b30161d4e3eab4",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "b2841f6be98c552236ddd9e8ed615264238c917522a35ca9a4f219496f3ab647"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "637e7f98e84e4fdfbd9fb63eba5d45ca",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "b6466601e081bedf7ec51f4ab469dac8b22005b785a85ca0ca000f1f192d7c35"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "2f67491bf7b2462aad596a739ae83010",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "350238e16d6923dc3d7b5dafe87988610e224c85157e7f0c38116a9d35448713"
+      ],
+      "detail_id": "ffeb62591e7e29f38a2850fd219f0c89cfceb153a7a8733fdc60039389cf1864"
+    },
+    {
+      "activity_id": "7501387a04c242389cb4a39a04740c40",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "138a258ac4e106109aebf5b2b36ddd635a57a3db93972da5332507e9ad8302d6"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "d1fd8d3aa7a74804999dcf45dbc1dd37",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "526a6b96868e6f3d8cb4a81336ad3e97547d4667f2f7af30ca55388a877852ee"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "0e270b7de68f4c5c92b06f6069ea0c9f",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "289a9841b372f45ef25ace94e80a2962a16854baf96c9198e2924ebf53c3f072"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "c0bcfac450c34431ad82324b6f1853a1",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "e22f8e50b80501f45fe816b53bf349124a55dc14e9e9ab4c6c40bacafc84178c"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "d0eec88b68d3447ca0f5c15ccfcebaf4",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "60d7e1df96f20f8bd0876da6fc4d58c168261deee1154809af473a9bfb1ad0cd"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "433fd3bf6d3a43f6832d28a8418f9954",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "5b9216edc7c4f959c6f0231bf78ef5cfed8c2ab27f2f177dd683dc71a4a269c9"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "3a5309a973104b63beba2ec42d0e8e70",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "eef6451c78ffcf19ecd4de3a5247d5ed554ae8c0e263211356502d33972b3750"
+      ],
+      "detail_id": "143a12476f18186a2124f88d11b67fd5084f2d61fcafc5bcf1d09287e1df7ba9"
+    },
+    {
+      "activity_id": "046078f0930e40a18644eaa63a6062d8",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "c597db1e75f0240f4cf77e6dcbcbef848b448f3ee901523fc601c3d0bd75cdd9"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "c0b84e9781f64db2bad4332e4d25f052",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "e4d322243bfd9c763cba270a29f612323082c3634f756132ab4d5429e68708a6"
+      ],
+      "detail_id": "65b4045f9157535bf5d91d9c2c0e567bb8658bd1c500c24ba916b5baf6c9a6da"
+    },
+    {
+      "activity_id": "af6ca3ec87c34d6f9dbf62b438005fa7",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "49ae157e64409089c0509bbe1f402c6fa6327a0711910a8fb557d9dff3e5dfb5"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "c98cd6e57205453e88441c472a894821",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "0d033eb444e379e17c85192bc6f730d34f3d781db6759f03d96015b96159c530"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "7a48310752da4aa5bd1b59fbe1cbc8aa",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "2f3ff9fc2c0631c0116f99fd790e8f16a2ab849852490c9e9a3a62e6ae6cdcce"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "25a5847697644c828af96438125b8a60",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "94cb17d0ce2480ba4a1c821d47a7e05362babdda32a3cbf742e187ddcebe9487"
+      ],
+      "detail_id": "9eb4bfcf9a02372de48ade25e414efd05e6a0e44fe148d3322f9b4c980a324d7"
+    },
+    {
+      "activity_id": "03e956fc73dc47d385a0e1a680facbb3",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "bd1e538c878029bb46be54ef7b39dcc048cc3c58e0707d99c5954edac988b57f"
+      ],
+      "detail_id": "272538903677a642231d9648a96b299279caaa3fc1d77eb077d6bd4aaf2251fc"
+    },
+    {
+      "activity_id": "1381eaa7981d4b2490c7f8fa33cfde69",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "01d0b85ed7af6933b52b548f4bc053340f0bbaa4995447923c2c3790ad1211e4"
+      ],
+      "detail_id": "66046f607150a149f909f242a0e3678010a574dd31efcceade133b8f53d98771"
+    },
+    {
+      "activity_id": "7220e278afdf46e39d870f476a1983f7",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "af356c946f947177679ec304922b9302ce425dab1d3603c594574f51e5e413ed"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "61d8d4b65a8a4aad9bb71c2e7bfa56e6",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "b4e08624864aa10a1f994d1c9ce43e7277c2b11a9a5b2027780aaf24cac3938f"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "3a1aee631f9745fe8c3fc256a043fec4",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "e37faa9ab30eb242d8ec325a85b599979d5997676f5d8141b6d81245e5674ee1"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "cecc38bf25634a7594ddf332e2dfbf63",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "bd00946de7483ba93919453ccbf7c3b612f8454281c0018ca47cf62a90fc4fc3"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "38f8785907f74b669765cd9271d8619f",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "613f21af8982d61890b475af967a41da7abaa081704e5fc96c0838308b78023b"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "713da1538dc14e049de9c7ee13e0a2e8",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "db5eb769a1b30ae6934415f4cf08f74ac5e724e27eba24d965e809b5aa820346"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "0276e6db07934892975816da43174a93",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "fd59be91e3156da39af11b25838451e1a81ff0bc1099f2ff55975ff6668e18ab"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "e88a35c2e05f4d53a495e4d7c87588d3",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "0e9414df5e5c27b50767b581d59c440c1d56a4669fe6a92a150c9587bc9a1b8d"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "5fe61f4972034e4c8d9983728122bc94",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "65807cfe4927a37bec51c60699b0118507444aec0072bd3008eeac629818c126"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "533a3947839443baaf7b7b1280f92580",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "1397c6810c42caa72c1e8e8929b6eb6b47fc26e20253028f1dac99afef8d629e"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "9ca5f2d3bf1643b8a806e1b6e3143d85",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "57e8a492c50718733ae4ef02ca182d86ede403983a6f8edc3aa340d3d4b683fb"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "a7ba84605fab4bc78c6b2afe6745e0f0",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "56c17eb83607f9d94dbdbe92236f6fe050042ce0b6310bca170d1115cf76933e"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "6d908a0d0938411090811b164b51ee28",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "4b6f2bd66b8fbd49e4c9d1b886c496622204483e913721b741f611c952a65f4c"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "a2675f69a29f4412bef06dc057a7da2f",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "385294efee1ca55db80f22b1d3af44707dc43838e50267046ba21e587bc7dc14"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "2d7c3c3a122e46dfbe25ed7ce2f9ec2c",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "de04403faad16af39e57d39f22456c1804d103b0bffe1819672e9014fdf0e5f8"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "2852000d554d45c189146b038987065a",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "9576474a16cb421d7373b9d7d56609b3cbe52ad165726878ee9c4d51d1d2c5ce"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "4f6897238035403fa2ca89c136041ad7",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "173e5c3708e5e887ad786670a74b0a9105bcc9860c9d2e3a6c0490436cbd5d91"
+      ],
+      "detail_id": "cb979b6d3a0ff65a620ef8b31fa0271b268bb6839f968d75199467dd38c15f56"
+    },
+    {
+      "activity_id": "de45a384ce61449b95e3508dbda887d6",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "36464d3d23c5017c0122ba2f5f429054744a7e0fe5d8570c0e927d9505d70d14"
+      ],
+      "detail_id": "68ac39762c70dac01fff3175fd89e490fe467aa87c57a9975bb50caf1ffeb0a4"
+    },
+    {
+      "activity_id": "5d56c960bd784feca7cab892854cd8d0",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "a5df538fbfff9cd99f6975930fbf641517211ba736418ebbcc50ff68faa2b2d2"
+      ],
+      "detail_id": "c96507010ac00cab388879246ff52ef5b54eecbd4d6cfb331301bf3f2035c2f2"
+    },
+    {
+      "activity_id": "c2045f36dbdd480a9cd877c81b3b00e9",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "1b49b85cf5239ffc266be556343695967c9e914d6214867dd3039446ed516131"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "9a4246cdb04748ed8c230734e31e8d56",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "7dbae9be1279148e42b677bf9c7c8bd8cbb1a1c547f7c242de18493913f2852b"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "14185130f23e4e4b97ddaf1abf0e7353",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "bbf8f7701cb6907d6beb6f475ff494857f00c2de04809a7f47bd289a84f344aa"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "83b2a6f8ffc544aaa901beb8aee8083d",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [
+        "8d6caff8eec77036e871d2c5501bdb0cc45395ec7f5ff9db9b33b29add3e4057"
+      ],
+      "detail_id": null
+    },
+    {
+      "activity_id": "97d6c917e82f43d89d8bf10df81408f0",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [],
+      "detail_id": "5fb0e73906d4c4a513773e5f0f5740b8340f41b7c47949c4f26537a080b824e5"
+    },
+    {
+      "activity_id": "82604830f2604c0d81e175a839a9fb59",
+      "issue_id": "2026-11-04-469",
+      "listing_ids": [],
+      "detail_id": "4e653d1c0e6dd5d207e64605b5060c8d94d0fec2b9551e7d4e9973e5548a8df9"
     }
   ],
   "identity_aliases": [],
