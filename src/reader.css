@@ -133,6 +133,14 @@ button, select, input[type="checkbox"] { cursor: pointer; }
 }
 
 /* Date-owned diary and identity-owned activity views share the same source data. */
+.diary-layout { display: grid; grid-template-columns: 256px minmax(0, 1fr); align-items: start; gap: 20px; }
+.diary-sidebar { position: sticky; top: 16px; max-height: calc(100dvh - 32px); overflow: auto; }
+.diary-content { min-width: 0; }
+.diary-content .detail-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+@media (max-width: 959px) {
+  .diary-layout { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .diary-sidebar { position: static; max-width: 360px; max-height: none; overflow: visible; }
+}
 .diary-views { display: flex; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
 .diary-views a { display: inline-flex; align-items: center; gap: 8px; min-height: 49px; padding: 10px 20px; border-bottom: 3px solid transparent; color: var(--soft); text-decoration: none; font-size: 15px; }
 .diary-views a:first-child { font-weight: 750; }
@@ -144,23 +152,24 @@ button, select, input[type="checkbox"] { cursor: pointer; }
 .issue-section { margin: 17px 0 14px; padding-bottom: 9px; border-bottom: 2px solid var(--ink); font-size: 16px; }
 .issue-list + .issue-list { margin-top: 25px; }
 .results-count { margin: 0 0 14px; color: var(--muted); font-size: 12px; }
-.activity-list { display: grid; gap: 13px; }
-.activity-card { padding: 19px 21px; border: 1px solid var(--line); background: var(--paper); overflow-wrap: anywhere; }
-.current-card { padding: 12px 16px; }
-.activity-card.current-card h2 { margin-bottom: 4px; font-size: 16px; }
-.current-deadline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 3px 0; color: var(--teal-dark); font-size: 12px; }
+.activity-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 10px; }
+.activity-card { padding: 12px 14px; border: 1px solid var(--line); background: var(--paper); overflow-wrap: anywhere; }
+.current-deadline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 7px; margin: 2px 0; color: var(--teal-dark); font-size: 12px; }
 .current-deadline time { font-size: 16px; font-weight: 750; font-variant-numeric: tabular-nums; }
 .current-deadline span { font-weight: 650; }
-.entry-heading { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
-.entry-heading > div { min-width: 0; }
+.entry-heading { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+.entry-heading > div { display: flex; flex-wrap: wrap; align-items: baseline; min-width: 0; column-gap: 8px; }
 .category { color: var(--teal-dark); font-size: 11px; }
-.activity-card h2 { margin: 3px 0 10px; font-size: 18px; line-height: 1.55; }
+.activity-card h2 { flex: 1 1 180px; margin: 0; font-size: 16px; line-height: 1.5; }
 .activity-card h2 a { color: var(--ink); text-decoration: none; }
 .activity-card h2 a:hover { color: var(--teal-dark); text-decoration: underline; }
-.activity-meta { display: flex; flex-wrap: wrap; gap: 3px 15px; margin: 0 0 8px; color: var(--muted); font-size: 12px; }
-.activity-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 15px; font-size: 12px; }
-.activity-actions a { min-height: 30px; display: inline-flex; align-items: center; }
-.search-origin { margin: 6px 0 0; font-size: 11px; }
+.activity-meta { display: flex; flex-wrap: wrap; gap: 2px 10px; margin: 2px 0; color: var(--muted); font-size: 12px; }
+.activity-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; font-size: 12px; }
+.activity-actions a { min-height: 26px; display: inline-flex; align-items: center; }
+.search-origin { margin: 4px 0 0; font-size: 11px; }
+@media (max-width: 899px) {
+  .activity-list { grid-template-columns: minmax(0, 1fr); }
+}
 .activity-record { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 20px; }
 .record-title, .activity-record > .context { grid-column: 1 / -1; }
 .record-title { display: flex; justify-content: space-between; align-items: start; gap: 15px; }
@@ -176,8 +185,7 @@ button, select, input[type="checkbox"] { cursor: pointer; }
 .history-date { display: block; margin: 3px 0; color: var(--muted); font-size: 11px; }
 @media (max-width: 760px) {
   .diary-views a { padding-inline: 15px; }
-  .activity-card { padding: 15px; }
-  .activity-card h2 { font-size: 17px; }
+  .activity-card { padding: 12px; }
   .activity-record { grid-template-columns: minmax(0, 1fr); }
   .record-title h1 { font-size: 23px; }
   .activity-meta { gap: 2px 11px; font-size: 11px; }
