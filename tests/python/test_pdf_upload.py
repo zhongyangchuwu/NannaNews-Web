@@ -297,11 +297,48 @@ def test_validated_default_branch_upload_is_merged_and_publication_is_queued(val
     assert api.publications == [('main', MERGED)]
 
 
+def test_committed_head_can_wait_for_known_prewrite_pr_snapshot(validated_upload):
+    api, manifest, head = validated_upload
+    stale = {**api.pr, 'head': {**api.pr['head'], 'sha': HEAD}}
+    snapshots = iter([stale, stale])
+    with patch.object(api, 'get', side_effect=lambda _: next(snapshots, api.pr)), patch('time.sleep'):
+        assert upload.auto_publish(api, manifest, head) == MERGED
+    assert api.merges == [NEXT]
+    assert api.publications == [('main', MERGED)]
+
+
+def test_unreflected_committed_head_times_out_without_merge(validated_upload):
+    api, manifest, head = validated_upload
+    api.pr['head']['sha'] = HEAD
+    with patch('time.monotonic', side_effect=[0, 61]), patch('time.sleep'):
+        with pytest.raises(upload.UploadError, match='reflect'):
+            upload.auto_publish(api, manifest, head)
+    assert api.pr['state'] == 'open'
+    assert api.merges == [] and api.publications == []
+
+
+@pytest.mark.parametrize('change', ['head', 'base'])
+def test_change_while_waiting_for_own_commit_still_blocks_publication(validated_upload, change):
+    api, manifest, head = validated_upload
+    stale = {**api.pr, 'head': {**api.pr['head'], 'sha': HEAD}}
+    changed = {**api.pr}
+    if change == 'head':
+        changed['head'] = {**api.pr['head'], 'sha': 'f' * 40}
+    else:
+        changed['base'] = {**api.pr['base'], 'sha': MERGED}
+    snapshots = iter([stale])
+    with patch.object(api, 'get', side_effect=lambda _: next(snapshots, changed)), patch('time.sleep'):
+        with pytest.raises(upload.UploadError):
+            upload.auto_publish(api, manifest, head)
+    assert api.pr['state'] == 'open'
+    assert api.merges == [] and api.publications == []
+
+
 @pytest.mark.parametrize('change', ['head', 'base', 'closed', 'draft', 'fork', 'private'])
 def test_changed_upload_cannot_merge_or_publish(validated_upload, change):
     api, manifest, head = validated_upload
     if change == 'head':
-        api.pr['head']['sha'] = HEAD
+        api.pr['head']['sha'] = 'f' * 40
     elif change == 'base':
         api.pr['base']['sha'] = MERGED
     elif change == 'closed':

@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 from urllib.parse import quote
 from urllib.request import Request, urlopen
@@ -192,16 +193,25 @@ def publish(api, manifest, catalog):
 
 
 def auto_publish(api, manifest, head_sha):
-    pr = api.get('/pulls/' + str(manifest['number']))
-    base, head = pr['base'], pr['head']
-    require(pr.get('state') == 'open' and not pr.get('draft'), 'Upload PR is no longer open and ready.')
-    require(base['repo']['full_name'].lower() == api.repository.lower() and
-            base['repo'].get('private') is False and head.get('repo') and
-            head['repo']['id'] == base['repo']['id'], 'Upload repository changed before merge.')
-    require(base['ref'] == manifest['base_ref'] and base['sha'] == manifest['base_sha'],
-            'Base changed after validation; inspect the upload PR before retrying.')
-    require(head['ref'] == manifest['head_ref'] and head['sha'] == head_sha,
-            'Upload head changed after validation; refusing automatic merge.')
+    deadline = time.monotonic() + 60
+    while True:
+        pr = api.get('/pulls/' + str(manifest['number']))
+        base, head = pr['base'], pr['head']
+        require(pr.get('state') == 'open' and not pr.get('draft'), 'Upload PR is no longer open and ready.')
+        require(base['repo']['full_name'].lower() == api.repository.lower() and
+                base['repo'].get('private') is False and head.get('repo') and
+                head['repo']['id'] == base['repo']['id'], 'Upload repository changed before merge.')
+        require(base['ref'] == manifest['base_ref'] and base['sha'] == manifest['base_sha'],
+                'Base changed after validation; inspect the upload PR before retrying.')
+        require(head['ref'] == manifest['head_ref'], 'Upload branch changed after validation.')
+        if head['sha'] == head_sha:
+            break
+        require(head['sha'] == manifest['head_sha'],
+                'Upload head changed after validation; refusing automatic merge.')
+        # The PR representation can briefly lag our atomic branch commit.
+        require(time.monotonic() < deadline,
+                'GitHub did not reflect the committed upload head in time; inspect the PR.')
+        time.sleep(2)
     if base['ref'] != base['repo']['default_branch']:
         return None
     result = api.request(api.root + f"/pulls/{manifest['number']}/merge",
