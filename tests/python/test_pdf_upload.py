@@ -15,6 +15,7 @@ upload = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(upload)
 
 BASE, HEAD, NEXT = 'a' * 40, 'b' * 40, 'c' * 40
+MERGED = 'e' * 40
 PDF = b'synthetic pdf data'
 PDF_SHA = hashlib.sha1(b'blob ' + str(len(PDF)).encode() + b'\0' + PDF).hexdigest()
 
@@ -38,6 +39,11 @@ class FakeGitHub(upload.GitHub):
         self.comparison = {'status': 'ahead', 'behind_by': 0}
         self.base_extras = {}
         self.head_extras = {}
+        self.merges = []
+        self.publications = []
+        self.reject_merge = False
+        self.merge_head = None
+        self.fail_dispatch = False
 
     def get(self, path):
         if path == '/pulls/7':
@@ -63,7 +69,7 @@ class FakeGitHub(upload.GitHub):
         assert sha == PDF_SHA
         return PDF
 
-    def request(self, path, body):
+    def request(self, path, body=None, *, method=None):
         if path == '/graphql':
             fields = body['variables']['input']
             if fields['expectedHeadOid'] != self.pr['head']['sha']:
@@ -73,6 +79,21 @@ class FakeGitHub(upload.GitHub):
             self.commits.append(fields)
             self.pr['head']['sha'] = NEXT
             return {'data': {'createCommitOnBranch': {'commit': {'oid': NEXT}}}}
+        if path == self.root + '/pulls/7/merge':
+            assert method == 'PUT' and body['merge_method'] == 'merge'
+            if self.merge_head:
+                self.pr['head']['sha'] = self.merge_head
+            if self.reject_merge or body['sha'] != self.pr['head']['sha']:
+                return {'merged': False}
+            self.merges.append(self.pr['head']['sha'])
+            self.pr.update(state='closed', merged=True)
+            self.pr['base']['sha'] = MERGED
+            return {'merged': True, 'sha': MERGED}
+        if path == self.root + '/actions/workflows/site.yml/dispatches':
+            if self.fail_dispatch:
+                raise OSError('Publication dispatch failed.')
+            self.publications.append((body['ref'], self.pr['base']['sha']))
+            return None
         assert path == self.root + '/check-runs'
         self.checks.append(body)
         return {'id': 1}
@@ -253,3 +274,74 @@ def test_schema_valid_candidate_cannot_rewrite_history_or_invent_sources(candida
     candidate.write_text(json.dumps(data), encoding='utf-8')
     with pytest.raises(upload.UploadError):
         upload.validate_candidate(base, candidate, manifest)
+
+
+@pytest.fixture
+def validated_upload(candidate_files):
+    base, candidate, sources = candidate_files
+    Path('data').mkdir()
+    Path('data/catalog.json').write_bytes(base.read_bytes())
+    api = FakeGitHub()
+    api.pdf_entry['sha'] = sources['pdfs']['pdf/new.pdf']
+    manifest = gate(api)
+    assert upload.validate_candidate(base, candidate, manifest) == 1
+    head = upload.publish(api, manifest, candidate)
+    return api, manifest, head
+
+
+def test_validated_default_branch_upload_is_merged_and_publication_is_queued(validated_upload):
+    api, manifest, head = validated_upload
+    assert upload.auto_publish(api, manifest, head) == MERGED
+    assert api.pr['state'] == 'closed' and api.pr['merged'] is True
+    assert api.merges == [NEXT]
+    assert api.publications == [('main', MERGED)]
+
+
+@pytest.mark.parametrize('change', ['head', 'base', 'closed', 'draft', 'fork', 'private'])
+def test_changed_upload_cannot_merge_or_publish(validated_upload, change):
+    api, manifest, head = validated_upload
+    if change == 'head':
+        api.pr['head']['sha'] = HEAD
+    elif change == 'base':
+        api.pr['base']['sha'] = MERGED
+    elif change == 'closed':
+        api.pr['state'] = 'closed'
+    elif change == 'draft':
+        api.pr['draft'] = True
+    elif change == 'fork':
+        api.pr['head']['repo']['id'] = 2
+    else:
+        api.pr['base']['repo']['private'] = True
+    with pytest.raises(upload.UploadError):
+        upload.auto_publish(api, manifest, head)
+    assert api.merges == [] and api.publications == []
+
+
+def test_nondefault_branch_validation_never_merges_or_deploys(validated_upload):
+    api, manifest, head = validated_upload
+    api.pr['base']['ref'] = manifest['base_ref'] = 'implementation'
+    assert upload.auto_publish(api, manifest, head) is None
+    assert api.pr['state'] == 'open'
+    assert api.merges == [] and api.publications == []
+
+
+@pytest.mark.parametrize('rejection', ['late_head', 'branch_rule'])
+def test_rejected_merge_never_dispatches_publication(validated_upload, rejection):
+    api, manifest, head = validated_upload
+    if rejection == 'late_head':
+        api.merge_head = HEAD
+    else:
+        api.reject_merge = True
+    with pytest.raises(upload.UploadError):
+        upload.auto_publish(api, manifest, head)
+    assert api.pr['state'] == 'open'
+    assert api.merges == [] and api.publications == []
+
+
+def test_dispatch_failure_is_reported_instead_of_claiming_publication(validated_upload):
+    api, manifest, head = validated_upload
+    api.fail_dispatch = True
+    with pytest.raises(OSError, match='Publication dispatch failed'):
+        upload.auto_publish(api, manifest, head)
+    assert api.pr['state'] == 'closed' and api.pr['merged'] is True
+    assert api.publications == []

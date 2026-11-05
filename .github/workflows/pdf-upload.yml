@@ -130,8 +130,9 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
-      pull-requests: read
+      pull-requests: write
       checks: write
+      actions: write
     env:
       UPLOAD_PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
       UPLOAD_BASE_REF: ${{ github.event.pull_request.base.ref || inputs.base_ref }}
@@ -147,7 +148,7 @@ jobs:
         with:
           name: pdf-upload-candidate
           path: upload-artifact
-      - name: Reauthorize and commit only the validated catalog
+      - name: Commit validated catalog, merge exact head and dispatch publication
         env:
           GH_TOKEN: ${{ github.token }}
         run: python scripts/pdf-upload.py publish
