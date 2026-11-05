@@ -3,8 +3,6 @@
 .history-tabs { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0; border-bottom: 1px solid #cbd8c9; }
 .history-tabs a { padding: .7rem 1rem; color: #365e47; text-decoration: none; }
 .history-tabs a[aria-current='page'] { border-bottom: 3px solid #3d7851; font-weight: 700; }
-.history-entry { padding: 1rem; background: #edf4e9; border-left: 4px solid #5e8c69; }
-.history-entry a { margin-left: .5rem; }
 .history-filters { display: flex; flex-wrap: wrap; align-items: end; gap: .8rem; margin: 1.25rem 0; }
 .history-filters label { display: grid; gap: .35rem; min-width: 0; font-weight: 600; }
 .history-filters label:first-child { flex: 1 1 15rem; }

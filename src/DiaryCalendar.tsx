@@ -114,9 +114,9 @@ export function DiaryCalendar({ index, selectedDate, today, followToday, onSelec
     </table>
 
     <div className="diary-calendar__legend" aria-label="日报收录状态说明">
-      <span><i data-state="new" aria-hidden="true" />有新增（显示说明数）</span>
-      <span><i data-state="no-new" aria-hidden="true" />已收录，无新增说明</span>
-      <span><i data-state="unrecorded" aria-hidden="true" />未收录，不代表当天没有消息</span>
+      <span><i data-state="new" aria-hidden="true" />有新增</span>
+      <span><i data-state="no-new" aria-hidden="true" />无新增</span>
+      <span><i data-state="unrecorded" aria-hidden="true" />未收录</span>
     </div>
   </section>;
 }
